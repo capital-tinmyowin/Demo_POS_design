@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elephant Mall</title>
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+
+        <!-- LEFT: NAV -->
+        <div class="nav">
+            <a href="home.html" class="active">HOME</a>
+            <a href="category.html">CATEGORIES</a>
+            <a href="sale.html">SALE</a>
+            <a href="new.html">NEW IN</a>
+            <a href="orders.html">MY ORDERS</a>
+            <a href="about.html">ABOUT US</a>
+        </div>
+
+        <!-- CENTER: LOGO -->
+        <div class="logo">
+            <img src="../image/logo.png" alt="logo">
+        </div>
+
+        <!-- RIGHT: SEARCH + BUTTON + ICONS -->
+        <div class="header-right">
+
+            <div class="search-box">
+                <input type="text" placeholder="Search in Elephant Mall">
+                <span><i class="fa-solid fa-magnifying-glass"></i></span>
+            </div>
+
+            <button class="sell-btn">SELL ITEMS</button>
+
+            <div class="icons">
+
+                <span>
+                    <i class="fa-regular fa-user"></i>
+                </span>
+
+                <span>
+                    <i class="fa-regular fa-heart"></i>
+                </span>
+
+                <span class="cart">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <!-- <b>3</b> -->
+                </span>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="slider" id="slider">
+
+            <div class="slide active">
+                <img src="../image/banner1.avif">
+                <div class="hero-text">
+                    <h1>YANGON SUMMER HEATWAVE SAVINGS!</h1>
+                    <p>Cool styles for Yangon’s hottest days.</p>
+                    <button class="shop-btn">SHOP NOW</button>
+                </div>
+            </div>
+
+            <div class="slide">
+                <img src="../image/banner2.avif">
+                <div class="hero-text">
+                    <h1>NEW ARRIVALS</h1>
+                    <p>Discover latest fashion trends.</p>
+                    <button class="shop-btn">SHOP NOW</button>
+                </div>
+            </div>
+
+            <div class="slide">
+                <img src="../image/banner3.avif">
+                <div class="hero-text">
+                    <h1>BIG SALE 50% OFF</h1>
+                    <p>Don’t miss the best deals.</p>
+                    <button class="shop-btn">SHOP NOW</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MOBILE PROMO BANNERS -->
+    <div class="mobile-promos">
+        <div class="promo-card">
+            <img src="../image/promotion-banner.png" alt="promo1">
+        </div>
+
+        <div class="promo-card">
+            <img src="../image/promotion-banner2.png" alt="promo2">
+        </div>
+    </div>
+
+
+    <!-- CATEGORIES -->
+    <div class="section">
+        <h3>TRENDING CATEGORIES</h3>
+        <br />
+
+        <div class="category-wrapper">
+
+            <button class="arrow left" onclick="scrollCategory(-1)">❮</button>
+
+            <div class="categories" id="categoryList"></div>
+
+            <button class="arrow right" onclick="scrollCategory(1)">❯</button>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Trending Now in Yangon</h3>
+
+        <div class="product-wrapper">
+
+            <button class="arrow left" onclick="scrollProducts(-1)">❮</button>
+
+            <div class="products" id="productList">
+                <!-- JS will render here -->
+            </div>
+
+            <button class="arrow right" onclick="scrollProducts(1)">❯</button>
+
+        </div>
+    </div>
+    <!-- FOOTER -->
+    <div class="footer">
+        <div>
+            <h4>CUSTOMER CARE</h4>
+            <p>Home</p>
+        </div>
+
+        <div>
+            <h4>ABOUT US</h4>
+            <p>About Us</p>
+            <p>Start Selling</p>
+        </div>
+
+        <div>
+            <h4>CONNECT WITH US</h4>
+            <p>Contact Us</p>
+        </div>
+
+        <div>
+            <h4>LEGAL</h4>
+            <p>Legal</p>
+        </div>
+    </div>
+    <div class="mobile-nav">
+
+        <a href="home.html">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+
+        <a href="category.html">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Categories</span>
+        </a>
+
+        <a href="upload.html" class="center-btn">
+            <i class="fa-solid fa-plus"></i>
+        </a>
+
+        <a href="cart.html">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Cart</span>
+        </a>
+
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            <span>Profile</span>
+        </a>
+
+    </div>
+
+    <script>
+        const currentPage = window.location.pathname.split("/").pop();
+
+        const navLinks = document.querySelectorAll(".nav a");
+
+        navLinks.forEach(link => {
+            const linkPage = link.getAttribute("href");
+
+            if (linkPage === currentPage) {
+                link.classList.add("active");
+            }
+        });
+
+        let currentMobilePage = window.location.pathname.split("/").pop();
+
+        // default to home.html if empty
+        if (currentMobilePage === "") {
+            currentMobilePage = "home.html";
+        }
+
+        const allLinks = document.querySelectorAll(".nav a, .mobile-nav a");
+
+        allLinks.forEach(link => {
+            const linkPage = link.getAttribute("href");
+
+            if (linkPage === currentMobilePage) {
+                link.classList.add("active");
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            let slides = document.querySelectorAll(".slide");
+            let index = 0;
+
+            function showSlide() {
+                slides.forEach(slide => slide.classList.remove("active"));
+
+                index++;
+                if (index >= slides.length) index = 0;
+
+                slides[index].classList.add("active");
+            }
+
+            setInterval(showSlide, 3000);
+
+        });
+        function scrollCategory(direction) {
+            const container = document.getElementById("categoryList");
+
+            const scrollAmount = 120; // category width
+            container.scrollBy({
+                left: direction * scrollAmount,
+                behavior: "smooth"
+            });
+        }
+        function scrollProducts(direction) {
+            const container = document.getElementById("productList");
+
+            const scrollAmount = 220; // width of one card
+            container.scrollBy({
+                left: direction * scrollAmount,
+                behavior: "smooth"
+            });
+        }
+        const categories = [
+            { name: "T-Shirts", img: "../image/tshirt.png", link: "tshirts.html" },
+            { name: "Blouses", img: "../image/blouse.png", link: "blouses.html" },
+            { name: "Bags", img: "../image/bag.png", link: "bags.html" },
+            { name: "Hats", img: "../image/hat.png", link: "hats.html" },
+            { name: "Jewelry", img: "../image/jewelry.png", link: "jewelry.html" },
+            { name: "Shoes", img: "../image/shoe.png", link: "shoes.html" },
+            { name: "Jeans", img: "../image/bag.png", link: "bags.html" },
+            { name: "Tech Accesories", img: "../image/hat.png", link: "hats.html" },
+            { name: "Electronic", img: "../image/clearance.png", link: "jewelry.html" },
+            { name: "Jeans", img: "../image/bag.png", link: "bags.html" },
+            { name: "Tech Accesories", img: "../image/hat.png", link: "hats.html" },
+            { name: "Electronic", img: "../image/clearance.png", link: "jewelry.html" },
+            { name: "Jeans", img: "../image/bag.png", link: "bags.html" },
+            { name: "Jewelry", img: "../image/jewelry.png", link: "jewelry.html" }
+
+        ];
+
+        const container = document.getElementById("categoryList");
+
+        categories.forEach(cat => {
+            const div = document.createElement("div");
+            div.className = "category";
+
+            div.innerHTML = `
+                    <div class="category-box">
+                    <img src="${cat.img}">
+                </div>
+                <p class="category-text">${cat.name}</p>
+                `;
+
+            // click event → redirect
+            div.addEventListener("click", () => {
+                window.location.href = cat.link;
+            });
+
+            container.appendChild(div);
+        });
+
+        const products = [
+            {
+                name: "Men's Sneakers",
+                price: 89.00,
+                img: "../image/man-sneaker.png",
+                action: "ADD TO CART",
+                link: "product-detail.html?id=1"
+            },
+            {
+                name: "Women's Wristwatch",
+                price: 65.00,
+                img: "../image/woman-watch.png",
+                action: "SELL",
+                link: "product-detail.html?id=2"
+            },
+            {
+                name: "Leather Backpack",
+                price: 110.00,
+                img: "../image/bagpack.jpg",
+                action: "ADD TO CART",
+                link: "product-detail.html?id=3"
+            },
+            {
+                name: "Linen Shirt",
+                price: 45.00,
+                img: "../image/linen.webp",
+                action: "ADD TO CART",
+                link: "product-detail.html?id=4"
+            },
+            {
+                name: "Straw Hat",
+                price: 25.00,
+                img: "../image/strawhat.avif",
+                action: "ADD TO CART",
+                link: "product-detail.html?id=5"
+            },
+            {
+                name: "Women's Wristwatch",
+                price: 65.00,
+                img: "../image/woman-watch.png",
+                action: "SELL",
+                link: "product-detail.html?id=2"
+            },
+            {
+                name: "Men's Sneakers",
+                price: 89.00,
+                img: "../image/man-sneaker.png",
+                action: "ADD TO CART",
+                link: "product-detail.html?id=1"
+            },
+            {
+                name: "Women's Wristwatch",
+                price: 65.00,
+                img: "../image/woman-watch.png",
+                action: "SELL",
+                link: "product-detail.html?id=2"
+            },
+            {
+                name: "Straw Hat",
+                price: 25.00,
+                img: "../image/strawhat.avif",
+                action: "ADD TO CART",
+                link: "product-detail.html?id=5"
+            }
+        ];
+
+        const productContainer = document.getElementById("productList");
+
+        products.forEach(p => {
+            const div = document.createElement("div");
+            div.className = "card";
+
+            div.innerHTML = `
+                <img src = "${p.img}">
+                <h4>${p.name}</h4>
+                <div class="price">$${p.price.toFixed(2)}</div>
+                <button class="btn">${p.action}</button>
+            `;
+
+            // click whole card → go to detail page
+            div.addEventListener("click", () => {
+                window.location.href = p.link;
+            });
+
+            productContainer.appendChild(div);
+        });
+    </script>
+</body>
+
+</html>
