@@ -1,573 +1,685 @@
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
     <title>Elephant Mall | Summer Essentials POS</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" href="../css/category.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/category.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
 
-</head>
-
-<body>
-
+  <body>
     <div class="header">
+      <!-- LEFT: NAV -->
+      <div class="nav">
+        <a href="home.html">HOME</a>
+        <a href="category.html">CATEGORIES</a>
+        <a href="sale.html">SALE</a>
+        <a href="new.html">NEW IN</a>
+        <a href="orders.html">MY ORDERS</a>
+        <a href="about.html">ABOUT US</a>
+      </div>
 
-        <!-- LEFT: NAV -->
-        <div class="nav">
-            <a href="home.html">HOME</a>
-            <a href="category.html">CATEGORIES</a>
-            <a href="sale.html">SALE</a>
-            <a href="new.html">NEW IN</a>
-            <a href="orders.html">MY ORDERS</a>
-            <a href="about.html">ABOUT US</a>
+      <!-- CENTER: LOGO -->
+      <div class="logo">
+        <img src="../image/logo.png" alt="logo" />
+      </div>
+
+      <!-- RIGHT: SEARCH + BUTTON + ICONS -->
+      <div class="header-right">
+        <div class="search-box">
+          <input type="text" placeholder="Search in Elephant Mall" />
+          <span><i class="fa-solid fa-magnifying-glass"></i></span>
         </div>
 
-        <!-- CENTER: LOGO -->
-        <div class="logo">
-            <img src="../image/logo.png" alt="logo">
+        <button class="sell-btn">SELL ITEMS</button>
+
+        <div class="icons">
+          <span>
+            <i class="fa-regular fa-user"></i>
+          </span>
+
+          <span>
+            <i class="fa-regular fa-heart"></i>
+          </span>
+
+          <span class="cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <!-- <b>3</b> -->
+          </span>
         </div>
-
-        <!-- RIGHT: SEARCH + BUTTON + ICONS -->
-        <div class="header-right">
-
-            <div class="search-box">
-                <input type="text" placeholder="Search in Elephant Mall">
-                <span><i class="fa-solid fa-magnifying-glass"></i></span>
-            </div>
-
-            <button class="sell-btn">SELL ITEMS</button>
-
-            <div class="icons">
-
-                <span>
-                    <i class="fa-regular fa-user"></i>
-                </span>
-
-                <span>
-                    <i class="fa-regular fa-heart"></i>
-                </span>
-
-                <span class="cart">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <!-- <b>3</b> -->
-                </span>
-
-            </div>
-
-        </div>
+      </div>
     </div>
-    <div class="container-fluid py-3 py-md-4" style="max-width: 1400px; margin: 0 auto">
-        <div class="row">
-            <!-- LEFT COLUMN - Products side by side -->
-            <div class="col-lg-9">
-                <div class="p-4 text-white rounded ctg-left-c1">
-                    <h3>SUMMER ESSENTIALS!</h3>
-                    <p>
-                        Get the latest dresses, shorts, Get light weight,<br />
-                        and accessories,
-                    </p>
-                </div>
+    <div
+      class="container-fluid py-3 py-md-4"
+      style="max-width: 1400px; margin: 0 auto"
+    >
+      <div class="row">
+        <!-- LEFT COLUMN - Products side by side -->
+        <div class="col-lg-9">
+          <div class="p-4 text-white rounded ctg-left-c1">
+            <h3>SUMMER ESSENTIALS!</h3>
+            <p>
+              Get the latest dresses, shorts, Get light weight,<br />
+              and accessories,
+            </p>
+          </div>
 
-                <div class="categories-wrapper">
-                    <h4>📂 Shop by Category</h4>
-                    <div class="category-buttons" id="categoryChipsContainer"></div>
-                </div>
+          <div class="categories-wrapper">
+            <h4>📂 Shop by Category</h4>
+            <div class="category-buttons" id="categoryChipsContainer"></div>
+          </div>
 
-                <div id="allProductsGroupedContainer" class="categories-container"></div>
-            </div>
-
-            <!-- RIGHT COLUMN - Trending Sliders -->
-            <div class="col-lg-3">
-                <!-- First Trending Slider - Fashion -->
-                <div class="trending-sidebar">
-                    <div class="trending-title">
-                        🔥 Trending Now In Fashion
-                    </div>
-                    <div class="trending-slider-container">
-                        <div class="swiper swiperTrending1">
-                            <div class="swiper-wrapper" id="trendingSliderWrapper1"></div>
-                            <div class="swiper-pagination"></div>
-                        </div>
-                        <div class="swiper-button-prev-custom trendingPrevBtn1">
-                            ‹
-                        </div>
-                        <div class="swiper-button-next-custom trendingNextBtn1">
-                            ›
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Second Trending Slider - Electronics -->
-                <div class="trending-sidebar">
-                    <div class="trending-title">
-                        💻 Trending Now In Electronics
-                    </div>
-                    <div class="trending-slider-container">
-                        <div class="swiper swiperTrending2">
-                            <div class="swiper-wrapper" id="trendingSliderWrapper2"></div>
-                            <div class="swiper-pagination"></div>
-                        </div>
-                        <div class="swiper-button-prev-custom trendingPrevBtn2">
-                            ‹
-                        </div>
-                        <div class="swiper-button-next-custom trendingNextBtn2">
-                            ›
-                        </div>
-                    </div>
-
-                    <div class="cart-mini-panel">
-                        <div class="cart-header-small">
-                            🛒 Your Cart
-                            <span class="clear-cart-mini" id="clearCartBtn">Clear</span>
-                        </div>
-                        <div id="cartItemsList" class="cart-items-mini">
-                            <div style="
-                                        text-align: center;
-                                        color: #aaa;
-                                        padding: 12px;
-                                    ">
-                                Cart is empty
-                            </div>
-                        </div>
-                        <div class="cart-total-mini">
-                            <span>Total</span>
-                            <span id="cartTotalAmount">$0.00</span>
-                        </div>
-                        <button class="checkout-btn-mini" id="checkoutBtn">
-                            Checkout 🐘
-                        </button>
-                    </div>
-                </div>
-            </div>
+          <div
+            id="allProductsGroupedContainer"
+            class="categories-container"
+          ></div>
         </div>
+
+        <!-- RIGHT COLUMN - Trending Sliders -->
+        <div class="col-lg-3 trending">
+          <!-- First Trending Slider - Fashion -->
+          <div class="trending-sidebar">
+            <div class="trending-title">🔥 Trending Now In Fashion</div>
+            <div class="trending-slider-container">
+              <div class="swiper swiperTrending1">
+                <div class="swiper-wrapper" id="trendingSliderWrapper1"></div>
+                <div class="swiper-pagination"></div>
+              </div>
+              <div class="swiper-button-prev-custom trendingPrevBtn1">‹</div>
+              <div class="swiper-button-next-custom trendingNextBtn1">›</div>
+            </div>
+          </div>
+
+          <!-- Second Trending Slider - Electronics -->
+          <div class="trending-sidebar">
+            <div class="trending-title">💻 Trending Now In Electronics</div>
+            <div class="trending-slider-container">
+              <div class="swiper swiperTrending2">
+                <div class="swiper-wrapper" id="trendingSliderWrapper2"></div>
+                <div class="swiper-pagination"></div>
+              </div>
+              <div class="swiper-button-prev-custom trendingPrevBtn2">‹</div>
+              <div class="swiper-button-next-custom trendingNextBtn2">›</div>
+            </div>
+
+            <div class="cart-mini-panel">
+              <div class="cart-header-small">
+                🛒 Your Cart
+                <span class="clear-cart-mini" id="clearCartBtn">Clear</span>
+              </div>
+              <div id="cartItemsList" class="cart-items-mini">
+                <div style="text-align: center; color: #aaa; padding: 12px">
+                  Cart is empty
+                </div>
+              </div>
+              <div class="cart-total-mini">
+                <span>Total</span>
+                <span id="cartTotalAmount">$0.00</span>
+              </div>
+              <button class="checkout-btn-mini" id="checkoutBtn">
+                Checkout 🐘
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="mobile-nav">
+      <a href="home.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
 
-        <a href="home.html">
-            <i class="fa-solid fa-house"></i>
-            <span>Home</span>
-        </a>
+      <a href="category.html">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>Categories</span>
+      </a>
 
-        <a href="category.html">
-            <i class="fa-solid fa-layer-group"></i>
-            <span>Categories</span>
-        </a>
+      <a href="upload.html" class="center-btn">
+        <i class="fa-solid fa-plus"></i>
+      </a>
 
-        <a href="upload.html" class="center-btn">
-            <i class="fa-solid fa-plus"></i>
-        </a>
+      <a href="cart.html">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span>Cart</span>
+      </a>
 
-        <a href="cart.html">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span>Cart</span>
-        </a>
-
-        <a href="profile.html">
-            <i class="fa-solid fa-user"></i>
-            <span>Profile</span>
-        </a>
-
+      <a href="profile.html">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+      </a>
     </div>
 
     <script>
+      // pc screen menu
+      const currentPage = window.location.pathname.split("/").pop();
 
-        // pc screen menu
-        const currentPage = window.location.pathname.split("/").pop();
+      const navLinks = document.querySelectorAll(".nav a");
 
-        const navLinks = document.querySelectorAll(".nav a");
+      navLinks.forEach((link) => {
+        const linkPage = link.getAttribute("href");
 
-        navLinks.forEach(link => {
-            const linkPage = link.getAttribute("href");
+        if (linkPage === currentPage) {
+          link.classList.add("active");
+        }
+      });
 
-            if (linkPage === currentPage) {
-                link.classList.add("active");
-            }
-        });
+      let currentMobilePage = window.location.pathname.split("/").pop();
 
+      // default to home.html if empty
+      if (currentMobilePage === "") {
+        currentMobilePage = "home.html";
+      }
 
-        let currentMobilePage = window.location.pathname.split("/").pop();
+      const allLinks = document.querySelectorAll(".nav a, .mobile-nav a");
 
-        // default to home.html if empty
-        if (currentMobilePage === "") {
-            currentMobilePage = "home.html";
+      allLinks.forEach((link) => {
+        const linkPage = link.getAttribute("href");
+
+        if (linkPage === currentMobilePage) {
+          link.classList.add("active");
+        }
+      });
+      // ========== LEFT SIDE PRODUCTS ==========
+      const LEFT_PRODUCTS = [
+        {
+          id: 1,
+          name: "Classic Black T-Shirt",
+          price: 19.99,
+          category: "T-Shirts",
+          image:
+            "https://i.pinimg.com/736x/ff/55/b5/ff55b572cdc9e5c7bcb9e1e46aca153b.jpg",
+        },
+        {
+          id: 2,
+          name: "Classic White T-Shirt",
+          price: 19.99,
+          category: "T-Shirts",
+          image:
+            "https://i.pinimg.com/1200x/7b/9b/64/7b9b64157c65859e958063af2284b620.jpg",
+        },
+        {
+          id: 3,
+          name: "Classic Cream T-Shirt",
+          price: 19.99,
+          category: "T-Shirts",
+          image:
+            "https://i.pinimg.com/1200x/2d/7b/21/2d7b21a072cd538589f63358fbd35520.jpg",
+        },
+        {
+          id: 4,
+          name: "Silk Blouse",
+          price: 39.99,
+          category: "Blouses",
+          image:
+            "https://i.pinimg.com/1200x/bd/6c/f9/bd6cf9e39bb3ea86086bb1f89c789ee6.jpg",
+        },
+        {
+          id: 19,
+          name: "Silk Blouse White",
+          price: 39.99,
+          category: "Blouses",
+          image:
+            "https://i.pinimg.com/736x/14/3f/4a/143f4ab55d79b2b53a9c6a342153bbbf.jpg",
+        },
+        {
+          id: 5,
+          name: "Straw Tote Bag",
+          price: 34.99,
+          category: "Bags",
+          image:
+            "https://i.pinimg.com/1200x/f2/df/79/f2df7979c3e9fd8bfdf6b51aa9aca09e.jpg",
+        },
+
+        {
+          id: 6,
+          name: "Straw Tote Bag Premium",
+          price: 34.99,
+          category: "Bags",
+          image:
+            "https://i.pinimg.com/1200x/2b/a4/3c/2ba43c436ea17b8eef0082b9be1bacf1.jpg",
+        },
+        {
+          id: 7,
+          name: "Wool Fedora Hat",
+          price: 24.99,
+          category: "Hats",
+          image:
+            "https://i.pinimg.com/736x/4e/81/11/4e8111d7aea3eeb01500a1f6ad88cdae.jpg",
+        },
+        {
+          id: 8,
+          name: "Beach Hat",
+          price: 18.99,
+          category: "Hats",
+          image:
+            "https://i.pinimg.com/1200x/c1/a4/59/c1a4597079ec099708a6548cde6dd4c3.jpg",
+        },
+        {
+          id: 9,
+          name: "Summer Sandals",
+          price: 49.99,
+          category: "Shoes",
+          image:
+            "https://i.pinimg.com/736x/f3/cd/93/f3cd93cced81f304559f1d611048a4c2.jpg",
+        },
+        {
+          id: 10,
+          name: "Running Shoes",
+          price: 79.99,
+          category: "Shoes",
+          image:
+            "https://i.pinimg.com/1200x/ee/bf/89/eebf8909f870ef5d7170a5289f43489d.jpg",
+        },
+        {
+          id: 11,
+          name: "Summer Sandals Gold",
+          price: 49.99,
+          category: "Shoes",
+          image:
+            "https://i.pinimg.com/1200x/57/62/a6/5762a6c77d9ac297e2cdce5de6287875.jpg",
+        },
+        {
+          id: 12,
+          name: "Slim Fit Jeans",
+          price: 59.99,
+          category: "Jeans",
+          image:
+            "https://i.pinimg.com/1200x/fa/7d/b7/fa7db741cf6848f1c657e56af9bd17e2.jpg",
+        },
+        {
+          id: 13,
+          name: "Ripped Jeans",
+          price: 64.99,
+          category: "Jeans",
+          image:
+            "https://i.pinimg.com/736x/df/07/36/df0736a899239fb28bc263b5e8501057.jpg",
+        },
+        {
+          id: 14,
+          name: "Short Jeans",
+          price: 64.99,
+          category: "Jeans",
+          image:
+            "https://i.pinimg.com/736x/ae/bf/3c/aebf3cf06bbf805f760b5584c03afab3.jpg",
+        },
+        {
+          id: 15,
+          name: "Leather Belt",
+          price: 29.99,
+          category: "Accessories",
+          image:
+            "https://i.pinimg.com/1200x/60/d6/8a/60d68a58460c418cffd3f90d682348cc.jpg",
+        },
+        {
+          id: 16,
+          name: "Earring Set",
+          price: 29.99,
+          category: "Accessories",
+          image:
+            "https://i.pinimg.com/1200x/a7/ea/42/a7ea4264c4902eeddd377d1aff6a66f1.jpg",
+        },
+        {
+          id: 17,
+          name: "Earring Set",
+          price: 29.99,
+          category: "Accessories",
+          image:
+            "https://i.pinimg.com/1200x/47/8b/93/478b93513e17080d67216f973316acb4.jpg",
+        },
+        {
+          id: 18,
+          name: "Ipad",
+          price: 29.99,
+          category: "Electronics",
+          image:
+            "https://i5.walmartimages.com/seo/2022-Apple-10-9-inch-iPad-Wi-Fi-64GB-Pink-10th-Generation_4fdae443-4f60-4a3e-9efe-12758bf5f128.f4d7333626b4e6b27e8be25d1f698373.jpeg",
+        },
+        {
+          id: 19,
+          name: "Earphone",
+          price: 29.99,
+          category: "Headphones",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTndMcJW71HLgi9ntgoterJiJJjLxbtOVVpyA&s",
+        },
+        {
+          id: 20,
+          name: "powerbank",
+          price: 29.99,
+          category: "Power Banks",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnwF3fpDIATeZ_9o5h3vNu_X8KUHSq5O739g&s",
+        },
+        {
+          id: 21,
+          name: "clearance",
+          price: 29.99,
+          category: "Clearance",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCrs3u5CZI2zSKQycM-crwXkzf8KvjeL9Y1A&s",
+        },
+        {
+          id: 22,
+          name: "clearance",
+          price: 29.99,
+          category: "Clearance",
+          image:
+            "https://down-ph.img.susercontent.com/file/4231c5fe7c003aa574a9153de9ea6116",
+        },
+        {
+          id: 23,
+          name: "homedecor",
+          price: 29.99,
+          category: "Home Decor",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_5kt7F5QEgdXlXPXpyk6cEA8HdC9JudDZwQ&s",
+        },
+        {
+          id: 24,
+          name: "appliance",
+          price: 29.99,
+          category: "Appliances",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMymQluge9d-UWM_1FY24yWrsOCQpIS9NNnQ&s",
+        },
+      ];
+
+      // ========== TRENDING PRODUCTS - FASHION ==========
+      const TRENDING_FASHION = [
+        {
+          id: 5,
+          name: "Summer Sandals",
+          price: 49.99,
+          rating: 4.8,
+          ratingCount: 234,
+          image:
+            "https://i.pinimg.com/1200x/bd/6c/f9/bd6cf9e39bb3ea86086bb1f89c789ee6.jpg",
+        },
+        {
+          id: 7,
+          name: "Ripped Jeans",
+          price: 64.99,
+          rating: 4.6,
+          ratingCount: 189,
+          image:
+            "https://i.pinimg.com/1200x/57/62/a6/5762a6c77d9ac297e2cdce5de6287875.jpg",
+        },
+        {
+          id: 9,
+          name: "Running Shoes",
+          price: 79.99,
+          rating: 4.9,
+          ratingCount: 567,
+          image:
+            "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=300&h=300&fit=crop",
+        },
+        {
+          id: 15,
+          name: "Crossbody Bag",
+          price: 44.99,
+          rating: 4.8,
+          ratingCount: 456,
+          image:
+            "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=300&h=300&fit=crop",
+        },
+        {
+          id: 20,
+          name: "Straw Tote Bag",
+          price: 34.99,
+          rating: 4.4,
+          ratingCount: 78,
+          image:
+            "https://i.pinimg.com/1200x/2b/a4/3c/2ba43c436ea17b8eef0082b9be1bacf1.jpg",
+        },
+      ];
+
+      // ========== TRENDING PRODUCTS - ELECTRONICS ==========
+      const TRENDING_ELECTRONICS = [
+        {
+          id: 11,
+          name: "Wireless Earbuds",
+          price: 89.99,
+          rating: 4.7,
+          ratingCount: 892,
+          image:
+            "https://i5.walmartimages.com/seo/2022-Apple-10-9-inch-iPad-Wi-Fi-64GB-Pink-10th-Generation_4fdae443-4f60-4a3e-9efe-12758bf5f128.f4d7333626b4e6b27e8be25d1f698373.jpeg",
+        },
+        {
+          id: 13,
+          name: "Power Bank 10k",
+          price: 29.99,
+          rating: 4.5,
+          ratingCount: 342,
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSvgCPBUySTN1TjyFl-Lu-XqGoZlDnLDpnbQ&s",
+        },
+        {
+          id: 12,
+          name: "Smart Watch",
+          price: 199.99,
+          rating: 4.9,
+          ratingCount: 1250,
+          image:
+            "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop",
+        },
+        {
+          id: 14,
+          name: "Laptop Backpack",
+          price: 49.99,
+          rating: 4.6,
+          ratingCount: 234,
+          image:
+            "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?w=300&h=300&fit=crop",
+        },
+      ];
+
+      const CATEGORY_ORDER = [
+        "T-Shirts",
+        "Blouses",
+        "Bags",
+        "Hats",
+        "Shoes",
+        "Jeans",
+        "Accessories",
+        "Electronics",
+        "Headphones",
+        "Power Banks",
+        "Clearance",
+        "Home Decor",
+        "Appliances",
+      ];
+
+      let cart = [];
+      let activeCategoryFilter = "All";
+      let swiper1 = null;
+      let swiper2 = null;
+
+      function getFilteredLeftProducts() {
+        let filtered = [...LEFT_PRODUCTS];
+        if (activeCategoryFilter !== "All") {
+          filtered = filtered.filter(
+            (p) => p.category === activeCategoryFilter,
+          );
+        }
+        return filtered;
+      }
+
+      // Render left side - Categories side by side
+      function renderLeftProducts() {
+        const filteredProducts = getFilteredLeftProducts();
+        const container = document.getElementById(
+          "allProductsGroupedContainer",
+        );
+
+        if (filteredProducts.length === 0) {
+          container.innerHTML = `<div style="text-align:center; padding:40px;">✨ No products found ✨</div>`;
+          return;
         }
 
-        const allLinks = document.querySelectorAll(".nav a, .mobile-nav a");
-
-        allLinks.forEach(link => {
-            const linkPage = link.getAttribute("href");
-
-            if (linkPage === currentMobilePage) {
-                link.classList.add("active");
-            }
+        const grouped = {};
+        filteredProducts.forEach((prod) => {
+          if (!grouped[prod.category]) grouped[prod.category] = [];
+          grouped[prod.category].push(prod);
         });
-        // ========== LEFT SIDE PRODUCTS ==========
-        const LEFT_PRODUCTS = [
-            {
-                id: 1,
-                name: "Classic Black T-Shirt",
-                price: 19.99,
-                category: "T-Shirts",
-                image: "https://i.pinimg.com/736x/ff/55/b5/ff55b572cdc9e5c7bcb9e1e46aca153b.jpg",
-            },
-            {
-                id: 2,
-                name: "Classic White T-Shirt",
-                price: 19.99,
-                category: "T-Shirts",
-                image: "https://i.pinimg.com/1200x/7b/9b/64/7b9b64157c65859e958063af2284b620.jpg",
-            },
-            {
-                id: 3,
-                name: "Classic Cream T-Shirt",
-                price: 19.99,
-                category: "T-Shirts",
-                image: "https://i.pinimg.com/1200x/2d/7b/21/2d7b21a072cd538589f63358fbd35520.jpg",
-            },
-            {
-                id: 4,
-                name: "Silk Blouse",
-                price: 39.99,
-                category: "Blouses",
-                image: "https://i.pinimg.com/1200x/bd/6c/f9/bd6cf9e39bb3ea86086bb1f89c789ee6.jpg",
-            },
-            {
-                id: 19,
-                name: "Silk Blouse White",
-                price: 39.99,
-                category: "Blouses",
-                image: "https://i.pinimg.com/736x/14/3f/4a/143f4ab55d79b2b53a9c6a342153bbbf.jpg",
-            },
-            {
-                id: 5,
-                name: "Straw Tote Bag",
-                price: 34.99,
-                category: "Bags",
-                image: "https://i.pinimg.com/1200x/f2/df/79/f2df7979c3e9fd8bfdf6b51aa9aca09e.jpg",
-            },
 
-            {
-                id: 6,
-                name: "Straw Tote Bag Premium",
-                price: 34.99,
-                category: "Bags",
-                image: "https://i.pinimg.com/1200x/2b/a4/3c/2ba43c436ea17b8eef0082b9be1bacf1.jpg",
-            },
-            {
-                id: 7,
-                name: "Wool Fedora Hat",
-                price: 24.99,
-                category: "Hats",
-                image: "https://i.pinimg.com/736x/4e/81/11/4e8111d7aea3eeb01500a1f6ad88cdae.jpg",
-            },
-            {
-                id: 8,
-                name: "Beach Hat",
-                price: 18.99,
-                category: "Hats",
-                image: "https://i.pinimg.com/1200x/c1/a4/59/c1a4597079ec099708a6548cde6dd4c3.jpg",
-            },
-            {
-                id: 9,
-                name: "Summer Sandals",
-                price: 49.99,
-                category: "Shoes",
-                image: "https://i.pinimg.com/736x/f3/cd/93/f3cd93cced81f304559f1d611048a4c2.jpg",
-            },
-            {
-                id: 10,
-                name: "Running Shoes",
-                price: 79.99,
-                category: "Shoes",
-                image: "https://i.pinimg.com/1200x/ee/bf/89/eebf8909f870ef5d7170a5289f43489d.jpg",
-            },
-            {
-                id: 11,
-                name: "Summer Sandals Gold",
-                price: 49.99,
-                category: "Shoes",
-                image: "https://i.pinimg.com/1200x/57/62/a6/5762a6c77d9ac297e2cdce5de6287875.jpg",
-            },
-            {
-                id: 12,
-                name: "Slim Fit Jeans",
-                price: 59.99,
-                category: "Jeans",
-                image: "https://i.pinimg.com/1200x/fa/7d/b7/fa7db741cf6848f1c657e56af9bd17e2.jpg",
-            },
-            {
-                id: 13,
-                name: "Ripped Jeans",
-                price: 64.99,
-                category: "Jeans",
-                image: "https://i.pinimg.com/736x/df/07/36/df0736a899239fb28bc263b5e8501057.jpg",
-            },
-            {
-                id: 14,
-                name: "Short Jeans",
-                price: 64.99,
-                category: "Jeans",
-                image: "https://i.pinimg.com/736x/ae/bf/3c/aebf3cf06bbf805f760b5584c03afab3.jpg",
-            },
-            {
-                id: 15,
-                name: "Leather Belt",
-                price: 29.99,
-                category: "Accessories",
-                image: "https://i.pinimg.com/1200x/60/d6/8a/60d68a58460c418cffd3f90d682348cc.jpg",
-            },
-            {
-                id: 16,
-                name: "Earring Set",
-                price: 29.99,
-                category: "Accessories",
-                image: "https://i.pinimg.com/1200x/a7/ea/42/a7ea4264c4902eeddd377d1aff6a66f1.jpg",
-            },
-            {
-                id: 17,
-                name: "Earring Set",
-                price: 29.99,
-                category: "Accessories",
-                image: "https://i.pinimg.com/1200x/47/8b/93/478b93513e17080d67216f973316acb4.jpg",
-            },
-            {
-                id: 18,
-                name: "Ipad",
-                price: 29.99,
-                category: "Electronics",
-                image: "https://i5.walmartimages.com/seo/2022-Apple-10-9-inch-iPad-Wi-Fi-64GB-Pink-10th-Generation_4fdae443-4f60-4a3e-9efe-12758bf5f128.f4d7333626b4e6b27e8be25d1f698373.jpeg",
-            },
-            {
-                id: 19,
-                name: "Earphone",
-                price: 29.99,
-                category: "Headphones",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTndMcJW71HLgi9ntgoterJiJJjLxbtOVVpyA&s",
-            },
-            {
-                id: 20,
-                name: "powerbank",
-                price: 29.99,
-                category: "Power Banks",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnwF3fpDIATeZ_9o5h3vNu_X8KUHSq5O739g&s",
-            },
-            {
-                id: 21,
-                name: "clearance",
-                price: 29.99,
-                category: "Clearance",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCrs3u5CZI2zSKQycM-crwXkzf8KvjeL9Y1A&s",
-            },
-            {
-                id: 22,
-                name: "clearance",
-                price: 29.99,
-                category: "Clearance",
-                image: "https://down-ph.img.susercontent.com/file/4231c5fe7c003aa574a9153de9ea6116",
-            },
-            {
-                id: 23,
-                name: "homedecor",
-                price: 29.99,
-                category: "Home Decor",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_5kt7F5QEgdXlXPXpyk6cEA8HdC9JudDZwQ&s",
-            },
-            {
-                id: 24,
-                name: "appliance",
-                price: 29.99,
-                category: "Appliances",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMymQluge9d-UWM_1FY24yWrsOCQpIS9NNnQ&s",
-            },
-        ];
+        // Check if it's mobile view (screen width <= 768px)
+        const isMobile = window.innerWidth <= 768;
 
-        // ========== TRENDING PRODUCTS - FASHION ==========
-        const TRENDING_FASHION = [
-            {
-                id: 5,
-                name: "Summer Sandals",
-                price: 49.99,
-                rating: 4.8,
-                ratingCount: 234,
-                image: "https://i.pinimg.com/736x/f3/cd/93/f3cd93cced81f304559f1d611048a4c2.jpg",
-            },
-            {
-                id: 7,
-                name: "Ripped Jeans",
-                price: 64.99,
-                rating: 4.6,
-                ratingCount: 189,
-                image: "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=300&h=300&fit=crop",
-            },
-            {
-                id: 9,
-                name: "Running Shoes",
-                price: 79.99,
-                rating: 4.9,
-                ratingCount: 567,
-                image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=300&h=300&fit=crop",
-            },
-            {
-                id: 15,
-                name: "Crossbody Bag",
-                price: 44.99,
-                rating: 4.8,
-                ratingCount: 456,
-                image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=300&h=300&fit=crop",
-            },
-            {
-                id: 20,
-                name: "Straw Tote Bag",
-                price: 34.99,
-                rating: 4.4,
-                ratingCount: 78,
-                image: "https://i.pinimg.com/1200x/2b/a4/3c/2ba43c436ea17b8eef0082b9be1bacf1.jpg",
-            },
-        ];
+        let html = "";
 
-        // ========== TRENDING PRODUCTS - ELECTRONICS ==========
-        const TRENDING_ELECTRONICS = [
-            {
-                id: 11,
-                name: "Wireless Earbuds",
-                price: 89.99,
-                rating: 4.7,
-                ratingCount: 892,
-                image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",
-            },
-            {
-                id: 13,
-                name: "Power Bank 10k",
-                price: 29.99,
-                rating: 4.5,
-                ratingCount: 342,
-                image: "https://images.unsplash.com/photo-1609592424732-09ec24c9c6c7?w=300&h=300&fit=crop",
-            },
-            {
-                id: 12,
-                name: "Smart Watch",
-                price: 199.99,
-                rating: 4.9,
-                ratingCount: 1250,
-                image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop",
-            },
-            {
-                id: 14,
-                name: "Laptop Backpack",
-                price: 49.99,
-                rating: 4.6,
-                ratingCount: 234,
-                image: "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?w=300&h=300&fit=crop",
-            },
-        ];
+        if (isMobile) {
+          // MOBILE VIEW: Show ONLY ONE product per category, with CATEGORY NAME instead of button
+          html += `<div class="mobile-products-grid">`;
 
-        const CATEGORY_ORDER = [
-            "T-Shirts",
-            "Blouses",
-            "Bags",
-            "Hats",
-            "Shoes",
-            "Jeans",
-            "Accessories",
-            "Electronics",
-            "Headphones",
-            "Power Banks",
-            "Clearance",
-            "Home Decor",
-            "Appliances",
-        ];
-
-        let cart = [];
-        let activeCategoryFilter = "All";
-        let swiper1 = null;
-        let swiper2 = null;
-
-        function getFilteredLeftProducts() {
-            let filtered = [...LEFT_PRODUCTS];
-            if (activeCategoryFilter !== "All") {
-                filtered = filtered.filter(
-                    (p) => p.category === activeCategoryFilter,
-                );
+          // For each category, take only the FIRST product
+          for (let cat of CATEGORY_ORDER) {
+            if (grouped[cat] && grouped[cat].length > 0) {
+              const firstProduct = grouped[cat][0];
+              html += `
+                    <div class="mobile-product-card" data-category="${cat}">
+                        <img class="mobile-product-img" src="${firstProduct.image}" onerror="this.src='https://placehold.co/150x150/f0f0f0/ccc'" loading="lazy">
+                        <div class="mobile-product-info">
+                            <div class="mobile-category-name">${cat}</div>
+                        </div>
+                    </div>
+                `;
+              delete grouped[cat];
             }
-            return filtered;
-        }
+          }
 
-        // Render left side - Categories side by side
-        function renderLeftProducts() {
-            const filteredProducts = getFilteredLeftProducts();
-            const container = document.getElementById(
-                "allProductsGroupedContainer",
-            );
-
-            if (filteredProducts.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding:40px;">✨ No products found ✨</div>`;
-                return;
+          // Handle remaining categories not in CATEGORY_ORDER
+          for (let cat in grouped) {
+            if (grouped[cat].length > 0) {
+              const firstProduct = grouped[cat][0];
+              html += `
+                    <div class="mobile-product-card" data-category="${cat}">
+                        <img class="mobile-product-img" src="${firstProduct.image}" onerror="this.src='https://placehold.co/150x150/f0f0f0/ccc'" loading="lazy">
+                        <div class="mobile-product-info">
+                            <div class="mobile-category-name">${cat}</div>
+                        </div>
+                    </div>
+                `;
             }
+          }
 
-            const grouped = {};
-            filteredProducts.forEach((prod) => {
-                if (!grouped[prod.category]) grouped[prod.category] = [];
-                grouped[prod.category].push(prod);
-            });
+          html += `</div>`;
 
-            let html = "";
-            for (let cat of CATEGORY_ORDER) {
-                if (grouped[cat] && grouped[cat].length > 0) {
-                    html += `
-                            <div class="category-group">
-                                <div class="product-grid-left">
-                                    ${grouped[cat]
-                            .map(
-                                (prod) => `
-                                        <div class="product-card-left">
-                                            <img class="product-img-left" src="${prod.image}" onerror="this.src='https://placehold.co/200x120/f0f0f0/ccc'" loading="lazy">
-                                            <div class="product-info-left">
-                                                <button class="view-details-btn addToCartBtn" data-id="${prod.id}" data-name="${prod.name}" data-price="${prod.price}" data-img="${prod.image}">View Details</button>
-                                            </div>
-                                        </div>
-                                    `,
-                            )
-                            .join("")}
-                                </div>
-                                <div class="category-heading">${cat}</div>
-                            </div>
-                        `;
-                    delete grouped[cat];
-                }
-            }
-            container.innerHTML = html;
-
-            document.querySelectorAll(".addToCartBtn").forEach((btn) => {
-                btn.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    addToCart(
-                        parseInt(btn.dataset.id),
-                        btn.dataset.name,
-                        parseFloat(btn.dataset.price),
-                        btn.dataset.img,
-                    );
+          // Add click event to navigate to category page
+          setTimeout(() => {
+            document
+              .querySelectorAll(".mobile-product-card")
+              .forEach((card) => {
+                card.addEventListener("click", (e) => {
+                  const category = card.dataset.category;
+                  if (category) {
+                    // Navigate to category page (you can change the URL pattern as needed)
+                    window.location.href = `category-page.html?cat=${encodeURIComponent(category)}`;
+                  }
                 });
+              });
+          }, 0);
+        } else {
+          // PC VIEW: Show ALL products grouped by category with headers
+          for (let cat of CATEGORY_ORDER) {
+            if (grouped[cat] && grouped[cat].length > 0) {
+              html += `
+                    <div class="category-group">
+                        <div class="product-grid-left">
+                            ${grouped[cat]
+                              .map(
+                                (prod) => `
+                                <div class="product-card-left">
+                                    <img class="product-img-left" src="${prod.image}" onerror="this.src='https://placehold.co/200x120/f0f0f0/ccc'" loading="lazy">
+                                    <div class="product-info-left">
+                                        <button class="view-details-btn addToCartBtn" data-id="${prod.id}" data-name="${prod.name}" data-price="${prod.price}" data-img="${prod.image}">View Details</button>
+                                    </div>
+                                </div>
+                            `,
+                              )
+                              .join("")}
+                        </div>
+                        <div class="category-heading">${cat}</div>
+                    </div>
+                `;
+              delete grouped[cat];
+            }
+          }
+
+          // Remaining categories not in order
+          for (let cat in grouped) {
+            if (grouped[cat].length > 0) {
+              html += `
+                    <div class="category-group">
+                        <div class="product-grid-left">
+                            ${grouped[cat]
+                              .map(
+                                (prod) => `
+                                <div class="product-card-left">
+                                    <img class="product-img-left" src="${prod.image}" onerror="this.src='https://placehold.co/200x120/f0f0f0/ccc'">
+                                    <div class="product-info-left">
+                                        <button class="view-details-btn addToCartBtn" data-id="${prod.id}" data-name="${prod.name}" data-price="${prod.price}" data-img="${prod.image}">View Details</button>
+                                    </div>
+                                </div>
+                            `,
+                              )
+                              .join("")}
+                        </div>
+                        <div class="category-heading">${cat}</div>
+                    </div>
+                `;
+            }
+          }
+
+          // Attach add to cart events for PC view
+          setTimeout(() => {
+            document.querySelectorAll(".addToCartBtn").forEach((btn) => {
+              btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                addToCart(
+                  parseInt(btn.dataset.id),
+                  btn.dataset.name,
+                  parseFloat(btn.dataset.price),
+                  btn.dataset.img,
+                );
+              });
             });
+          }, 0);
         }
 
-        // Render trending sliders
-        function renderTrendingSliders() {
-            // Slider 1 - Fashion
-            const container1 = document.getElementById(
-                "trendingSliderWrapper1",
-            );
-            if (container1) {
-                container1.innerHTML = TRENDING_FASHION.map((prod) => {
-                    const stars =
-                        "★".repeat(Math.floor(prod.rating)) +
-                        "☆".repeat(5 - Math.floor(prod.rating));
-                    return `
+        container.innerHTML = html;
+      }
+      // Also add a resize event listener to re-render when screen size changes
+      window.addEventListener("resize", function () {
+        renderLeftProducts();
+      });
+      // Render trending sliders
+      function renderTrendingSliders() {
+        // Slider 1 - Fashion
+        const container1 = document.getElementById("trendingSliderWrapper1");
+        if (container1) {
+          container1.innerHTML = TRENDING_FASHION.map((prod) => {
+            const stars =
+              "★".repeat(Math.floor(prod.rating)) +
+              "☆".repeat(5 - Math.floor(prod.rating));
+            return `
                             <div class="swiper-slide trending-slide">
                                 <div class="trending-card">
                                     <img class="trending-card-img" src="${prod.image}" onerror="this.src='https://placehold.co/200x120/f0f0f0/ccc'">
@@ -578,33 +690,29 @@
                                 </div>
                             </div>
                         `;
-                }).join("");
+          }).join("");
 
-                document
-                    .querySelectorAll(".addTrendingBtn1")
-                    .forEach((btn) => {
-                        btn.addEventListener("click", (e) => {
-                            e.stopPropagation();
-                            addToCart(
-                                parseInt(btn.dataset.id),
-                                btn.dataset.name,
-                                parseFloat(btn.dataset.price),
-                                btn.dataset.img,
-                            );
-                        });
-                    });
-            }
+          document.querySelectorAll(".addTrendingBtn1").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              addToCart(
+                parseInt(btn.dataset.id),
+                btn.dataset.name,
+                parseFloat(btn.dataset.price),
+                btn.dataset.img,
+              );
+            });
+          });
+        }
 
-            // Slider 2 - Electronics
-            const container2 = document.getElementById(
-                "trendingSliderWrapper2",
-            );
-            if (container2) {
-                container2.innerHTML = TRENDING_ELECTRONICS.map((prod) => {
-                    const stars =
-                        "★".repeat(Math.floor(prod.rating)) +
-                        "☆".repeat(5 - Math.floor(prod.rating));
-                    return `
+        // Slider 2 - Electronics
+        const container2 = document.getElementById("trendingSliderWrapper2");
+        if (container2) {
+          container2.innerHTML = TRENDING_ELECTRONICS.map((prod) => {
+            const stars =
+              "★".repeat(Math.floor(prod.rating)) +
+              "☆".repeat(5 - Math.floor(prod.rating));
+            return `
                             <div class="swiper-slide trending-slide">
                                 <div class="trending-card">
                                     <img class="trending-card-img" src="${prod.image}" onerror="this.src='https://placehold.co/200x120/f0f0f0/ccc'">
@@ -615,102 +723,97 @@
                                 </div>
                             </div>
                         `;
-                }).join("");
+          }).join("");
 
-                document
-                    .querySelectorAll(".addTrendingBtn2")
-                    .forEach((btn) => {
-                        btn.addEventListener("click", (e) => {
-                            e.stopPropagation();
-                            addToCart(
-                                parseInt(btn.dataset.id),
-                                btn.dataset.name,
-                                parseFloat(btn.dataset.price),
-                                btn.dataset.img,
-                            );
-                        });
-                    });
-            }
-
-            // Initialize Swipers
-            if (swiper1) swiper1.destroy(true, true);
-            if (swiper2) swiper2.destroy(true, true);
-
-            swiper1 = new Swiper(".swiperTrending1", {
-                slidesPerView: 1,
-                spaceBetween: 12,
-                pagination: { el: ".swiper-pagination", clickable: true },
-                navigation: {
-                    nextEl: ".trendingNextBtn1",
-                    prevEl: ".trendingPrevBtn1",
-                },
-                breakpoints: {
-                    400: { slidesPerView: 1.5 },
-                    576: { slidesPerView: 2 },
-                },
+          document.querySelectorAll(".addTrendingBtn2").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              addToCart(
+                parseInt(btn.dataset.id),
+                btn.dataset.name,
+                parseFloat(btn.dataset.price),
+                btn.dataset.img,
+              );
             });
-
-            swiper2 = new Swiper(".swiperTrending2", {
-                slidesPerView: 1,
-                spaceBetween: 12,
-                pagination: { el: ".swiper-pagination", clickable: true },
-                navigation: {
-                    nextEl: ".trendingNextBtn2",
-                    prevEl: ".trendingPrevBtn2",
-                },
-                breakpoints: {
-                    400: { slidesPerView: 1.5 },
-                    576: { slidesPerView: 2 },
-                },
-            });
+          });
         }
 
-        // Cart Functions
-        function addToCart(id, name, price, image) {
-            const existing = cart.find((item) => item.id === id);
-            if (existing) existing.quantity += 1;
-            else cart.push({ id, name, price, quantity: 1, image });
-            updateCartUI();
-            showToast(`${name} added to cart`);
-        }
+        // Initialize Swipers
+        if (swiper1) swiper1.destroy(true, true);
+        if (swiper2) swiper2.destroy(true, true);
 
-        function updateQuantity(id, delta) {
-            const idx = cart.findIndex((i) => i.id === id);
-            if (idx !== -1) {
-                const newQty = cart[idx].quantity + delta;
-                if (newQty <= 0) cart.splice(idx, 1);
-                else cart[idx].quantity = newQty;
-                updateCartUI();
-            }
-        }
+        swiper1 = new Swiper(".swiperTrending1", {
+          slidesPerView: 1,
+          spaceBetween: 12,
+          pagination: { el: ".swiper-pagination", clickable: true },
+          navigation: {
+            nextEl: ".trendingNextBtn1",
+            prevEl: ".trendingPrevBtn1",
+          },
+          breakpoints: {
+            400: { slidesPerView: 1.5 },
+            576: { slidesPerView: 2 },
+          },
+        });
 
-        function removeCartItem(id) {
-            cart = cart.filter((i) => i.id !== id);
-            updateCartUI();
-        }
-        function clearCart() {
-            cart = [];
-            updateCartUI();
-        }
+        swiper2 = new Swiper(".swiperTrending2", {
+          slidesPerView: 1,
+          spaceBetween: 12,
+          pagination: { el: ".swiper-pagination", clickable: true },
+          navigation: {
+            nextEl: ".trendingNextBtn2",
+            prevEl: ".trendingPrevBtn2",
+          },
+          breakpoints: {
+            400: { slidesPerView: 1.5 },
+            576: { slidesPerView: 2 },
+          },
+        });
+      }
 
-        function updateCartUI() {
-            const cartContainer = document.getElementById("cartItemsList");
-            const totalSpan = document.getElementById("cartTotalAmount");
-            const mobileCartList = document.getElementById(
-                "mobileCartItemsList",
-            );
-            const mobileTotalSpan =
-                document.getElementById("mobileCartTotal");
-            const mobileBadge = document.getElementById("mobileCartCount");
+      // Cart Functions
+      function addToCart(id, name, price, image) {
+        const existing = cart.find((item) => item.id === id);
+        if (existing) existing.quantity += 1;
+        else cart.push({ id, name, price, quantity: 1, image });
+        updateCartUI();
+        showToast(`${name} added to cart`);
+      }
 
-            if (cart.length === 0) {
-                const emptyMsg = `<div style="text-align:center; color:#aaa; padding:12px;">Cart is empty</div>`;
-                if (cartContainer) cartContainer.innerHTML = emptyMsg;
-                if (mobileCartList) mobileCartList.innerHTML = emptyMsg;
-            } else {
-                const cartHtml = cart
-                    .map(
-                        (item) => `
+      function updateQuantity(id, delta) {
+        const idx = cart.findIndex((i) => i.id === id);
+        if (idx !== -1) {
+          const newQty = cart[idx].quantity + delta;
+          if (newQty <= 0) cart.splice(idx, 1);
+          else cart[idx].quantity = newQty;
+          updateCartUI();
+        }
+      }
+
+      function removeCartItem(id) {
+        cart = cart.filter((i) => i.id !== id);
+        updateCartUI();
+      }
+      function clearCart() {
+        cart = [];
+        updateCartUI();
+      }
+
+      function updateCartUI() {
+        const cartContainer = document.getElementById("cartItemsList");
+        const totalSpan = document.getElementById("cartTotalAmount");
+        const mobileCartList = document.getElementById("mobileCartItemsList");
+        const mobileTotalSpan = document.getElementById("mobileCartTotal");
+        const mobileBadge = document.getElementById("mobileCartCount");
+
+        if (cart.length === 0) {
+          const emptyMsg = `<div style="text-align:center; color:#aaa; padding:12px;">Cart is empty</div>`;
+          if (cartContainer) cartContainer.innerHTML = emptyMsg;
+          if (mobileCartList) mobileCartList.innerHTML = emptyMsg;
+        } else {
+          const cartHtml = cart
+            .map(
+              (item) => `
                         <div class="cart-item-mini">
                             <div><strong>${item.name}</strong> x${item.quantity}<br><small>$${(item.price * item.quantity).toFixed(2)}</small></div>
                             <div>
@@ -720,152 +823,135 @@
                             </div>
                         </div>
                     `,
-                    )
-                    .join("");
-                if (cartContainer) cartContainer.innerHTML = cartHtml;
-                if (mobileCartList) mobileCartList.innerHTML = cartHtml;
-                attachCartEvents();
-            }
-            const total = cart.reduce(
-                (s, i) => s + i.price * i.quantity,
-                0,
-            );
-            if (totalSpan) totalSpan.innerText = `$${total.toFixed(2)}`;
-            if (mobileTotalSpan)
-                mobileTotalSpan.innerText = `$${total.toFixed(2)}`;
-            if (mobileBadge)
-                mobileBadge.innerText = cart.reduce(
-                    (s, i) => s + i.quantity,
-                    0,
-                );
+            )
+            .join("");
+          if (cartContainer) cartContainer.innerHTML = cartHtml;
+          if (mobileCartList) mobileCartList.innerHTML = cartHtml;
+          attachCartEvents();
         }
+        const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+        if (totalSpan) totalSpan.innerText = `$${total.toFixed(2)}`;
+        if (mobileTotalSpan) mobileTotalSpan.innerText = `$${total.toFixed(2)}`;
+        if (mobileBadge)
+          mobileBadge.innerText = cart.reduce((s, i) => s + i.quantity, 0);
+      }
 
-        function attachCartEvents() {
-            document.querySelectorAll(".cart-plus").forEach((btn) => {
-                btn.onclick = () => {
-                    const id = parseInt(btn.dataset.id);
-                    const item = cart.find((i) => i.id === id);
-                    if (item)
-                        addToCart(
-                            item.id,
-                            item.name,
-                            item.price,
-                            item.image,
-                        );
-                };
-            });
-            document.querySelectorAll(".cart-minus").forEach((btn) => {
-                btn.onclick = () => {
-                    updateQuantity(parseInt(btn.dataset.id), -1);
-                };
-            });
-            document.querySelectorAll(".cart-remove").forEach((btn) => {
-                btn.onclick = () => {
-                    removeCartItem(parseInt(btn.dataset.id));
-                };
-            });
-        }
+      function attachCartEvents() {
+        document.querySelectorAll(".cart-plus").forEach((btn) => {
+          btn.onclick = () => {
+            const id = parseInt(btn.dataset.id);
+            const item = cart.find((i) => i.id === id);
+            if (item) addToCart(item.id, item.name, item.price, item.image);
+          };
+        });
+        document.querySelectorAll(".cart-minus").forEach((btn) => {
+          btn.onclick = () => {
+            updateQuantity(parseInt(btn.dataset.id), -1);
+          };
+        });
+        document.querySelectorAll(".cart-remove").forEach((btn) => {
+          btn.onclick = () => {
+            removeCartItem(parseInt(btn.dataset.id));
+          };
+        });
+      }
 
-        function showToast(msg) {
-            const t = document.createElement("div");
-            t.innerText = msg;
-            t.style.position = "fixed";
-            t.style.bottom = "80px";
-            t.style.left = "20px";
-            t.style.background = "#1e3a2f";
-            t.style.color = "white";
-            t.style.padding = "8px 16px";
-            t.style.borderRadius = "40px";
-            t.style.zIndex = "300";
-            t.style.fontSize = "13px";
-            document.body.appendChild(t);
-            setTimeout(() => t.remove(), 1500);
-        }
+      function showToast(msg) {
+        const t = document.createElement("div");
+        t.innerText = msg;
+        t.style.position = "fixed";
+        t.style.bottom = "80px";
+        t.style.left = "20px";
+        t.style.background = "#1e3a2f";
+        t.style.color = "white";
+        t.style.padding = "8px 16px";
+        t.style.borderRadius = "40px";
+        t.style.zIndex = "300";
+        t.style.fontSize = "13px";
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 1500);
+      }
 
-        function buildCategoryChips() {
-            const categories = [
-                ...new Set(LEFT_PRODUCTS.map((p) => p.category)),
-            ].sort();
-            const container = document.getElementById(
-                "categoryChipsContainer",
-            );
-            container.innerHTML = `<div class="cat-chip ${activeCategoryFilter === "All" ? "active-chip" : ""}" data-cat="All">All Items</div>`;
-            categories.forEach((cat) => {
-                const chip = document.createElement("div");
-                chip.className = `cat-chip ${activeCategoryFilter === cat ? "active-chip" : ""}`;
-                chip.innerText = cat;
-                chip.onclick = () => {
-                    activeCategoryFilter = cat;
-                    buildCategoryChips();
-                    renderLeftProducts();
-                };
-                container.appendChild(chip);
-            });
-            const allChip = container.querySelector('[data-cat="All"]');
-            if (allChip)
-                allChip.onclick = () => {
-                    activeCategoryFilter = "All";
-                    buildCategoryChips();
-                    renderLeftProducts();
-                };
-        }
-
-        function initMobileDrawer() {
-            const drawer = document.getElementById("cartDrawerMobile");
-            const overlay = document.getElementById("drawerOverlay");
-            document.getElementById("openCartDrawerBtn").onclick = () => {
-                drawer.classList.add("open");
-                overlay.classList.add("open");
-                updateCartUI();
-            };
-            document.getElementById("closeDrawerBtn").onclick = () => {
-                drawer.classList.remove("open");
-                overlay.classList.remove("open");
-            };
-            overlay.onclick = () => {
-                drawer.classList.remove("open");
-                overlay.classList.remove("open");
-            };
-            document.getElementById("mobileCheckoutBtn").onclick = () => {
-                alert(
-                    `🐘 Total: $${cart.reduce((s, i) => s + i.price * i.quantity, 0).toFixed(2)}. Thank you!`,
-                );
-                drawer.classList.remove("open");
-                overlay.classList.remove("open");
-            };
-        }
-
-        function initDesktopActions() {
-            document.getElementById("clearCartBtn").onclick = () =>
-                clearCart();
-            document.getElementById("checkoutBtn").onclick = () =>
-                alert(
-                    `🧾 Order Total: $${cart.reduce((s, i) => s + i.price * i.quantity, 0).toFixed(2)}\nEnjoy your summer style!`,
-                );
-            document.getElementById("mobileHomeBtn").onclick = () => {
-                activeCategoryFilter = "All";
-                buildCategoryChips();
-                renderLeftProducts();
-                renderTrendingSliders();
-            };
-            document.getElementById("mobileSellBtn").onclick = () =>
-                alert("🐘 Start Selling — coming soon");
-            document.getElementById("mobileProfileBtn").onclick = () =>
-                alert("👤 Profile page");
-            document.getElementById("mobileCategoriesBtn").onclick = () =>
-                alert("Browse categories from left panel");
-        }
-
-        function init() {
+      function buildCategoryChips() {
+        const categories = [
+          ...new Set(LEFT_PRODUCTS.map((p) => p.category)),
+        ].sort();
+        const container = document.getElementById("categoryChipsContainer");
+        container.innerHTML = `<div class="cat-chip ${activeCategoryFilter === "All" ? "active-chip" : ""}" data-cat="All">All Items</div>`;
+        categories.forEach((cat) => {
+          const chip = document.createElement("div");
+          chip.className = `cat-chip ${activeCategoryFilter === cat ? "active-chip" : ""}`;
+          chip.innerText = cat;
+          chip.onclick = () => {
+            activeCategoryFilter = cat;
             buildCategoryChips();
             renderLeftProducts();
-            renderTrendingSliders();
-            initMobileDrawer();
-            initDesktopActions();
-            updateCartUI();
-        }
-        init();
-    </script>
-</body>
+          };
+          container.appendChild(chip);
+        });
+        const allChip = container.querySelector('[data-cat="All"]');
+        if (allChip)
+          allChip.onclick = () => {
+            activeCategoryFilter = "All";
+            buildCategoryChips();
+            renderLeftProducts();
+          };
+      }
 
+      function initMobileDrawer() {
+        const drawer = document.getElementById("cartDrawerMobile");
+        const overlay = document.getElementById("drawerOverlay");
+        document.getElementById("openCartDrawerBtn").onclick = () => {
+          drawer.classList.add("open");
+          overlay.classList.add("open");
+          updateCartUI();
+        };
+        document.getElementById("closeDrawerBtn").onclick = () => {
+          drawer.classList.remove("open");
+          overlay.classList.remove("open");
+        };
+        overlay.onclick = () => {
+          drawer.classList.remove("open");
+          overlay.classList.remove("open");
+        };
+        document.getElementById("mobileCheckoutBtn").onclick = () => {
+          alert(
+            `🐘 Total: $${cart.reduce((s, i) => s + i.price * i.quantity, 0).toFixed(2)}. Thank you!`,
+          );
+          drawer.classList.remove("open");
+          overlay.classList.remove("open");
+        };
+      }
+
+      function initDesktopActions() {
+        document.getElementById("clearCartBtn").onclick = () => clearCart();
+        document.getElementById("checkoutBtn").onclick = () =>
+          alert(
+            `🧾 Order Total: $${cart.reduce((s, i) => s + i.price * i.quantity, 0).toFixed(2)}\nEnjoy your summer style!`,
+          );
+        document.getElementById("mobileHomeBtn").onclick = () => {
+          activeCategoryFilter = "All";
+          buildCategoryChips();
+          renderLeftProducts();
+          renderTrendingSliders();
+        };
+        document.getElementById("mobileSellBtn").onclick = () =>
+          alert("🐘 Start Selling — coming soon");
+        document.getElementById("mobileProfileBtn").onclick = () =>
+          alert("👤 Profile page");
+        document.getElementById("mobileCategoriesBtn").onclick = () =>
+          alert("Browse categories from left panel");
+      }
+
+      function init() {
+        buildCategoryChips();
+        renderLeftProducts();
+        renderTrendingSliders();
+        initMobileDrawer();
+        initDesktopActions();
+        updateCartUI();
+      }
+      init();
+    </script>
+  </body>
 </html>
