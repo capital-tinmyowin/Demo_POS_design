@@ -14,6 +14,9 @@
     <!-- HEADER -->
     <div class="header">
 
+        <div class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+        </div>
         <!-- LEFT: NAV -->
         <div class="nav">
             <a href="home.html" class="active">HOME</a>
@@ -209,6 +212,13 @@
                 index = (index + 1) % slides.length;
                 slides[index].classList.add("active");
             }, 3000);
+
+            const menuToggle = document.getElementById("menuToggle");
+            const nav = document.querySelector(".nav");
+
+            menuToggle.addEventListener("click", () => {
+                nav.classList.toggle("show");
+            });
 
 
             /* CATEGORY SCROLL */
