@@ -112,12 +112,10 @@
 
         <div class="category-wrapper">
 
-            <button class="arrow left" onclick="scrollCategory(-1)">❮</button>
-
+            <button class="arrow left" id="catLeft">❮</button>
             <div class="categories" id="categoryList"></div>
 
-            <button class="arrow right" onclick="scrollCategory(1)">❯</button>
-
+            <button class="arrow right" id="catRight">❯</button>
         </div>
     </div>
 
@@ -126,14 +124,12 @@
 
         <div class="product-wrapper">
 
-            <button class="arrow left" onclick="scrollProducts(-1)">❮</button>
-
+            <button class="arrow left" id="proLeft">❮</button>
             <div class="products" id="productList">
                 <!-- JS will render here -->
             </div>
 
-            <button class="arrow right" onclick="scrollProducts(1)">❯</button>
-
+            <button class="arrow right" id="proRight">❯</button>
         </div>
     </div>
     <!-- FOOTER -->
@@ -188,194 +184,181 @@
     </div>
 
     <script>
-        const currentPage = window.location.pathname.split("/").pop();
-
-        const navLinks = document.querySelectorAll(".nav a");
-
-        navLinks.forEach(link => {
-            const linkPage = link.getAttribute("href");
-
-            if (linkPage === currentPage) {
-                link.classList.add("active");
-            }
-        });
-
-        let currentMobilePage = window.location.pathname.split("/").pop();
-
-        // default to home.html if empty
-        if (currentMobilePage === "") {
-            currentMobilePage = "home.html";
-        }
-
-        const allLinks = document.querySelectorAll(".nav a, .mobile-nav a");
-
-        allLinks.forEach(link => {
-            const linkPage = link.getAttribute("href");
-
-            if (linkPage === currentMobilePage) {
-                link.classList.add("active");
-            }
-        });
-
         document.addEventListener("DOMContentLoaded", function () {
 
+            /* ACTIVE NAV */
+            let currentPage = window.location.pathname.split("/").pop();
+
+            if (currentPage === "") currentPage = "home.html";
+
+            const allLinks = document.querySelectorAll(".nav a, .mobile-nav a");
+
+            allLinks.forEach(link => {
+                if (link.getAttribute("href") === currentPage) {
+                    link.classList.add("active");
+                }
+            });
+
+
+            /* HERO SLIDER */
             let slides = document.querySelectorAll(".slide");
             let index = 0;
 
-            function showSlide() {
-                slides.forEach(slide => slide.classList.remove("active"));
-
-                index++;
-                if (index >= slides.length) index = 0;
-
+            setInterval(() => {
+                slides.forEach(s => s.classList.remove("active"));
+                index = (index + 1) % slides.length;
                 slides[index].classList.add("active");
-            }
+            }, 3000);
 
-            setInterval(showSlide, 3000);
 
-        });
-        function scrollCategory(direction) {
-            const container = document.getElementById("categoryList");
+            /* CATEGORY SCROLL */
+            const categoryList = document.getElementById("categoryList");
 
-            const scrollAmount = 120; // category width
-            container.scrollBy({
-                left: direction * scrollAmount,
-                behavior: "smooth"
-            });
-        }
-        function scrollProducts(direction) {
-            const container = document.getElementById("productList");
-
-            const scrollAmount = 220; // width of one card
-            container.scrollBy({
-                left: direction * scrollAmount,
-                behavior: "smooth"
-            });
-        }
-        const categories = [
-            { name: "T-Shirts", img: "../image/tshirt.png", link: "tshirts.html" },
-            { name: "Blouses", img: "../image/blouse.png", link: "blouses.html" },
-            { name: "Bags", img: "../image/bag.png", link: "bags.html" },
-            { name: "Hats", img: "../image/hat.png", link: "hats.html" },
-            { name: "Jewelry", img: "../image/jewelry.png", link: "jewelry.html" },
-            { name: "Shoes", img: "../image/shoe.png", link: "shoes.html" },
-            { name: "Jeans", img: "../image/bag.png", link: "bags.html" },
-            { name: "Tech Accesories", img: "../image/hat.png", link: "hats.html" },
-            { name: "Electronic", img: "../image/clearance.png", link: "jewelry.html" },
-            { name: "Jeans", img: "../image/bag.png", link: "bags.html" },
-            { name: "Tech Accesories", img: "../image/hat.png", link: "hats.html" },
-            { name: "Electronic", img: "../image/clearance.png", link: "jewelry.html" },
-            { name: "Jeans", img: "../image/bag.png", link: "bags.html" },
-            { name: "Jewelry", img: "../image/jewelry.png", link: "jewelry.html" }
-
-        ];
-
-        const container = document.getElementById("categoryList");
-
-        categories.forEach(cat => {
-            const div = document.createElement("div");
-            div.className = "category";
-
-            div.innerHTML = `
-                    <div class="category-box">
-                    <img src="${cat.img}">
-                </div>
-                <p class="category-text">${cat.name}</p>
-                `;
-
-            // click event → redirect
-            div.addEventListener("click", () => {
-                window.location.href = cat.link;
+            document.getElementById("catLeft").addEventListener("click", () => {
+                categoryList.scrollBy({ left: -120, behavior: "smooth" });
             });
 
-            container.appendChild(div);
-        });
-
-        const products = [
-            {
-                name: "Men's Sneakers",
-                price: 89.00,
-                img: "../image/man-sneaker.png",
-                action: "ADD TO CART",
-                link: "product-detail.html?id=1"
-            },
-            {
-                name: "Women's Wristwatch",
-                price: 65.00,
-                img: "../image/woman-watch.png",
-                action: "SELL",
-                link: "product-detail.html?id=2"
-            },
-            {
-                name: "Leather Backpack",
-                price: 110.00,
-                img: "../image/bagpack.jpg",
-                action: "ADD TO CART",
-                link: "product-detail.html?id=3"
-            },
-            {
-                name: "Linen Shirt",
-                price: 45.00,
-                img: "../image/linen.webp",
-                action: "ADD TO CART",
-                link: "product-detail.html?id=4"
-            },
-            {
-                name: "Straw Hat",
-                price: 25.00,
-                img: "../image/strawhat.avif",
-                action: "ADD TO CART",
-                link: "product-detail.html?id=5"
-            },
-            {
-                name: "Women's Wristwatch",
-                price: 65.00,
-                img: "../image/woman-watch.png",
-                action: "SELL",
-                link: "product-detail.html?id=2"
-            },
-            {
-                name: "Men's Sneakers",
-                price: 89.00,
-                img: "../image/man-sneaker.png",
-                action: "ADD TO CART",
-                link: "product-detail.html?id=1"
-            },
-            {
-                name: "Women's Wristwatch",
-                price: 65.00,
-                img: "../image/woman-watch.png",
-                action: "SELL",
-                link: "product-detail.html?id=2"
-            },
-            {
-                name: "Straw Hat",
-                price: 25.00,
-                img: "../image/strawhat.avif",
-                action: "ADD TO CART",
-                link: "product-detail.html?id=5"
-            }
-        ];
-
-        const productContainer = document.getElementById("productList");
-
-        products.forEach(p => {
-            const div = document.createElement("div");
-            div.className = "card";
-
-            div.innerHTML = `
-                <img src = "${p.img}">
-                <h4>${p.name}</h4>
-                <div class="price">$${p.price.toFixed(2)}</div>
-                <button class="btn">${p.action}</button>
-            `;
-
-            // click whole card → go to detail page
-            div.addEventListener("click", () => {
-                window.location.href = p.link;
+            document.getElementById("catRight").addEventListener("click", () => {
+                categoryList.scrollBy({ left: 120, behavior: "smooth" });
             });
 
-            productContainer.appendChild(div);
+
+            /* PRODUCT SCROLL */
+            const productList = document.getElementById("productList");
+
+            document.getElementById("proLeft").addEventListener("click", () => {
+                productList.scrollBy({ left: -220, behavior: "smooth" });
+            });
+
+            document.getElementById("proRight").addEventListener("click", () => {
+                productList.scrollBy({ left: 220, behavior: "smooth" });
+            });
+
+
+            //   RENDER CATEGORIES
+
+            const categories = [
+                { name: "T-Shirts", img: "../image/tshirt.png", link: "tshirts.html" },
+                { name: "Blouses", img: "../image/blouse.png", link: "blouses.html" },
+                { name: "Bags", img: "../image/bag.png", link: "bags.html" },
+                { name: "Hats", img: "../image/hat.png", link: "hats.html" },
+                { name: "Jewelry", img: "../image/jewelry.png", link: "jewelry.html" },
+                { name: "Shoes", img: "../image/shoe.png", link: "shoes.html" },
+                { name: "Jeans", img: "../image/bag.png", link: "bags.html" },
+                { name: "Tech Accesories", img: "../image/hat.png", link: "hats.html" },
+                { name: "Electronic", img: "../image/clearance.png", link: "jewelry.html" },
+                { name: "Jeans", img: "../image/bag.png", link: "bags.html" },
+                { name: "Tech Accesories", img: "../image/hat.png", link: "hats.html" },
+                { name: "Electronic", img: "../image/clearance.png", link: "jewelry.html" },
+                { name: "Jeans", img: "../image/bag.png", link: "bags.html" },
+                { name: "Jewelry", img: "../image/jewelry.png", link: "jewelry.html" }
+
+            ];
+
+            categories.forEach(cat => {
+                const div = document.createElement("div");
+                div.className = "category";
+
+                div.innerHTML = `
+            <div class="category-box">
+                <img src="${cat.img}">
+            </div>
+            <p class="category-text">${cat.name}</p>
+        `;
+
+                div.addEventListener("click", () => {
+                    window.location.href = cat.link;
+                });
+
+                categoryList.appendChild(div);
+            });
+
+
+            /* RENDER PRODUCTS */
+            const products = [
+                {
+                    name: "Men's Sneakers",
+                    price: 89.00,
+                    img: "../image/man-sneaker.png",
+                    action: "ADD TO CART",
+                    link: "product-detail.html?id=1"
+                },
+                {
+                    name: "Women's Wristwatch",
+                    price: 65.00,
+                    img: "../image/woman-watch.png",
+                    action: "SELL",
+                    link: "product-detail.html?id=2"
+                },
+                {
+                    name: "Leather Backpack",
+                    price: 110.00,
+                    img: "../image/bagpack.jpg",
+                    action: "ADD TO CART",
+                    link: "product-detail.html?id=3"
+                },
+                {
+                    name: "Linen Shirt",
+                    price: 45.00,
+                    img: "../image/linen.webp",
+                    action: "ADD TO CART",
+                    link: "product-detail.html?id=4"
+                },
+                {
+                    name: "Straw Hat",
+                    price: 25.00,
+                    img: "../image/strawhat.avif",
+                    action: "ADD TO CART",
+                    link: "product-detail.html?id=5"
+                },
+                {
+                    name: "Women's Wristwatch",
+                    price: 65.00,
+                    img: "../image/woman-watch.png",
+                    action: "SELL",
+                    link: "product-detail.html?id=2"
+                },
+                {
+                    name: "Men's Sneakers",
+                    price: 89.00,
+                    img: "../image/man-sneaker.png",
+                    action: "ADD TO CART",
+                    link: "product-detail.html?id=1"
+                },
+                {
+                    name: "Women's Wristwatch",
+                    price: 65.00,
+                    img: "../image/woman-watch.png",
+                    action: "SELL",
+                    link: "product-detail.html?id=2"
+                },
+                {
+                    name: "Straw Hat",
+                    price: 25.00,
+                    img: "../image/strawhat.avif",
+                    action: "ADD TO CART",
+                    link: "product-detail.html?id=5"
+                }
+            ];
+
+            products.forEach(p => {
+                const div = document.createElement("div");
+                div.className = "card";
+
+                div.innerHTML = `
+            <img src="${p.img}">
+            <h4>${p.name}</h4>
+            <div class="price">$${p.price.toFixed(2)}</div>
+            <button class="btn">ADD TO CART</button>
+        `;
+
+                div.addEventListener("click", () => {
+                    window.location.href = p.link;
+                });
+
+                productList.appendChild(div);
+            });
+
         });
     </script>
 </body>
