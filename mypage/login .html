@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Sign In | Elephant Mall</title>
+  <!-- Google Fonts & simple reset -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+ <link rel="stylesheet" href="../css/category.css">
+</head>
+<body>
+<div class="login-container">
+  <!-- Logo Section (elephant mall style with image) -->
+  <div class="logo-area">
+    <div class="logo-icon">
+      <img src="../image/logo.png" alt="Elephant Mall Logo">
+    </div>
+    <span class="logo-text">Elephant Mall</span>
+  </div>
+
+  <!-- Welcome Back -->
+  <div class="welcome-text">Welcome Back</div>
+
+  <!-- Login Form -->
+  <form id="loginForm" action="#" method="post">
+    <!-- Email / Username field -->
+    <div class="input-group">
+      <i class="fas fa-envelope input-icon"></i>
+      <input type="text" id="emailInput" class="input-field" placeholder="Email / Username" autocomplete="username">
+      <div id="emailError" class="error-msg" style="display: none;"></div>
+    </div>
+
+    <!-- Password field with eye toggle -->
+    <div class="input-group">
+      <i class="fas fa-lock input-icon"></i>
+      <input type="password" id="passwordInput" class="input-field" placeholder="Password" autocomplete="current-password">
+      <button type="button" id="togglePassword" class="password-toggle" aria-label="Show/hide password">
+        <i class="far fa-eye-slash" id="eyeIcon"></i>
+      </button>
+      <div id="passwordError" class="error-msg" style="display: none;"></div>
+    </div>
+
+    <!-- Forgot password link -->
+    
+
+    <!-- Sign In Button with loading state -->
+    <button type="submit" id="signInButton" class="signin-btn">
+      <span id="btnText">Sign In</span>
+      <span id="btnSpinner" style="display: none;"><i class="fas fa-circle-notch fa-spin"></i></span>
+    </button>
+    <div class="forgot-row">
+      <a href="#" class="forgot-link" id="forgotLink">Forgot password?</a>
+    </div>
+  </form>
+
+  <!-- Divider -->
+  <div class="divider">OR</div>
+
+  <!-- Social Login Buttons -->
+  <button class="social-btn google-btn" id="googleBtn">
+    <i class="fab fa-google"></i> Sign in with Google
+  </button>
+  <button class="social-btn apple-btn" id="appleBtn">
+    <i class="fab fa-apple"></i> Sign in with Apple
+  </button>
+
+  <!-- Sign Up Section -->
+  <div class="signup-section">
+    Don't have an account?
+    <a href="#" id="signupLink" class="signup-link">Sign Up</a>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // DOM elements
+    const emailField = document.getElementById('emailInput');
+    const passwordField = document.getElementById('passwordInput');
+    const emailErrorDiv = document.getElementById('emailError');
+    const passwordErrorDiv = document.getElementById('passwordError');
+    const signInBtn = document.getElementById('signInButton');
+    const btnTextSpan = document.getElementById('btnText');
+    const btnSpinnerSpan = document.getElementById('btnSpinner');
+    const togglePasswordBtn = document.getElementById('togglePassword');
+    const eyeIcon = document.getElementById('eyeIcon');
+    const loginForm = document.getElementById('loginForm');
+
+    // Helper: hide all error messages
+    function clearErrors() {
+      emailErrorDiv.style.display = 'none';
+      emailErrorDiv.innerHTML = '';
+      passwordErrorDiv.style.display = 'none';
+      passwordErrorDiv.innerHTML = '';
+    }
+
+    // Helper: show specific error for field
+    function showError(field, message) {
+      if (field === 'email') {
+        emailErrorDiv.innerHTML = `<i class="fas fa-exclamation-circle" style="font-size:10px"></i> ${message}`;
+        emailErrorDiv.style.display = 'flex';
+      } else if (field === 'password') {
+        passwordErrorDiv.innerHTML = `<i class="fas fa-exclamation-circle" style="font-size:10px"></i> ${message}`;
+        passwordErrorDiv.style.display = 'flex';
+      }
+    }
+
+    // Basic validation: non-empty only
+    function validateForm() {
+      clearErrors();
+      let isValid = true;
+      const emailValue = emailField.value.trim();
+      const passwordValue = passwordField.value;
+
+      if (emailValue === '') {
+        showError('email', 'Email/Username is required');
+        isValid = false;
+      }
+
+      if (passwordValue === '') {
+        showError('password', 'Password cannot be empty');
+        isValid = false;
+      }
+
+      return isValid;
+    }
+
+    // Simulate async processing + disabled state
+    let isProcessing = false;
+
+    async function handleSignIn(event) {
+      if (event) event.preventDefault();
+
+      if (isProcessing) return;
+
+      // Run validation
+      const valid = validateForm();
+      if (!valid) return;
+
+      // Disable button & show loading state
+      isProcessing = true;
+      signInBtn.disabled = true;
+      btnTextSpan.style.display = 'none';
+      btnSpinnerSpan.style.display = 'inline-flex';
+
+      // Simulate network request (800ms to mimic API)
+      try {
+        await new Promise(resolve => setTimeout(resolve, 800));
+        // On successful validation simulation: alert and optionally reset loading state
+        alert(`✅ Signed in successfully!\nWelcome ${emailField.value.trim()} (Demo authentication)`);
+      } catch (err) {
+        alert('Something went wrong, please try again.');
+      } finally {
+        // Re-enable button and restore text
+        signInBtn.disabled = false;
+        btnTextSpan.style.display = 'inline';
+        btnSpinnerSpan.style.display = 'none';
+        isProcessing = false;
+      }
+    }
+
+    // Password visibility toggle (eye)
+    function togglePasswordVisibility() {
+      const currentType = passwordField.getAttribute('type');
+      if (currentType === 'password') {
+        passwordField.setAttribute('type', 'text');
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+      } else {
+        passwordField.setAttribute('type', 'password');
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+      }
+    }
+
+    // Forgot password demo interaction (prevent real navigation)
+    function handleForgot(e) {
+      e.preventDefault();
+      alert('🔐 Reset link would be sent to your email (demo flow).');
+    }
+
+    // Social login callbacks
+    function handleGoogle(e) {
+      e.preventDefault();
+      alert('🚀 Google Sign-In demo — integration ready. Would connect to OAuth.');
+    }
+
+    function handleApple(e) {
+      e.preventDefault();
+      alert('🍎 Apple Sign-In demo — would continue with Apple ID authentication.');
+    }
+
+    function handleSignUp(e) {
+      e.preventDefault();
+      alert('📝 Create new account — registration page would open.');
+    }
+
+    // Real-time removal of error when typing
+    function removeEmailErrorOnInput() {
+      if (emailErrorDiv.style.display === 'flex') {
+        emailErrorDiv.style.display = 'none';
+        emailErrorDiv.innerHTML = '';
+      }
+    }
+    function removePasswordErrorOnInput() {
+      if (passwordErrorDiv.style.display === 'flex') {
+        passwordErrorDiv.style.display = 'none';
+        passwordErrorDiv.innerHTML = '';
+      }
+    }
+
+    // Attach event listeners
+    loginForm.addEventListener('submit', handleSignIn);
+    signInBtn.addEventListener('click', (e) => {
+      if (loginForm) {
+        e.preventDefault();
+        handleSignIn(e);
+      }
+    });
+    togglePasswordBtn.addEventListener('click', togglePasswordVisibility);
+    document.getElementById('forgotLink').addEventListener('click', handleForgot);
+    document.getElementById('googleBtn').addEventListener('click', handleGoogle);
+    document.getElementById('appleBtn').addEventListener('click', handleApple);
+    document.getElementById('signupLink').addEventListener('click', handleSignUp);
+
+    // clear errors on input focus/typing
+    emailField.addEventListener('input', removeEmailErrorOnInput);
+    passwordField.addEventListener('input', removePasswordErrorOnInput);
+    emailField.addEventListener('focus', removeEmailErrorOnInput);
+    passwordField.addEventListener('focus', removePasswordErrorOnInput);
+  })();
+</script>
+</body>
+</html>
