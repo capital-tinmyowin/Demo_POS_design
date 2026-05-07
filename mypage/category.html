@@ -72,12 +72,49 @@
       <div class="row">
         <!-- LEFT COLUMN - Products side by side -->
         <div class="col-lg-9">
-          <div class="p-4 text-white rounded ctg-left-c1">
-            <h3>SUMMER ESSENTIALS!</h3>
-            <p>
-              Get the latest dresses, shorts, Get light weight,<br />
-              and accessories,
-            </p>
+          <div class="hero-slider-wrapper">
+            <div class="swiper hero-swiper" id="heroSlider">
+              <div class="swiper-wrapper">
+                <!-- Slide 1 - Summer Essentials (original message) -->
+                <div class="swiper-slide hero-slide">
+                  <div class="hero-slide-content">
+                    <h3>SUMMER ESSENTIALS!</h3>
+                    <p>
+                      Get the latest dresses, shorts, lightweight fabrics,<br />and
+                      accessories for your sunny days.
+                    </p>
+                    <small>Up to 30% off on selected items</small>
+                  </div>
+                </div>
+                <!-- Slide 2 - Beach Collection -->
+                <div class="swiper-slide hero-slide">
+                  <div class="hero-slide-content">
+                    <h3>BEACH READY</h3>
+                    <p>
+                      Straw hats, sandals, linen shirts & summer totes.<br />Make
+                      a splash with our new arrivals.
+                    </p>
+                    <small>Free shipping on orders $50+</small>
+                  </div>
+                </div>
+                <!-- Slide 3 - Tech Summer Deals -->
+                <div class="swiper-slide hero-slide">
+                  <div class="hero-slide-content">
+                    <h3>SUMMER GADGETS</h3>
+                    <p>
+                      Wireless earbuds, power banks & smart accessories.<br />Stay
+                      connected on the go.
+                    </p>
+                    <small>Limited time offers</small>
+                  </div>
+                </div>
+              </div>
+              <!-- Navigation buttons -->
+              <div class="hero-swiper-btn-prev">‹</div>
+              <div class="hero-swiper-btn-next">›</div>
+              <!-- Pagination dots -->
+              <div class="hero-swiper-pagination"></div>
+            </div>
           </div>
 
           <div class="categories-wrapper">
@@ -95,7 +132,7 @@
         <div class="col-lg-3 trending">
           <!-- First Trending Slider - Fashion -->
           <div class="trending-sidebar">
-            <div class="trending-title">🔥 Trending Now In Fashion</div>
+            <div class="trending-title">🔥 Trending Now In Category</div>
             <div class="trending-slider-container">
               <div class="swiper swiperTrending1">
                 <div class="swiper-wrapper" id="trendingSliderWrapper1"></div>
@@ -108,7 +145,7 @@
 
           <!-- Second Trending Slider - Electronics -->
           <div class="trending-sidebar">
-            <div class="trending-title">💻 Trending Now In Electronics</div>
+            <div class="trending-title">💻 Trending Now In Category</div>
             <div class="trending-slider-container">
               <div class="swiper swiperTrending2">
                 <div class="swiper-wrapper" id="trendingSliderWrapper2"></div>
@@ -118,7 +155,7 @@
               <div class="swiper-button-next-custom trendingNextBtn2">›</div>
             </div>
 
-            <div class="cart-mini-panel">
+            <!-- <div class="cart-mini-panel">
               <div class="cart-header-small">
                 🛒 Your Cart
                 <span class="clear-cart-mini" id="clearCartBtn">Clear</span>
@@ -135,8 +172,31 @@
               <button class="checkout-btn-mini" id="checkoutBtn">
                 Checkout 🐘
               </button>
-            </div>
+            </div> -->
           </div>
+        </div>
+      </div>
+      <!-- FOOTER -->
+      <div class="footer">
+        <div>
+          <h4>CUSTOMER CARE</h4>
+          <p>Home</p>
+        </div>
+
+        <div>
+          <h4>ABOUT US</h4>
+          <p>About Us</p>
+          <p>Start Selling</p>
+        </div>
+
+        <div>
+          <h4>CONNECT WITH US</h4>
+          <p>Contact Us</p>
+        </div>
+
+        <div>
+          <h4>LEGAL</h4>
+          <p>Legal</p>
         </div>
       </div>
     </div>
@@ -225,23 +285,23 @@
         },
         {
           id: 4,
-          name: "Silk Blouse",
+          name: "White Blouse",
           price: 39.99,
           category: "Blouses",
           image:
             "https://i.pinimg.com/1200x/bd/6c/f9/bd6cf9e39bb3ea86086bb1f89c789ee6.jpg",
         },
         {
-          id: 19,
-          name: "Silk Blouse White",
+          id: 5,
+          name: "Red Blouse",
           price: 39.99,
           category: "Blouses",
           image:
             "https://i.pinimg.com/736x/14/3f/4a/143f4ab55d79b2b53a9c6a342153bbbf.jpg",
         },
         {
-          id: 5,
-          name: "Straw Tote Bag",
+          id: 6,
+          name: "White Shoulder Bag",
           price: 34.99,
           category: "Bags",
           image:
@@ -249,15 +309,15 @@
         },
 
         {
-          id: 6,
-          name: "Straw Tote Bag Premium",
+          id: 7,
+          name: "Black Shoulder Bag",
           price: 34.99,
           category: "Bags",
           image:
             "https://i.pinimg.com/1200x/2b/a4/3c/2ba43c436ea17b8eef0082b9be1bacf1.jpg",
         },
         {
-          id: 7,
+          id: 8,
           name: "Wool Fedora Hat",
           price: 24.99,
           category: "Hats",
@@ -265,76 +325,68 @@
             "https://i.pinimg.com/736x/4e/81/11/4e8111d7aea3eeb01500a1f6ad88cdae.jpg",
         },
         {
-          id: 8,
-          name: "Beach Hat",
+          id: 9,
+          name: "Uniset Hat",
           price: 18.99,
           category: "Hats",
           image:
             "https://i.pinimg.com/1200x/c1/a4/59/c1a4597079ec099708a6548cde6dd4c3.jpg",
         },
         {
-          id: 9,
-          name: "Summer Sandals",
+          id: 10,
+          name: "Running Shoes",
           price: 49.99,
           category: "Shoes",
           image:
             "https://i.pinimg.com/736x/f3/cd/93/f3cd93cced81f304559f1d611048a4c2.jpg",
         },
         {
-          id: 10,
-          name: "Running Shoes",
+          id: 11,
+          name: "Wedding heel",
           price: 79.99,
           category: "Shoes",
           image:
             "https://i.pinimg.com/1200x/ee/bf/89/eebf8909f870ef5d7170a5289f43489d.jpg",
         },
         {
-          id: 11,
-          name: "Summer Sandals Gold",
+          id: 12,
+          name: "Sneaker Shoe",
           price: 49.99,
           category: "Shoes",
           image:
             "https://i.pinimg.com/1200x/57/62/a6/5762a6c77d9ac297e2cdce5de6287875.jpg",
         },
         {
-          id: 12,
-          name: "Slim Fit Jeans",
+          id: 13,
+          name: "Long Jeans",
           price: 59.99,
           category: "Jeans",
           image:
             "https://i.pinimg.com/1200x/fa/7d/b7/fa7db741cf6848f1c657e56af9bd17e2.jpg",
         },
         {
-          id: 13,
-          name: "Ripped Jeans",
+          id: 14,
+          name: "Jean Short skirt ",
           price: 64.99,
           category: "Jeans",
           image:
             "https://i.pinimg.com/736x/df/07/36/df0736a899239fb28bc263b5e8501057.jpg",
         },
         {
-          id: 14,
-          name: "Short Jeans",
+          id: 15,
+          name: "Short Jean",
           price: 64.99,
           category: "Jeans",
           image:
             "https://i.pinimg.com/736x/ae/bf/3c/aebf3cf06bbf805f760b5584c03afab3.jpg",
         },
         {
-          id: 15,
-          name: "Leather Belt",
+          id: 16,
+          name: "Neck Accessories",
           price: 29.99,
           category: "Accessories",
           image:
             "https://i.pinimg.com/1200x/60/d6/8a/60d68a58460c418cffd3f90d682348cc.jpg",
-        },
-        {
-          id: 16,
-          name: "Earring Set",
-          price: 29.99,
-          category: "Accessories",
-          image:
-            "https://i.pinimg.com/1200x/a7/ea/42/a7ea4264c4902eeddd377d1aff6a66f1.jpg",
         },
         {
           id: 17,
@@ -342,10 +394,18 @@
           price: 29.99,
           category: "Accessories",
           image:
-            "https://i.pinimg.com/1200x/47/8b/93/478b93513e17080d67216f973316acb4.jpg",
+            "https://i.pinimg.com/1200x/a7/ea/42/a7ea4264c4902eeddd377d1aff6a66f1.jpg",
         },
         {
           id: 18,
+          name: "Press On Nail",
+          price: 29.99,
+          category: "Accessories",
+          image:
+            "https://i.pinimg.com/1200x/47/8b/93/478b93513e17080d67216f973316acb4.jpg",
+        },
+        {
+          id: 19,
           name: "Ipad",
           price: 29.99,
           category: "Electronics",
@@ -353,7 +413,7 @@
             "https://i5.walmartimages.com/seo/2022-Apple-10-9-inch-iPad-Wi-Fi-64GB-Pink-10th-Generation_4fdae443-4f60-4a3e-9efe-12758bf5f128.f4d7333626b4e6b27e8be25d1f698373.jpeg",
         },
         {
-          id: 19,
+          id: 20,
           name: "Earphone",
           price: 29.99,
           category: "Headphones",
@@ -361,7 +421,7 @@
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTndMcJW71HLgi9ntgoterJiJJjLxbtOVVpyA&s",
         },
         {
-          id: 20,
+          id: 21,
           name: "powerbank",
           price: 29.99,
           category: "Power Banks",
@@ -369,7 +429,7 @@
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnwF3fpDIATeZ_9o5h3vNu_X8KUHSq5O739g&s",
         },
         {
-          id: 21,
+          id: 22,
           name: "clearance",
           price: 29.99,
           category: "Clearance",
@@ -377,7 +437,7 @@
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCrs3u5CZI2zSKQycM-crwXkzf8KvjeL9Y1A&s",
         },
         {
-          id: 22,
+          id: 23,
           name: "clearance",
           price: 29.99,
           category: "Clearance",
@@ -385,16 +445,16 @@
             "https://down-ph.img.susercontent.com/file/4231c5fe7c003aa574a9153de9ea6116",
         },
         {
-          id: 23,
-          name: "homedecor",
+          id: 24,
+          name: "Homedecor",
           price: 29.99,
           category: "Home Decor",
           image:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_5kt7F5QEgdXlXPXpyk6cEA8HdC9JudDZwQ&s",
         },
         {
-          id: 24,
-          name: "appliance",
+          id: 25,
+          name: "Appliance",
           price: 29.99,
           category: "Appliances",
           image:
@@ -511,6 +571,7 @@
       let activeCategoryFilter = "All";
       let swiper1 = null;
       let swiper2 = null;
+      let heroSwiper = null;
 
       function getFilteredLeftProducts() {
         let filtered = [...LEFT_PRODUCTS];
@@ -554,7 +615,7 @@
             if (grouped[cat] && grouped[cat].length > 0) {
               const firstProduct = grouped[cat][0];
               html += `
-                    <div class="mobile-product-card" data-category="${cat}">
+                    <div class="mobile-product-card"  data-product-id="${firstProduct.id}">
                         <img class="mobile-product-img" src="${firstProduct.image}" onerror="this.src='https://placehold.co/150x150/f0f0f0/ccc'" loading="lazy">
                         <div class="mobile-product-info">
                             <div class="mobile-category-name">${cat}</div>
@@ -588,10 +649,10 @@
               .querySelectorAll(".mobile-product-card")
               .forEach((card) => {
                 card.addEventListener("click", (e) => {
-                  const category = card.dataset.category;
-                  if (category) {
+                  const productId = card.dataset.productId;
+                  if (productId) {
                     // Navigate to category page (you can change the URL pattern as needed)
-                    window.location.href = `category-page.html?cat=${encodeURIComponent(category)}`;
+                    window.location.href = `product-detail.html?id=${productId}`;
                   }
                 });
               });
@@ -609,7 +670,7 @@
                                 <div class="product-card-left">
                                     <img class="product-img-left" src="${prod.image}" onerror="this.src='https://placehold.co/200x120/f0f0f0/ccc'" loading="lazy">
                                     <div class="product-info-left">
-                                        <button class="view-details-btn addToCartBtn" data-id="${prod.id}" data-name="${prod.name}" data-price="${prod.price}" data-img="${prod.image}">View Details</button>
+                                        <button class="view-details-btn" data-id="${prod.id}" onclick="window.location.href='product-detail.html?id=${prod.id}'">View Details</button>
                                     </div>
                                 </div>
                             `,
@@ -649,19 +710,19 @@
           }
 
           // Attach add to cart events for PC view
-          setTimeout(() => {
-            document.querySelectorAll(".addToCartBtn").forEach((btn) => {
-              btn.addEventListener("click", (e) => {
-                e.stopPropagation();
-                addToCart(
-                  parseInt(btn.dataset.id),
-                  btn.dataset.name,
-                  parseFloat(btn.dataset.price),
-                  btn.dataset.img,
-                );
-              });
-            });
-          }, 0);
+          // setTimeout(() => {
+          // document.querySelectorAll(".addToCartBtn").forEach((btn) => {
+          //   btn.addEventListener("click", (e) => {
+          //     e.stopPropagation();
+          //     addToCart(
+          //       parseInt(btn.dataset.id),
+          //       btn.dataset.name,
+          //       parseFloat(btn.dataset.price),
+          //       btn.dataset.img,
+          //     );
+          //   });
+          // });
+          // }, 0);
         }
 
         container.innerHTML = html;
@@ -770,7 +831,26 @@
           },
         });
       }
-
+      // Initialize Hero Banner Slider
+      function initHeroSlider() {
+        if (heroSwiper) heroSwiper.destroy(true, true);
+        heroSwiper = new Swiper("#heroSlider", {
+          loop: true,
+          autoplay: {
+            delay: 2000,
+            disableOnInteraction: false,
+          },
+          navigation: {
+            nextEl: ".hero-swiper-btn-next",
+            prevEl: ".hero-swiper-btn-prev",
+          },
+          pagination: {
+            el: ".hero-swiper-pagination",
+            clickable: true,
+          },
+          speed: 1000,
+        });
+      }
       // Cart Functions
       function addToCart(id, name, price, image) {
         const existing = cart.find((item) => item.id === id);
@@ -947,6 +1027,7 @@
         buildCategoryChips();
         renderLeftProducts();
         renderTrendingSliders();
+        initHeroSlider(); // Initialize the new hero slider
         initMobileDrawer();
         initDesktopActions();
         updateCartUI();
