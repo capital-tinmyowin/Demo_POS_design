@@ -69,7 +69,7 @@
   <!-- Sign Up Section -->
   <div class="signup-section">
     Don't have an account?
-    <a href="#" id="signupLink" class="signup-link">Sign Up</a>
+    <a href="../mypage/register.html" id="signupLink" class="signup-link">Sign Up</a>
   </div>
 </div>
 
@@ -191,10 +191,7 @@
       alert('🍎 Apple Sign-In demo — would continue with Apple ID authentication.');
     }
 
-    function handleSignUp(e) {
-      e.preventDefault();
-      alert('📝 Create new account — registration page would open.');
-    }
+ 
 
     // Real-time removal of error when typing
     function removeEmailErrorOnInput() {
@@ -222,7 +219,6 @@
     document.getElementById('forgotLink').addEventListener('click', handleForgot);
     document.getElementById('googleBtn').addEventListener('click', handleGoogle);
     document.getElementById('appleBtn').addEventListener('click', handleApple);
-    document.getElementById('signupLink').addEventListener('click', handleSignUp);
 
     // clear errors on input focus/typing
     emailField.addEventListener('input', removeEmailErrorOnInput);
