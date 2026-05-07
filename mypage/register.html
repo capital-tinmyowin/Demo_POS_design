@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Create Account | Elephant Mall</title>
+  <!-- Google Fonts & simple reset -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+<div class="register-container">
+  <!-- Logo Section (elephant mall style with image) -->
+  <div class="logo-area">
+    <div class="logo-icon">
+      <img src="../image/logo.png" alt="Elephant Mall Logo">
+    </div>
+    <span class="logo-text">Elephant Mall</span>
+  </div>
+
+  <!-- Create Account Header -->
+  <div class="create-account-text">Create An Account</div>
+
+  <!-- Registration Form -->
+  <form id="registerForm" action="#" method="post">
+    <!-- Full Name field -->
+    <div class="input-group">
+      <i class="fas fa-user input-icon"></i>
+      <input type="text" id="fullNameInput" class="input-field" placeholder="Full Name" autocomplete="name">
+      <div id="fullNameError" class="error-msg" style="display: none;"></div>
+    </div>
+
+    <!-- Email field -->
+    <div class="input-group">
+      <i class="fas fa-envelope input-icon"></i>
+      <input type="email" id="emailInput" class="input-field" placeholder="Email" autocomplete="email">
+      <div id="emailError" class="error-msg" style="display: none;"></div>
+    </div>
+
+    <!-- Password field with eye toggle + helper text -->
+    <div class="input-group">
+      <i class="fas fa-lock password-icon"></i>
+      <input type="password" id="passwordInput" class="input-field" placeholder="Password" autocomplete="new-password">
+      <button type="button" id="togglePassword" class="password-toggle" aria-label="Show/hide password">
+        <i class="far fa-eye-slash" id="eyeIcon"></i>
+      </button>
+      <div id="passwordError" class="error-msg" style="display: none;"></div>
+      <div class="helper-text">
+  Complexity hints: 6-8 characters recommended
+      </div>
+    </div>
+
+    <!-- Confirm Password field with eye toggle -->
+    <div class="input-group">
+      <i class="fas fa-lock input-icon"></i>
+      <input type="password" id="confirmPasswordInput" class="input-field" placeholder="Confirm Password" autocomplete="off">
+      <button type="button" id="toggleConfirmPassword" class="password-toggle" aria-label="Show/hide confirm password">
+        <i class="far fa-eye-slash" id="confirmEyeIcon"></i>
+      </button>
+      <div id="confirmError" class="error-msg" style="display: none;"></div>
+    </div>
+
+    <!-- Terms & Conditions Checkbox -->
+    <div class="terms-row">
+      <input type="checkbox" id="termsCheckbox" class="terms-checkbox">
+      <label for="termsCheckbox" class="terms-label">
+        I agree to the <span id="termsLink" class="terms-link">Terms & Conditions</span>
+      </label>
+      <div id="termsError" class="error-msg terms-error" style="display: none;"></div>
+    </div>
+
+    <!-- Create Account Button with loading state -->
+    <button type="submit" id="createAccountBtn" class="create-btn">
+      <span id="btnText">Create Account</span>
+      <span id="btnSpinner" style="display: none;"><i class="fas fa-circle-notch fa-spin"></i></span>
+    </button>
+  </form>
+
+  <!-- Divider -->
+  <div class="divider">OR</div>
+
+  <!-- Social Signup Buttons (updated text) -->
+  <button class="social-btn google-btn" id="googleBtn">
+    <i class="fab fa-google"></i> Sign up with Google
+  </button>
+  <button class="social-btn apple-btn" id="appleBtn">
+    <i class="fab fa-apple"></i> Sign up with Apple
+  </button>
+
+  <!-- Bottom Link: Already have an account? Sign In -->
+  <div class="signin-section">
+    Already have an account?
+    <a href="../mypage/login .html" id="signinLink" class="signin-link">Sign In</a>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // DOM elements
+    const fullNameField = document.getElementById('fullNameInput');
+    const emailField = document.getElementById('emailInput');
+    const passwordField = document.getElementById('passwordInput');
+    const confirmPasswordField = document.getElementById('confirmPasswordInput');
+    const termsCheckbox = document.getElementById('termsCheckbox');
+    
+    const fullNameErrorDiv = document.getElementById('fullNameError');
+    const emailErrorDiv = document.getElementById('emailError');
+    const passwordErrorDiv = document.getElementById('passwordError');
+    const confirmErrorDiv = document.getElementById('confirmError');
+    const termsErrorDiv = document.getElementById('termsError');
+    
+    const createBtn = document.getElementById('createAccountBtn');
+    const btnTextSpan = document.getElementById('btnText');
+    const btnSpinnerSpan = document.getElementById('btnSpinner');
+    const registerForm = document.getElementById('registerForm');
+    
+    // Password toggles
+    const togglePasswordBtn = document.getElementById('togglePassword');
+    const eyeIcon = document.getElementById('eyeIcon');
+    const toggleConfirmBtn = document.getElementById('toggleConfirmPassword');
+    const confirmEyeIcon = document.getElementById('confirmEyeIcon');
+
+    // Helper: hide specific error
+    function hideError(errorDiv) {
+      if (errorDiv) {
+        errorDiv.style.display = 'none';
+        errorDiv.innerHTML = '';
+      }
+    }
+
+    function showError(errorDiv, message) {
+      if (errorDiv) {
+        errorDiv.innerHTML = `<i class="fas fa-exclamation-circle" style="font-size:10px"></i> ${message}`;
+        errorDiv.style.display = 'flex';
+      }
+    }
+
+    // Clear all errors
+    function clearAllErrors() {
+      hideError(fullNameErrorDiv);
+      hideError(emailErrorDiv);
+      hideError(passwordErrorDiv);
+      hideError(confirmErrorDiv);
+      hideError(termsErrorDiv);
+    }
+
+    // Validation logic
+    function validateForm() {
+      clearAllErrors();
+      let isValid = true;
+      
+      const fullName = fullNameField.value.trim();
+      const email = emailField.value.trim();
+      const password = passwordField.value;
+      const confirmPassword = confirmPasswordField.value;
+      const isTermsChecked = termsCheckbox.checked;
+      
+      // 1. Full Name required
+      if (fullName === '') {
+        showError(fullNameErrorDiv, 'Full name is required');
+        isValid = false;
+      }
+      
+      // 2. Email required & contains @
+      if (email === '') {
+        showError(emailErrorDiv, 'Email is required');
+        isValid = false;
+      } else if (!email.includes('@')) {
+        showError(emailErrorDiv, 'Please enter a valid email address (must contain @)');
+        isValid = false;
+      }
+      
+      // 3. Password validation: min 6 characters, max 8 (flexible but min 6-8 range as requested)
+      if (password === '') {
+        showError(passwordErrorDiv, 'Password is required');
+        isValid = false;
+      } else if (password.length < 6) {
+        showError(passwordErrorDiv, 'Password must be at least 6 characters');
+        isValid = false;
+      } else if (password.length > 8) {
+        // still allow but we show hint; though spec mentions 6-8 boundaries we give warning but still valid? We'll keep validation flexible: accept >8 but warn? Better to enforce range as per spec - but many sites allow longer. I'll set <6 fails, but >8 is fine, however spec says "6-8 characters", we reflect with recommendation. To meet spec: I'll enforce <=8? I'll follow spec exactly: min 6, max 8.
+        if (password.length > 8) {
+          showError(passwordErrorDiv, 'Password must be maximum 8 characters (6-8 characters allowed)');
+          isValid = false;
+        }
+      }
+      
+      // 4. Confirm Password match
+      if (confirmPassword === '') {
+        showError(confirmErrorDiv, 'Please confirm your password');
+        isValid = false;
+      } else if (password !== confirmPassword) {
+        showError(confirmErrorDiv, 'Passwords do not match');
+        isValid = false;
+      }
+      
+      // 5. Terms checkbox required
+      if (!isTermsChecked) {
+        showError(termsErrorDiv, 'You must agree to the Terms & Conditions');
+        isValid = false;
+      }
+      
+      return isValid;
+    }
+
+    // Simulate async registration
+    let isProcessing = false;
+    
+    async function handleRegister(event) {
+      if (event) event.preventDefault();
+      
+      if (isProcessing) return;
+      
+      const valid = validateForm();
+      if (!valid) return;
+      
+      // Disable button & show spinner
+      isProcessing = true;
+      createBtn.disabled = true;
+      btnTextSpan.style.display = 'none';
+      btnSpinnerSpan.style.display = 'inline-flex';
+      
+      try {
+        await new Promise(resolve => setTimeout(resolve, 800));
+        // Success simulation
+        alert(`✅ Account created successfully!\nWelcome ${fullNameField.value.trim()}!\nWe've sent a verification email to ${emailField.value.trim()}. (Demo)`);
+        // Optional: redirect to login page or reset form
+        // For demo, we can optionally reset checkbox & clear form? Not mandatory but nice.
+        registerForm.reset();
+        termsCheckbox.checked = false;
+        clearAllErrors();
+      } catch (err) {
+        alert('Something went wrong. Please try again.');
+      } finally {
+        createBtn.disabled = false;
+        btnTextSpan.style.display = 'inline';
+        btnSpinnerSpan.style.display = 'none';
+        isProcessing = false;
+      }
+    }
+    
+    // Password visibility toggles (main password)
+    function togglePasswordVisibility() {
+      const currentType = passwordField.getAttribute('type');
+      if (currentType === 'password') {
+        passwordField.setAttribute('type', 'text');
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+      } else {
+        passwordField.setAttribute('type', 'password');
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+      }
+    }
+    
+    // Confirm password toggle
+    function toggleConfirmVisibility() {
+      const currentType = confirmPasswordField.getAttribute('type');
+      if (currentType === 'password') {
+        confirmPasswordField.setAttribute('type', 'text');
+        confirmEyeIcon.classList.remove('fa-eye-slash');
+        confirmEyeIcon.classList.add('fa-eye');
+      } else {
+        confirmPasswordField.setAttribute('type', 'password');
+        confirmEyeIcon.classList.remove('fa-eye');
+        confirmEyeIcon.classList.add('fa-eye-slash');
+      }
+    }
+    
+    // Real-time error removal while typing
+    function removeErrorOnInput(fieldName) {
+      return function() {
+        if (fieldName === 'fullName') hideError(fullNameErrorDiv);
+        if (fieldName === 'email') hideError(emailErrorDiv);
+        if (fieldName === 'password') hideError(passwordErrorDiv);
+        if (fieldName === 'confirm') hideError(confirmErrorDiv);
+        if (fieldName === 'terms') hideError(termsErrorDiv);
+      };
+    }
+    
+    // Social & link handlers
+    function handleGoogle(e) {
+      e.preventDefault();
+      alert('Sign up with Google — OAuth integration ready (demo).');
+    }
+    function handleApple(e) {
+      e.preventDefault();
+      alert('Sign up with Apple — would continue with Apple ID authentication.');
+    }
+   
+    function handleTermsClick(e) {
+      e.preventDefault();
+      alert(' Terms & Conditions dialog would open here.');
+    }
+    
+    // Attach event listeners
+    registerForm.addEventListener('submit', handleRegister);
+    createBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      handleRegister(e);
+    });
+    
+    togglePasswordBtn.addEventListener('click', togglePasswordVisibility);
+    toggleConfirmBtn.addEventListener('click', toggleConfirmVisibility);
+    
+    document.getElementById('googleBtn').addEventListener('click', handleGoogle);
+    document.getElementById('appleBtn').addEventListener('click', handleApple);
+    document.getElementById('signinLink').addEventListener('click', handleSignInLink);
+    document.getElementById('termsLink').addEventListener('click', handleTermsClick);
+    
+    // Real-time validation clearing
+    fullNameField.addEventListener('input', removeErrorOnInput('fullName'));
+    emailField.addEventListener('input', removeErrorOnInput('email'));
+    passwordField.addEventListener('input', removeErrorOnInput('password'));
+    confirmPasswordField.addEventListener('input', removeErrorOnInput('confirm'));
+    termsCheckbox.addEventListener('change', function() {
+      if (termsCheckbox.checked) {
+        hideError(termsErrorDiv);
+      } else {
+        // we don't auto show error, but clear existing error if unchecked? keep cleared
+        hideError(termsErrorDiv);
+      }
+    });
+    
+    // Focus also removes errors
+    fullNameField.addEventListener('focus', removeErrorOnInput('fullName'));
+    emailField.addEventListener('focus', removeErrorOnInput('email'));
+    passwordField.addEventListener('focus', removeErrorOnInput('password'));
+    confirmPasswordField.addEventListener('focus', removeErrorOnInput('confirm'));
+  })();
+</script>
+</body>
+</html>
