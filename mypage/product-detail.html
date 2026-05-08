@@ -67,27 +67,32 @@
             <img id="detailMainImage" src="" alt="product image" />
           </div>
           <div class="product-info-detail">
-            <h1 class="product-title" id="detailTitle">
+            <div class="mobile-first">
+              <h1 class="product-title" id="detailTitle">
               Premium Leather Tote Bag
-            </h1>
-            <div class="product-price" id="detailPrice">$120.00</div>
-            <div class="product-meta" id="detailMeta">
+              </h1>
+              <div class="product-price" id="detailPrice">$120.00</div>
+              <div class="product-meta" id="detailMeta">
               <!-- dynamic meta from js -->
+              </div>
             </div>
-            <div class="action-buttons">
-              <button class="ask-seller-btn">
+            
+            <div  class="mobile-sec">
+              <div class="action-buttons">
+                <button class="ask-seller-btn">
                  Ask Seller
-              </button>
-              <button class="add-cart-btn" id="addToCartDetailBtn">
+                </button>
+                <button class="add-cart-btn" id="addToCartDetailBtn">
                 <i class="fa-solid fa-cart-plus"></i> Add to Cart
-              </button>
-            </div>
-            <div class="description-box" id="detailDescription">
+                </button>
+              </div>
+              <div class="description-box" id="detailDescription">
               <p>
                 Crafted from top-grain leather. Dimensions: 14"x11"x5".
                 Manufacturer: Elephant Co. & contains no harmful substances.
                 Free shipping included.
               </p>
+              </div>
             </div>
           </div>
         </div>
@@ -580,6 +585,40 @@
     galleryContainer.appendChild(thumb);
   });
 }
+function reorderForMobile() {
+  const isMobile = window.innerWidth <= 768;
+  const productGallery = document.querySelector('.product-gallery');
+  const mainImage = document.querySelector('.main-image');
+  const productInfoDetail = document.querySelector('.product-info-detail');
+  
+  if (!productGallery || !mainImage || !productInfoDetail) return;
+  
+  const mainImageIndex = Array.from(productGallery.children).indexOf(mainImage);
+  const infoDetailIndex = Array.from(productGallery.children).indexOf(productInfoDetail);
+  
+  if (isMobile) {
+    // MOBILE: Move main image after product-info-detail if it's before it
+    if (mainImageIndex < infoDetailIndex) {
+      productGallery.insertBefore(mainImage, productInfoDetail.nextSibling);
+    }
+  } else {
+    // DESKTOP: Restore original order - move main image before product-info-detail if it's after it
+    if (mainImageIndex > infoDetailIndex) {
+      productGallery.insertBefore(mainImage, productInfoDetail);
+    }
+  }
+}
+
+// Call on load and resize
+let resizeTimeout;
+window.addEventListener('resize', function() {
+  // Clear previous timeout
+  clearTimeout(resizeTimeout);
+  // Wait for resize to finish before reordering
+  resizeTimeout = setTimeout(function() {
+    reorderForMobile();
+  }, 150);
+});
       function getProductFromUrl() {
         const params = new URLSearchParams(window.location.search);
         const id = parseInt(params.get("id"));
@@ -626,7 +665,10 @@ renderProductThumbnails(product);
     </tr>
   </table>
     `;
+    // After setting detailMeta innerHTML
         document.getElementById("detailMeta").innerHTML = metaHtml;
+// Reorder after meta is rendered
+setTimeout(() => reorderForMobile(), 50);
         const desc =
           product.description ||
           "Crafted from premium materials. Free shipping included. Sustainable packaging.";
@@ -748,6 +790,7 @@ if (sellerAvatar) {
       function initPage() {
         currentProduct = getProductFromUrl();
         renderProductDetail(currentProduct);
+         reorderForMobile(); // Add this line
         const addBtn = document.getElementById("addToCartDetailBtn");
         if (addBtn) {
           addBtn.addEventListener("click", () => addToCart(currentProduct));
