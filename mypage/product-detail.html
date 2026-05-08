@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>Elephant Mall | Product Details</title>
+    <link rel="stylesheet" href="../css/product-detail.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="header">
+      <!-- LEFT: NAV -->
+      <div class="nav">
+        <a href="home.html">HOME</a>
+        <a href="category.html">CATEGORIES</a>
+        <a href="sale.html">SALE</a>
+        <a href="new.html">NEW IN</a>
+        <a href="orders.html">MY ORDERS</a>
+        <a href="about.html">ABOUT US</a>
+      </div>
+
+      <!-- CENTER: LOGO -->
+      <div class="logo">
+        <img src="../image/logo.png" alt="logo" />
+      </div>
+
+      <!-- RIGHT: SEARCH + BUTTON + ICONS -->
+      <div class="header-right">
+        <div class="search-box">
+          <input type="text" placeholder="Search in Elephant Mall" />
+          <span><i class="fa-solid fa-magnifying-glass"></i></span>
+        </div>
+
+        <button class="sell-btn">SELL ITEMS</button>
+
+        <div class="icons">
+          <span>
+            <i class="fa-regular fa-user"></i>
+          </span>
+
+          <span>
+            <i class="fa-regular fa-heart"></i>
+          </span>
+
+          <span class="cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <!-- <b>3</b> -->
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-detail-container">
+      <div class="product-main-card">
+        <div class="product-gallery">
+          <div class="main-image">
+            <img id="detailMainImage" src="" alt="product image" />
+          </div>
+          <div class="product-info-detail">
+            <div class="mobile-first">
+              <h1 class="product-title" id="detailTitle">
+              Premium Leather Tote Bag
+              </h1>
+              <div class="product-price" id="detailPrice">$120.00</div>
+              <div class="product-meta" id="detailMeta">
+              <!-- dynamic meta from js -->
+              </div>
+            </div>
+            
+            <div  class="mobile-sec">
+              <div class="action-buttons">
+                <button class="ask-seller-btn">
+                 Ask Seller
+                </button>
+                <button class="add-cart-btn" id="addToCartDetailBtn">
+                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                </button>
+              </div>
+              <div class="description-box" id="detailDescription">
+              <p>
+                Crafted from top-grain leather. Dimensions: 14"x11"x5".
+                Manufacturer: Elephant Co. & contains no harmful substances.
+                Free shipping included.
+              </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="row">
+        <div class="col-lg-4"> 
+          <div class="product-thumbnails-gallery" id="productThumbnailsGallery">
+      <!-- Thumbnails will be dynamically inserted here by JavaScript -->
+    </div></div>
+        <!-- Seller Info -->
+        <div class="col-lg-5 seller-card">
+          
+        <div class="seller-info">
+          <div class="seller-avatar">SJ</div>
+          <div class="seller-details">
+            <h4 id="sellerName">Sarah J.</h4>
+            <div class="seller-rating">
+              ★★★★★ <span>4.9</span>
+            </div>
+            <span >Seller Rating</span>
+          </div>
+        </div>
+        <button class="btn-follow"><i class="fa fa-plus-square"></i> Follow Seller</button>
+        <div class="rating">Rating</div>
+      </div>
+      <div class="col-lg-3"></div>
+      </div>
+
+      <!-- More from this store -->
+      <div class="more-section">
+        <div class="more-title" id="moreFromStoreTitle">More from Sarah J.'s Store</div>
+        <div class="store-grid" id="moreFromStoreGrid">
+          <!-- dynamic store items -->
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+      <div class="footer">
+        <div>
+          <h4>CUSTOMER CARE</h4>
+          <p>Home</p>
+        </div>
+
+        <div>
+          <h4>ABOUT US</h4>
+          <p>About Us</p>
+          <p>Start Selling</p>
+        </div>
+
+        <div>
+          <h4>CONNECT WITH US</h4>
+          <p>Contact Us</p>
+        </div>
+
+        <div>
+          <h4>LEGAL</h4>
+          <p>Legal</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-nav">
+      <a href="home.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
+
+      <a href="category.html">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>Categories</span>
+      </a>
+
+      <a href="upload.html" class="center-btn">
+        <i class="fa-solid fa-plus"></i>
+      </a>
+
+      <a href="cart.html">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span>Cart</span>
+      </a>
+
+      <a href="profile.html">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+      </a>
+    </div>
+
+    <script>
+      // ---------- mock product data ----------
+      // This product detail page can receive product ID via URL parameter (e.g. ?id=1)
+      // We match with LEFT_PRODUCTS (same as category) for consistency and add extra fields (seller, description, etc.)
+      const LEFT_PRODUCTS_DETAIL = [
+        {
+          id: 1,
+          name: "Classic Black T-Shirt",
+          price: 19.99,
+          category: "T-Shirts",
+          image:
+            "https://i.pinimg.com/736x/ff/55/b5/ff55b572cdc9e5c7bcb9e1e46aca153b.jpg",
+          seller: "Fashion Hub",
+          rating: 4.7,
+          description:
+            "Soft cotton jersey t-shirt, breathable fabric. Perfect for daily wear.",
+            product_images:["https://i.pinimg.com/1200x/dd/67/30/dd6730be42684378f2abd82900072e72.jpg","https://i.pinimg.com/736x/bd/a0/ca/bda0ca23a55ffd326145a2dbb8e139f4.jpg","https://i.pinimg.com/1200x/51/6e/ab/516eab223c22a36d1051ba9bc46f5695.jpg",]
+        },
+        {
+          id: 2,
+          name: "Classic White T-Shirt",
+          price: 19.99,
+          category: "T-Shirts",
+          image:
+            "https://i.pinimg.com/1200x/7b/9b/64/7b9b64157c65859e958063af2284b620.jpg",
+          seller: "Minimal Wear",
+          rating: 4.8,
+          description: "Crisp white tee, 100% organic cotton. Regular fit.",
+          product_images:["https://i.pinimg.com/1200x/dd/67/30/dd6730be42684378f2abd82900072e72.jpg","https://i.pinimg.com/736x/bd/a0/ca/bda0ca23a55ffd326145a2dbb8e139f4.jpg","https://i.pinimg.com/1200x/51/6e/ab/516eab223c22a36d1051ba9bc46f5695.jpg",]
+        },
+        {
+          id: 3,
+          name: "Classic Cream T-Shirt",
+          price: 19.99,
+          category: "T-Shirts",
+          image:
+            "https://i.pinimg.com/1200x/2d/7b/21/2d7b21a072cd538589f63358fbd35520.jpg",
+          seller: "Earth Tones",
+          rating: 4.6,
+          description: "Neutral cream shade, lightweight summer essential.",
+          product_images:["https://i.pinimg.com/1200x/dd/67/30/dd6730be42684378f2abd82900072e72.jpg","https://i.pinimg.com/736x/bd/a0/ca/bda0ca23a55ffd326145a2dbb8e139f4.jpg","https://i.pinimg.com/1200x/51/6e/ab/516eab223c22a36d1051ba9bc46f5695.jpg",]
+        },
+        {
+          id: 4,
+          name: " White Blouse",
+          price: 39.99,
+          category: "Blouses",
+          image:
+            "https://i.pinimg.com/1200x/bd/6c/f9/bd6cf9e39bb3ea86086bb1f89c789ee6.jpg",
+          seller: "Elegance Studio",
+          rating: 4.9,
+          description: "Luxurious silk blend, perfect for office or brunch.",
+          product_images:["https://i.pinimg.com/1200x/d3/db/ae/d3dbaeb17fcee123f3c128fd9e0c1223.jpg","https://i.pinimg.com/736x/14/3f/4a/143f4ab55d79b2b53a9c6a342153bbbf.jpg"]
+        },
+        {
+          id: 5,
+          name: " Red Blouse",
+          price: 39.99,
+          category: "Blouses",
+          image:
+            "https://i.pinimg.com/736x/14/3f/4a/143f4ab55d79b2b53a9c6a342153bbbf.jpg",
+          seller: "Elegance Studio",
+          rating: 4.9,
+          description: "Luxurious silk blend, perfect for office or brunch.",
+          product_images:["https://i.pinimg.com/1200x/d3/db/ae/d3dbaeb17fcee123f3c128fd9e0c1223.jpg","https://i.pinimg.com/1200x/bd/6c/f9/bd6cf9e39bb3ea86086bb1f89c789ee6.jpg"]
+        },
+        {
+          id: 6,
+          name: "White Shoulder Bag",
+          price: 34.99,
+          category: "Bags",
+          image:
+            "https://i.pinimg.com/1200x/f2/df/79/f2df7979c3e9fd8bfdf6b51aa9aca09e.jpg",
+          seller: "Sarah J.",
+          rating: 4.9,
+          description:
+            "Handwoven straw tote, roomy interior. Ideal for beach or market.",
+          product_images:["https://i.pinimg.com/736x/41/27/d5/4127d552a7c2825f40373caf13498abe.jpg","https://i.pinimg.com/736x/a6/65/b4/a665b473466c9ecc932501038b63349c.jpg","https://i.pinimg.com/1200x/8e/5d/4e/8e5d4e3ae705b36622ca969dd5f3b187.jpg",]
+        },
+        {
+          id: 7,
+          name: "Black Shoulder Bag",
+          price: 34.99,
+          category: "Bags",
+          image:
+            "https://i.pinimg.com/1200x/2b/a4/3c/2ba43c436ea17b8eef0082b9be1bacf1.jpg",
+          seller: "Sarah J.",
+          rating: 4.8,
+          description:
+            "Premium version with leather handles. Spacious and chic.",
+            product_images:["https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ8_PQWX9xellT9o8IGLS5o-3QbJvQd0wa6iWXpMLhxO1hh2Wsa",]
+        },
+        {
+          id: 8,
+          name: "Wool Fedora Hat",
+          price: 24.99,
+          category: "Hats",
+          image:
+            "https://i.pinimg.com/736x/4e/81/11/4e8111d7aea3eeb01500a1f6ad88cdae.jpg",
+          seller: "Sarah J.",
+          rating: 4.7,
+          description: "Classic fedora, UV protection, adjustable inner band.",
+          product_images:["https://i.pinimg.com/736x/e5/a5/21/e5a5215a1fbf1f5cdacb7b19aac0c691.jpg",]
+        },
+        {
+          id: 9,
+          name: "Uniset Hat",
+          price: 18.99,
+          category: "Hats",
+          image:
+            "https://i.pinimg.com/1200x/c1/a4/59/c1a4597079ec099708a6548cde6dd4c3.jpg",
+          seller: "Sunny Days",
+          rating: 4.6,
+          description: "Wide brim sun hat, foldable for travel.",
+          product_images:["https://i.pinimg.com/736x/d9/5a/b0/d95ab0bc323ce8b0c4ae40919cf61505.jpg","https://i.pinimg.com/736x/9a/79/0a/9a790ac7f49392130dce32aab2118d04.jpg","https://i.pinimg.com/736x/a2/68/92/a2689259a89ac80c62de869f4d51f222.jpg"]
+        },
+        {
+          id: 10,
+          name: "Running Shoes",
+          price: 49.99,
+          category: "Shoes",
+          image:
+            "https://i.pinimg.com/736x/71/4f/a1/714fa1434d9f007388ddf0da7be76873.jpg",
+          seller: "StepStyle",
+          rating: 4.8,
+          description: "Comfortable footbed, leather straps. True to size.",
+          product_images:["https://i.pinimg.com/1200x/78/72/65/787265628f6bed641d4fd4e4e08565ae.jpg","https://i.pinimg.com/736x/71/b3/44/71b34468e864cf0d74a842e48bf9a323.jpg","https://i.pinimg.com/1200x/23/ca/47/23ca47a3bd603425460c669259cbb215.jpg"]
+        },
+        {
+          id: 11,
+          name: "Wedding heel",
+          price: 79.99,
+          category: "Shoes",
+          image:
+            "https://i.pinimg.com/1200x/ee/bf/89/eebf8909f870ef5d7170a5289f43489d.jpg",
+          seller: "ActiveGear",
+          rating: 4.9,
+          description: "Breathable mesh, cushioned sole for running.",
+          product_images:["https://i.pinimg.com/1200x/a6/a2/81/a6a2816eedfe75ae8888e2f7ddc6520e.jpg","https://i.pinimg.com/1200x/5d/c7/ff/5dc7ff808629b1981289023e16b1141a.jpg"]
+        },
+        {
+          id: 12,
+          name: "Sneaker Shoe",
+          price: 49.99,
+          category: "Shoes",
+          image:
+            "https://i.pinimg.com/1200x/57/62/a6/5762a6c77d9ac297e2cdce5de6287875.jpg",
+          seller: "StepStyle",
+          rating: 4.7,
+          description: "Metallic finish, lightweight EVA sole.",
+          product_images:[]
+        },
+        {
+          id: 13,
+          name: "Long Jeans",
+          price: 59.99,
+          category: "Jeans",
+          image:
+            "https://i.pinimg.com/1200x/fa/7d/b7/fa7db741cf6848f1c657e56af9bd17e2.jpg",
+          seller: "Denim Lab",
+          rating: 4.5,
+          description: "Stretch denim, slim leg, classic blue wash.",
+          product_images:["https://i.pinimg.com/736x/b3/a1/7b/b3a17b022e01e7fcc9d27215e2879272.jpg","https://i.pinimg.com/1200x/5b/42/20/5b422004959a5b1b909242233602a8e7.jpg","https://i.pinimg.com/1200x/ab/f7/41/abf741d4cf5b5b2984593fab0e0f1af1.jpg"]
+        },
+        {
+          id: 14,
+          name: "Jean Short Skirt",
+          price: 64.99,
+          category: "Jeans",
+          image:
+            "https://i.pinimg.com/736x/df/07/36/df0736a899239fb28bc263b5e8501057.jpg",
+          seller: "Urban Edge",
+          rating: 4.6,
+          description: "Distressed knee, tapered fit.",
+          product_images:["https://i.pinimg.com/736x/f1/bd/9c/f1bd9cfb02ec48cd2068b03a44226348.jpg","https://i.pinimg.com/736x/9f/ad/70/9fad7068677ac694288f69c8aa36fd9a.jpg","https://i.pinimg.com/736x/1f/f5/bb/1ff5bb762af630859830aaa78dcb5231.jpg"]
+        },
+        {
+          id: 15,
+          name: "Short Jean",
+          price: 64.99,
+          category: "Jeans",
+          image:
+            "https://i.pinimg.com/736x/ae/bf/3c/aebf3cf06bbf805f760b5584c03afab3.jpg",
+          seller: "Denim Lab",
+          rating: 4.5,
+          description: "Cropped length, raw hem, relaxed fit.",
+          product_images:["https://i.pinimg.com/736x/3d/cc/68/3dcc681041f4b1f3fddf5cd9f8061315.jpg","https://i.pinimg.com/736x/cb/01/1d/cb011d26038d97180e9a99f198a0610c.jpg","https://i.pinimg.com/1200x/d3/9e/a9/d39ea96c977da323b85bf254da804fab.jpg"]
+        },
+        {
+          id: 16,
+          name: "Neck Accessories",
+          price: 29.99,
+          category: "Accessories",
+          image:
+            "https://i.pinimg.com/1200x/60/d6/8a/60d68a58460c418cffd3f90d682348cc.jpg",
+          seller: "Sarah J.",
+          rating: 4.8,
+          description: "Genuine leather belt, reversible style.",
+          product_images:["https://i.pinimg.com/736x/3c/dd/f8/3cddf8b5d82b6d76f17225c2dfd06609.jpg","https://i.pinimg.com/1200x/44/4c/23/444c23747643d1a3a1f251a22dcccf02.jpg","https://i.pinimg.com/736x/62/4d/42/624d42e8002e0de2de11099e02d86f9f.jpg","https://i.pinimg.com/1200x/89/40/34/894034509c10c8e02cd1ea7ef7e6ff27.jpg"]
+
+        },
+        {
+          id: 17,
+          name: "Earring Set",
+          price: 29.99,
+          category: "Accessories",
+          image:
+            "https://i.pinimg.com/1200x/a7/ea/42/a7ea4264c4902eeddd377d1aff6a66f1.jpg",
+          seller: "Chic Accents",
+          rating: 4.7,
+          description: "Set of 3 trendy earrings, hypoallergenic.",
+          product_images:["https://i.pinimg.com/1200x/26/90/8c/26908c2769809a9e3ad1fd804304f72e.jpg","https://i.pinimg.com/736x/f5/b0/c4/f5b0c4caec2e30cbc3edf056c3fb3ebf.jpg","https://i.pinimg.com/736x/22/1a/ff/221affeb6f69f931f90fc9ffa8414f23.jpg","https://i.pinimg.com/736x/e1/95/f7/e195f778d4c20932313aa1cb2c6cb6af.jpg"]
+        },
+        {
+          id: 18,
+          name: "Press On Nail",
+          price: 29.99,
+          category: "Accessories",
+          image:
+            "https://i.pinimg.com/1200x/47/8b/93/478b93513e17080d67216f973316acb4.jpg",
+          seller: "Chic Accents",
+          rating: 4.6,
+          description: "Gold-plated statement pieces.",
+          product_images:["https://i.pinimg.com/736x/f9/90/ad/f990ad0f200744e960893db4b6d4241a.jpg","https://i.pinimg.com/1200x/65/c2/44/65c244ac2146d6b718b77f1538025d22.jpg","https://i.pinimg.com/736x/07/cc/c9/07ccc9a4e30f28ae1929ec0bb5d9b64f.jpg","https://i.pinimg.com/736x/62/b5/cd/62b5cdc59180eb34f5c72b4431b9dc66.jpg"]
+        },
+        {
+          id: 19,
+          name: "iPad 10th Gen",
+          price: 349.99,
+          category: "Electronics",
+          image:
+            "https://i5.walmartimages.com/seo/2022-Apple-10-9-inch-iPad-Wi-Fi-64GB-Pink-10th-Generation_4fdae443-4f60-4a3e-9efe-12758bf5f128.f4d7333626b4e6b27e8be25d1f698373.jpeg",
+          seller: "TechSpot",
+          rating: 4.9,
+          description: "Apple iPad 10.9-inch, A14 Bionic chip.",
+          product_images:["https://i.pinimg.com/736x/5f/5a/0f/5f5a0f5dc3e79507d21307977ff48d26.jpg","https://i.pinimg.com/736x/a4/3a/31/a43a3139c7dbe8cdf069747a1adbf065.jpg","https://i.pinimg.com/736x/03/50/b4/0350b4a8e67383b0b9f2117782b22724.jpg"]
+        },
+        {
+          id: 20,
+          name: "Wireless Earphones",
+          price: 29.99,
+          category: "Headphones",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTndMcJW71HLgi9ntgoterJiJJjLxbtOVVpyA&s",
+          seller: "AudioWave",
+          rating: 4.4,
+          description: "Bluetooth 5.0, long battery life.",
+          product_images:["https://i.pinimg.com/1200x/7d/b9/5c/7db95c3d96c5abd7072f01fcc69b21b7.jpg","https://i.pinimg.com/736x/d6/69/30/d66930383d6b21a09e4182d433e67e3d.jpg","https://i.pinimg.com/736x/e0/41/a1/e041a16d06691b38cc35316dc48e1b16.jpg","https://i.pinimg.com/736x/1b/9e/b1/1b9eb1ac0d99e6656414273a1e1b0141.jpg"]
+        },
+        {
+          id: 21,
+          name: "Power Bank 20000mAh",
+          price: 29.99,
+          category: "Power Banks",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnwF3fpDIATeZ_9o5h3vNu_X8KUHSq5O739g&s",
+          seller: "ChargePro",
+          rating: 4.7,
+          description: "Dual USB output, fast charging.",
+          product_images:["https://i.pinimg.com/736x/5c/a1/99/5ca19986d3af978a1a8f3c54cc735f93.jpg","https://i.pinimg.com/736x/18/db/7f/18db7fe2ac7dfd458029317fab2d612d.jpg","https://i.pinimg.com/1200x/9d/d5/39/9dd539a08fec5a2c382e3789ab836841.jpg"]
+        },
+        {
+          id: 22,
+          name: "Clearance Pen",
+          price: 19.99,
+          category: "Clearance",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCrs3u5CZI2zSKQycM-crwXkzf8KvjeL9Y1A&s",
+          seller: "Warehouse",
+          rating: 4.2,
+          description: "Limited stock, final sale.",
+        },
+        {
+          id: 23,
+          name: "Clearance Note Book",
+          price: 29.99,
+          category: "Clearance",
+          image:
+            "https://down-ph.img.susercontent.com/file/4231c5fe7c003aa574a9153de9ea6116",
+          seller: "Warehouse",
+          rating: 4.2,
+          description: "Limited stock, final sale.",
+        },
+        {
+          id: 24,
+          name: "Homedecor",
+          price: 29.99,
+          category: "Home Decor",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_5kt7F5QEgdXlXPXpyk6cEA8HdC9JudDZwQ&s",
+          seller: "Warehouse",
+          rating: 4.2,
+          description: "Create your living style as your wish",
+          product_images:["https://i.pinimg.com/736x/7b/a5/1b/7ba51b7efce94e322de45d1d5f9c9ac3.jpg","https://i.pinimg.com/736x/e9/c7/3c/e9c73c3a65e26fb6e28c10076754a0c1.jpg","https://i.pinimg.com/736x/2a/be/0b/2abe0be2238bbfd0960b5ff5d87b4f34.jpg","https://i.pinimg.com/736x/03/f8/c9/03f8c9c43933272f1ff2d8a9b9be731d.jpg"]
+        },
+        {
+          id: 25,
+          name: "Appliance",
+          price: 29.99,
+          category: "Appliances",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMymQluge9d-UWM_1FY24yWrsOCQpIS9NNnQ&s",
+          seller: "Warehouse",
+          rating: 4.2,
+          description: "Create your living style as your wish",
+          product_images:["https://i.pinimg.com/736x/84/43/1b/84431bd72e0a814e4789df37676b745f.jpg","https://i.pinimg.com/1200x/76/80/73/76807304b60563e0ae18216ffe8fd624.jpg","https://i.pinimg.com/736x/fb/3f/b8/fb3fb8251599116e2bdb1aa1cd39c0b2.jpg","https://i.pinimg.com/736x/b0/a6/58/b0a6581c5dc2781e3f4c4410f4fbd501.jpg"]
+        },
+      ];
+
+      // More items from same seller (Sarah J.) for the 'More from store' section
+      const SARAH_ITEMS = [
+        {
+          id: 5,
+          name: "Straw Tote Bag",
+          price: 34.99,
+          image:
+            "https://i.pinimg.com/1200x/f2/df/79/f2df7979c3e9fd8bfdf6b51aa9aca09e.jpg",
+        },
+        {
+          id: 6,
+          name: "Straw Tote Premium",
+          price: 34.99,
+          image:
+            "https://i.pinimg.com/1200x/2b/a4/3c/2ba43c436ea17b8eef0082b9be1bacf1.jpg",
+        },
+        {
+          id: 7,
+          name: "Wool Fedora Hat",
+          price: 24.99,
+          image:
+            "https://i.pinimg.com/736x/4e/81/11/4e8111d7aea3eeb01500a1f6ad88cdae.jpg",
+        },
+        {
+          id: 15,
+          name: "Leather Belt",
+          price: 29.99,
+          image:
+            "https://i.pinimg.com/1200x/60/d6/8a/60d68a58460c418cffd3f90d682348cc.jpg",
+        },
+        {
+          id: 9,
+          name: "Summer Sandals",
+          price: 49.99,
+          image:
+            "https://i.pinimg.com/736x/f3/cd/93/f3cd93cced81f304559f1d611048a4c2.jpg",
+        },
+        {
+          id: 13,
+          name: "Ripped Jeans",
+          price: 64.99,
+          image:
+            "https://i.pinimg.com/736x/df/07/36/df0736a899239fb28bc263b5e8501057.jpg",
+        },
+        {
+          id: 4,
+          name: "Silk Blouse",
+          price: 39.99,
+          image:
+            "https://i.pinimg.com/1200x/bd/6c/f9/bd6cf9e39bb3ea86086bb1f89c789ee6.jpg",
+        },
+      ];
+
+      let currentProduct = null;
+      let cart = JSON.parse(localStorage.getItem("productCart")) || [];
+
+
+      function renderProductThumbnails(product) {
+  const galleryContainer = document.getElementById("productThumbnailsGallery");
+  if (!galleryContainer) return;
+  
+  // Collect all images: main image + product_images (if exists)
+  let allImages = [product.image];
+  if (product.product_images && Array.isArray(product.product_images) && product.product_images.length > 0) {
+    allImages = [...allImages, ...product.product_images];
+  }
+  
+  // Clear container
+  galleryContainer.innerHTML = "";
+  
+  // Create thumbnails
+  allImages.forEach((imgSrc, idx) => {
+    const thumb = document.createElement("img");
+    thumb.src = imgSrc;
+    thumb.classList.add("thumb-img");
+    if (idx === 0) thumb.classList.add("active-thumb");
+    thumb.onerror = () => { thumb.src = "https://placehold.co/100x100/eee/aaa?text=img"; };
+    
+    // Optional: Click to enlarge or change main image
+    thumb.addEventListener("click", () => {
+      // Update main product image if you want
+      const mainImage = document.getElementById("detailMainImage");
+      if (mainImage) {
+        mainImage.src = imgSrc;
+      }
+      // Update active class
+      document.querySelectorAll(".thumb-img").forEach(t => t.classList.remove("active-thumb"));
+      thumb.classList.add("active-thumb");
+    });
+    
+    galleryContainer.appendChild(thumb);
+  });
+}
+function reorderForMobile() {
+  const isMobile = window.innerWidth <= 768;
+  const productGallery = document.querySelector('.product-gallery');
+  const mainImage = document.querySelector('.main-image');
+  const productInfoDetail = document.querySelector('.product-info-detail');
+  
+  if (!productGallery || !mainImage || !productInfoDetail) return;
+  
+  const mainImageIndex = Array.from(productGallery.children).indexOf(mainImage);
+  const infoDetailIndex = Array.from(productGallery.children).indexOf(productInfoDetail);
+  
+  if (isMobile) {
+    // MOBILE: Move main image after product-info-detail if it's before it
+    if (mainImageIndex < infoDetailIndex) {
+      productGallery.insertBefore(mainImage, productInfoDetail.nextSibling);
+    }
+  } else {
+    // DESKTOP: Restore original order - move main image before product-info-detail if it's after it
+    if (mainImageIndex > infoDetailIndex) {
+      productGallery.insertBefore(mainImage, productInfoDetail);
+    }
+  }
+}
+
+// Call on load and resize
+let resizeTimeout;
+window.addEventListener('resize', function() {
+  // Clear previous timeout
+  clearTimeout(resizeTimeout);
+  // Wait for resize to finish before reordering
+  resizeTimeout = setTimeout(function() {
+    reorderForMobile();
+  }, 150);
+});
+      function getProductFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        const id = parseInt(params.get("id"));
+        if (id && !isNaN(id)) {
+          return (
+            LEFT_PRODUCTS_DETAIL.find((p) => p.id === id) ||
+            LEFT_PRODUCTS_DETAIL[4]
+          );
+        }
+        // default fallback: Premium Leather Tote (or straw tote ID 5)
+        return (
+          LEFT_PRODUCTS_DETAIL.find((p) => p.id === 5) ||
+          LEFT_PRODUCTS_DETAIL[4]
+        );
+      }
+
+      function renderProductDetail(product) {
+        if (!product) return;
+        document.getElementById("detailTitle").innerText = product.name;
+        document.getElementById("detailPrice").innerHTML =
+          `$${product.price.toFixed(2)} <small>Kyats</small>`;
+        document.getElementById("detailMainImage").src = product.image;
+        // Render product thumbnails in left column
+renderProductThumbnails(product);
+        document.getElementById("detailMainImage").onerror = function () {
+          this.src = "https://placehold.co/400x400/eee/aaa?text=Product";
+        };
+        // meta info: category, sku mock, quantity
+        const sku = `EL-${product.category?.substring(0, 3).toUpperCase() || "PRD"}-${product.id}`;
+        const qty = Math.floor(Math.random() * 25) + 5;
+        const metaHtml = `
+      <table class="product-meta-table">
+    <tr>
+      <td class="meta-label">Category</td>
+      <td class="meta-value">${product.category || "Fashion"}</td>
+      <td class="meta-label">Condition</td>
+      <td class="meta-value">New</td>
+    </tr>
+    <tr>
+      <td class="meta-label">SKU</td>
+      <td class="meta-value">${sku}</td>
+      <td class="meta-label">Quantity Available</td>
+      <td class="meta-value">${qty}</td>
+    </tr>
+  </table>
+    `;
+    // After setting detailMeta innerHTML
+        document.getElementById("detailMeta").innerHTML = metaHtml;
+// Reorder after meta is rendered
+setTimeout(() => reorderForMobile(), 50);
+        const desc =
+          product.description ||
+          "Crafted from premium materials. Free shipping included. Sustainable packaging.";
+        document.getElementById("detailDescription").innerHTML =
+          `<p>${desc}</p><p> Manufacturer: Elephant Co. & contains no harmful substances.</p><hr></hr><span>Seller Information</span>`;
+        // seller info: based on product.seller
+        const sellerName = product.seller || "Sarah J.";
+        const sellerRating = product.rating || 4.9;
+        document.getElementById("sellerName").innerHTML = sellerName;
+        document.querySelector(".seller-rating").innerHTML =
+          `★★★★★ <span>${sellerRating}</span>`;
+          // Update avatar with seller name's first letter
+const sellerAvatar = document.querySelector(".seller-avatar");
+if (sellerAvatar) {
+  // Get first character of seller name (or first letter of first word)
+  let firstLetter = sellerName.charAt(0).toUpperCase();
+  // If seller name has multiple words, you can also take second letter
+  // For example: "Sarah J." -> "S", "Elegance Studio" -> "E"
+  sellerAvatar.innerHTML = firstLetter;
+}
+        // update more from seller
+        renderMoreFromStore(sellerName);
+      }
+
+      function renderMoreFromStore(sellerName) {
+  let itemsToShow = [];
+  
+  // Filter products that belong to the current seller (excluding current product)
+  itemsToShow = LEFT_PRODUCTS_DETAIL.filter(
+    (p) => p.seller === sellerName && p.id !== currentProduct?.id
+  ).slice(0, 12);
+  
+  // If no other products from this seller, show fallback or empty message
+  if (itemsToShow.length === 0) {
+    const container = document.getElementById("moreFromStoreGrid");
+    if (container) {
+      container.innerHTML = `<div style="text-align:center; padding:40px;">No other items from this seller</div>`;
+    }
+    // Update the title anyway
+    const titleElement = document.getElementById("moreFromStoreTitle");
+    if (titleElement) {
+      titleElement.innerHTML = `More from ${sellerName}'s Store`;
+    }
+    return;
+  }
+  
+  const container = document.getElementById("moreFromStoreGrid");
+  if (!container) return;
+  
+  container.innerHTML = itemsToShow
+    .map(
+      (item) => `
+    <div class="store-item" data-id="${item.id}">
+      <img src="${item.image}" onerror="this.src='https://placehold.co/150x150/f0f0f0/ccc'" alt="${item.name}">
+      <div class="store-item-name">${item.name.length > 18 ? item.name.slice(0, 15) + "..." : item.name}</div>
+      <div class="store-item-price">$${item.price.toFixed(2)}</div>
+    </div>
+  `,
+    )
+    .join("");
+  
+  // Update the title with dynamic seller name
+  const titleElement = document.getElementById("moreFromStoreTitle");
+  if (titleElement) {
+    titleElement.innerHTML = `More from ${sellerName}'s Store`;
+  }
+  
+  // attach click event to navigate to product detail with id
+  document.querySelectorAll(".store-item").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      const prodId = parseInt(el.dataset.id);
+      if (prodId) window.location.href = `product-detail.html?id=${prodId}`;
+    });
+  });
+}
+
+      // add to cart + toast + localStorage
+      function addToCart(product) {
+        const existing = cart.find((item) => item.id === product.id);
+        if (existing) existing.quantity += 1;
+        else
+          cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            quantity: 1,
+            image: product.image,
+          });
+        localStorage.setItem("productCart", JSON.stringify(cart));
+        showToast(`${product.name} added to cart 🛒`);
+        updateCartIcon();
+      }
+
+      function showToast(msg) {
+        let toastDiv = document.createElement("div");
+        toastDiv.className = "toast-msg";
+        toastDiv.innerText = msg;
+        document.body.appendChild(toastDiv);
+        setTimeout(() => toastDiv.remove(), 1800);
+      }
+
+      function updateCartIcon() {
+        const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
+        const cartBadge = document.querySelector(".cart b");
+        if (cartBadge) cartBadge.innerText = totalItems;
+        else if (totalItems > 0) {
+          const cartSpan = document.querySelector(".cart");
+          if (cartSpan && !cartSpan.querySelector("b")) {
+            const badge = document.createElement("b");
+            badge.innerText = totalItems;
+            cartSpan.appendChild(badge);
+          } else if (cartSpan) {
+            const b = cartSpan.querySelector("b");
+            if (b) b.innerText = totalItems;
+          }
+        }
+      }
+
+      function initPage() {
+        currentProduct = getProductFromUrl();
+        renderProductDetail(currentProduct);
+         reorderForMobile(); // Add this line
+        const addBtn = document.getElementById("addToCartDetailBtn");
+        if (addBtn) {
+          addBtn.addEventListener("click", () => addToCart(currentProduct));
+        }
+        // ask seller
+        document
+          .querySelector(".ask-seller-btn")
+          ?.addEventListener("click", () => {
+            alert(
+              `📩 Message sent to ${currentProduct.seller || "seller"}! They'll reply soon.`,
+            );
+          });
+        updateCartIcon();
+      }
+
+      // highlight active nav (category)
+      const currentPath = window.location.pathname.split("/").pop();
+      document.querySelectorAll(".nav a").forEach((link) => {
+        if (link.getAttribute("href") === currentPath)
+          link.classList.add("active");
+      });
+      document.querySelectorAll(".mobile-nav a").forEach((link) => {
+        if (link.getAttribute("href") === currentPath)
+          link.classList.add("active");
+      });
+      initPage();
+    </script>
+  </body>
+</html>
