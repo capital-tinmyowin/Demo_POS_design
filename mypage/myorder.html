@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>Elephant Mall | My Orders</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        background: #f8f6f2;
+        color: #1e2a2a;
+      }
+
+      /* ========== HEADER (same as category page) ========== */
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 40px;
+        border-bottom: 1px solid #eee;
+        background: white;
+        flex-wrap: wrap;
+      }
+      .nav {
+        display: flex;
+        gap: 25px;
+        font-weight: 600;
+      }
+      .nav a {
+        text-decoration: none;
+        color: #333;
+        font-size: 15px;
+        transition: 0.2s;
+      }
+      .nav a.active,
+      .nav a:hover {
+        color: orange;
+        border-bottom: 2px solid orange;
+        padding-bottom: 3px;
+      }
+      .logo img {
+        height: 45px;
+        object-fit: contain;
+      }
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .search-box {
+        position: relative;
+      }
+      .search-box input {
+        padding: 8px 35px 8px 15px;
+        border-radius: 30px;
+        border: 1px solid #ddd;
+        width: 260px;
+        background: #f9f9f9;
+      }
+      .search-box span {
+        position: absolute;
+        right: 12px;
+        top: 8px;
+        color: #999;
+      }
+      .sell-btn {
+        background: orange;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 30px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .icons {
+        display: flex;
+        gap: 18px;
+        font-size: 22px;
+        color: #2c3e2b;
+      }
+      .cart {
+        position: relative;
+      }
+
+      /* ========== FOOTER ========== */
+      .footer {
+        margin-top: 60px;
+        background: #f0ede8;
+        padding: 40px 40px 30px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 30px;
+      }
+      .footer div {
+        min-width: 140px;
+      }
+      .footer h4 {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: #2b5e2f;
+      }
+      .footer p {
+        font-size: 13px;
+        margin-bottom: 6px;
+        color: #4a4a4a;
+        cursor: pointer;
+      }
+
+      /* ========== ORDERS PAGE MAIN ========== */
+      .orders-container {
+        max-width: 1100px;
+        margin: 30px auto;
+        padding: 0 24px;
+      }
+      .page-title {
+        font-size: 28px;
+        font-weight: 800;
+        color: #2c3e2b;
+        margin-bottom: 28px;
+        border-left: 5px solid #d68247;
+        padding-left: 18px;
+      }
+      .order-card {
+        background: white;
+        border-radius: 24px;
+        margin-bottom: 24px;
+        overflow: hidden;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+        transition: 0.2s;
+      }
+      .order-header {
+        padding: 16px 24px;
+        background: #fefaf5;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .order-number {
+        font-weight: 800;
+        font-size: 18px;
+        color: #1e3a2f;
+      }
+      .order-date {
+        font-size: 14px;
+        color: #777;
+      }
+      .order-status {
+        display: inline-block;
+        padding: 4px 14px;
+        border-radius: 40px;
+        font-size: 13px;
+        font-weight: 700;
+        background: #e9ecef;
+        color: #2c3e2b;
+      }
+      .status-shipped {
+        background: #fff3e0;
+        color: #d68247;
+      }
+      .status-delivered {
+        background: #e0f2e5;
+        color: #2b6e3b;
+      }
+      .order-items {
+        padding: 16px 24px;
+      }
+      .order-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 12px 0;
+        border-bottom: 1px solid #f0ede8;
+      }
+      .order-item:last-child {
+        border-bottom: none;
+      }
+      .item-info {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+      .item-img {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 16px;
+        background: #f5f5f5;
+      }
+      .item-name {
+        font-weight: 700;
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+      .item-price {
+        font-size: 14px;
+        color: #d68247;
+        font-weight: 600;
+      }
+      .order-actions {
+        display: flex;
+        gap: 12px;
+      }
+      .btn-outline-dark {
+        background: transparent;
+        border: 1px solid #ccc;
+        padding: 6px 16px;
+        border-radius: 40px;
+        font-size: 13px;
+        font-weight: 500;
+        transition: 0.2s;
+        text-decoration: none;
+        color: #333;
+      }
+      .btn-outline-dark:hover {
+        background: #f0f0f0;
+        border-color: #aaa;
+      }
+      .btn-primary-sm {
+        background: #2b6e3b;
+        border: none;
+        padding: 6px 18px;
+        border-radius: 40px;
+        font-size: 13px;
+        font-weight: 600;
+        color: white;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .btn-primary-sm:hover {
+        background: #1e5a2f;
+      }
+      .btn-warning-sm {
+        background: #d68247;
+        border: none;
+        padding: 6px 18px;
+        border-radius: 40px;
+        font-size: 13px;
+        font-weight: 600;
+        color: white;
+        cursor: pointer;
+      }
+      .empty-orders {
+        text-align: center;
+        padding: 60px 20px;
+        background: white;
+        border-radius: 28px;
+        color: #777;
+      }
+      /* mobile responsiveness */
+      @media (max-width: 768px) {
+        .header {
+          padding: 12px 16px;
+          flex-direction: column;
+          gap: 12px;
+        }
+        .nav {
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 16px;
+        }
+        .header-right {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .search-box input {
+          width: 180px;
+        }
+        .footer {
+          display: none;
+        }
+        .mobile-nav {
+          display: flex;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          background: white;
+          justify-content: space-around;
+          padding: 10px 0;
+          border-top: 1px solid #ddd;
+          z-index: 1000;
+        }
+        .mobile-nav a {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-decoration: none;
+          font-size: 12px;
+          color: #555;
+        }
+        .mobile-nav a.active {
+          color: green;
+        }
+        .mobile-nav .center-btn {
+          background: orange;
+          color: white;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          margin-top: -20px;
+          justify-content: center;
+        }
+        body {
+          padding-bottom: 70px;
+        }
+        .orders-container {
+          padding: 0 16px;
+        }
+        .order-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .order-actions {
+          margin-top: 8px;
+          width: 100%;
+          justify-content: flex-start;
+        }
+      }
+      .mobile-nav {
+        display: none;
+      }
+      .toast-msg {
+        position: fixed;
+        bottom: 80px;
+        left: 20px;
+        background: #1e3a2f;
+        color: white;
+        padding: 8px 18px;
+        border-radius: 40px;
+        z-index: 300;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="nav">
+        <a href="home.html">HOME</a>
+        <a href="category.html">CATEGORIES</a>
+        <a href="sale.html">SALE</a>
+        <a href="new.html">NEW IN</a>
+        <a href="orders.html" class="active">MY ORDERS</a>
+        <a href="about.html">ABOUT US</a>
+      </div>
+      <div class="logo">
+        <img
+          src="../image/logo.png"
+          alt="logo"
+          onerror="this.src = 'https://placehold.co/100x50?text=🐘Elephant'"
+        />
+      </div>
+      <div class="header-right">
+        <div class="search-box">
+          <input type="text" placeholder="Search in Elephant Mall" />
+          <span><i class="fa-solid fa-magnifying-glass"></i></span>
+        </div>
+        <button class="sell-btn">SELL ITEMS</button>
+        <div class="icons">
+          <span><i class="fa-regular fa-user"></i></span>
+          <span><i class="fa-regular fa-heart"></i></span>
+          <span class="cart"><i class="fa-solid fa-cart-shopping"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="orders-container">
+      <h2 class="page-title">📦 My Orders</h2>
+      <div id="ordersList"></div>
+    </div>
+
+    <div class="footer">
+      <div>
+        <h4>CUSTOMER CARE</h4>
+        <p>Home</p>
+        <p>About Us</p>
+        <p>Start Selling</p>
+      </div>
+      <div>
+        <h4>CONNECT WITH US</h4>
+        <p>Contact Us</p>
+      </div>
+      <div>
+        <h4>LEGAL</h4>
+        <p>Legal</p>
+        <p>Privacy Policy</p>
+      </div>
+    </div>
+
+    <div class="mobile-nav">
+      <a href="home.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
+      <a href="category.html"
+        ><i class="fa-solid fa-layer-group"></i><span>Categories</span></a
+      >
+      <a href="upload.html" class="center-btn"
+        ><i class="fa-solid fa-plus"></i
+      ></a>
+      <a href="cart.html"
+        ><i class="fa-solid fa-cart-shopping"></i><span>Cart</span></a
+      >
+      <a href="profile.html"
+        ><i class="fa-solid fa-user"></i><span>Profile</span></a
+      >
+    </div>
+
+    <script>
+      // ---------- MOCK ORDER DATA (based on cart items and purchase history) ----------
+      // This simulates orders placed by the user. In real scenario, data would come from backend/localStorage.
+      // We'll also read current cart from localStorage to show dynamic order creation if needed (but orders are separate).
+
+      // Sample orders (matching photo style)
+      let orders = [
+        {
+          id: "314159",
+          date: "Aug 15, 2024",
+          status: "SHIPPED",
+          items: [
+            {
+              name: "Premium Leather Tote Bag",
+              price: 120.0,
+              quantity: 1,
+              image:
+                "https://i.pinimg.com/1200x/f2/df/79/f2df7979c3e9fd8bfdf6b51aa9aca09e.jpg",
+              productId: 5,
+            },
+          ],
+        },
+        {
+          id: "271828",
+          date: "Aug 15, 2024",
+          status: "DELIVERED",
+          items: [
+            {
+              name: "Blousss",
+              price: 39.99,
+              quantity: 1,
+              image:
+                "https://i.pinimg.com/1200x/bd/6c/f9/bd6cf9e39bb3ea86086bb1f89c789ee6.jpg",
+              productId: 4,
+            },
+          ],
+        },
+        {
+          id: "101112",
+          date: "Aug 10, 2024",
+          status: "DELIVERED",
+          items: [
+            {
+              name: "Wireless Earbuds",
+              price: 89.99,
+              quantity: 1,
+              image:
+                "https://i5.walmartimages.com/seo/2022-Apple-10-9-inch-iPad-Wi-Fi-64GB-Pink-10th-Generation_4fdae443-4f60-4a3e-9efe-12758bf5f128.f4d7333626b4e6b27e8be25d1f698373.jpeg",
+              productId: 19,
+            },
+            {
+              name: "Power Bank 10000mAh",
+              price: 29.99,
+              quantity: 2,
+              image:
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnwF3fpDIATeZ_9o5h3vNu_X8KUHSq5O739g&s",
+              productId: 20,
+            },
+          ],
+        },
+      ];
+
+      // Helper: show toast message
+      function showToast(msg) {
+        let t = document.createElement("div");
+        t.className = "toast-msg";
+        t.innerText = msg;
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 2000);
+      }
+
+      // render orders list
+      function renderOrders() {
+        const container = document.getElementById("ordersList");
+        if (!container) return;
+
+        if (orders.length === 0) {
+          container.innerHTML = `<div class="empty-orders"><i class="fa-regular fa-receipt fa-3x" style="opacity:0.5; margin-bottom:12px; display:block;"></i>No orders yet.<br>Start shopping to see your orders here.</div>`;
+          return;
+        }
+
+        let html = "";
+        orders.forEach((order) => {
+          // status style class
+          let statusClass = "";
+          if (order.status === "SHIPPED") statusClass = "status-shipped";
+          else if (order.status === "DELIVERED")
+            statusClass = "status-delivered";
+
+          html += `
+        <div class="order-card" data-order-id="${order.id}">
+          <div class="order-header">
+            <div>
+              <span class="order-number">Order #${order.id}</span>
+              <span class="order-date" style="margin-left: 12px;">${order.date}</span>
+            </div>
+            <div class="order-status ${statusClass}">${order.status}</div>
+          </div>
+          <div class="order-items">
+      `;
+          order.items.forEach((item) => {
+            html += `
+          <div class="order-item">
+            <div class="item-info">
+              <img class="item-img" src="${item.image}" onerror="this.src='https://placehold.co/70x70/eee/ccc?text=item'" alt="${item.name}">
+              <div>
+                <div class="item-name">${item.name}</div>
+                <div class="item-price">$${item.price.toFixed(2)}</div>
+                ${item.quantity > 1 ? `<small class="text-muted">Qty: ${item.quantity}</small>` : ""}
+              </div>
+            </div>
+            <div class="order-actions">
+        `;
+            if (order.status === "SHIPPED") {
+              html += `<button class="btn-outline-dark track-btn" data-order="${order.id}" data-item="${item.name}">Track Order</button>
+                   <button class="btn-primary-sm view-details-btn" data-product-id="${item.productId}">View Details</button>`;
+            } else if (order.status === "DELIVERED") {
+              html += `<button class="btn-outline-dark buy-again-btn" data-product-id="${item.productId}" data-name="${item.name}" data-price="${item.price}" data-img="${item.image}">Buy Again</button>
+                   <button class="btn-warning-sm leave-review-btn" data-product="${item.name}">Leave Review</button>`;
+            }
+            html += `</div></div>`;
+          });
+          html += `</div></div>`;
+        });
+        container.innerHTML = html;
+
+        // attach event listeners for dynamic buttons
+        document.querySelectorAll(".track-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const orderId = btn.getAttribute("data-order");
+            showToast(
+              `📦 Tracking info for order #${orderId} would be shown here.`,
+            );
+          });
+        });
+        document.querySelectorAll(".view-details-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const productId = btn.getAttribute("data-product-id");
+            if (productId)
+              window.location.href = `product-detail.html?id=${productId}`;
+            else showToast("Product details coming soon");
+          });
+        });
+        document.querySelectorAll(".buy-again-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const id = btn.getAttribute("data-product-id");
+            const name = btn.getAttribute("data-name");
+            const price = parseFloat(btn.getAttribute("data-price"));
+            const image = btn.getAttribute("data-img");
+            // add to cart logic (using same cart system from category page)
+            addToCartFromOrders(id, name, price, image);
+          });
+        });
+        document.querySelectorAll(".leave-review-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const productName = btn.getAttribute("data-product");
+            showToast(
+              `✨ Review for "${productName}" - Thank you! (review popup would open)`,
+            );
+          });
+        });
+      }
+
+      // Cart functions (integrated with localStorage to keep same cart as category page)
+      let cart = JSON.parse(localStorage.getItem("productCart")) || [];
+
+      function addToCartFromOrders(id, name, price, image) {
+        const existing = cart.find((item) => item.id == id);
+        if (existing) existing.quantity += 1;
+        else
+          cart.push({
+            id: parseInt(id),
+            name: name,
+            price: price,
+            quantity: 1,
+            image: image,
+          });
+        localStorage.setItem("productCart", JSON.stringify(cart));
+        showToast(`${name} added to cart 🛒`);
+        updateCartIcon();
+      }
+
+      function updateCartIcon() {
+        const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
+        const cartBadge = document.querySelector(".cart b");
+        if (cartBadge) cartBadge.innerText = totalItems;
+        else if (totalItems > 0) {
+          const cartSpan = document.querySelector(".cart");
+          if (cartSpan && !cartSpan.querySelector("b")) {
+            const badge = document.createElement("b");
+            badge.innerText = totalItems;
+            cartSpan.appendChild(badge);
+          } else if (cartSpan) {
+            const b = cartSpan.querySelector("b");
+            if (b) b.innerText = totalItems;
+          }
+        }
+      }
+
+      // Optional: we can also merge orders from purchase history based on cart checkout simulation.
+      // For demonstration we keep existing orders but we'll also add a "Sample Order from Cart" if needed.
+      // No extra changes.
+
+      // highlight active nav
+      const currentPath = window.location.pathname.split("/").pop();
+      document.querySelectorAll(".nav a").forEach((link) => {
+        if (link.getAttribute("href") === currentPath)
+          link.classList.add("active");
+      });
+      document.querySelectorAll(".mobile-nav a").forEach((link) => {
+        if (link.getAttribute("href") === currentPath)
+          link.classList.add("active");
+      });
+
+      // init
+      renderOrders();
+      updateCartIcon();
+    </script>
+  </body>
+</html>

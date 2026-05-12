@@ -1,438 +1,404 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Elephant Mall</title>
-    <link rel="stylesheet" href="../css/sell.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
+    <link rel="stylesheet" href="../css/sell.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
 
-<body>
-
+  <body>
     <!-- HEADER -->
     <div class="header">
+      <div class="menu-toggle" id="menuToggle">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+      <!-- LEFT: NAV -->
+      <div class="nav">
+        <a href="home.html" class="active">HOME</a>
+        <a href="category.html">CATEGORIES</a>
+        <a href="sale.html">SALE</a>
+        <a href="new.html">NEW IN</a>
+        <a href="orders.html">MY ORDERS</a>
+        <a href="about.html">ABOUT US</a>
+      </div>
 
-        <div class="menu-toggle" id="menuToggle">
-            <i class="fa-solid fa-bars"></i>
+      <!-- CENTER: LOGO -->
+      <div class="logo">
+        <img src="../image/logo.png" alt="logo" />
+      </div>
+
+      <!-- RIGHT: SEARCH + BUTTON + ICONS -->
+      <div class="header-right">
+        <div class="search-box">
+          <input type="text" placeholder="Search in Elephant Mall" />
+          <span><i class="fa-solid fa-magnifying-glass"></i></span>
         </div>
-        <!-- LEFT: NAV -->
-        <div class="nav">
-            <a href="home.html" class="active">HOME</a>
-            <a href="category.html">CATEGORIES</a>
-            <a href="sale.html">SALE</a>
-            <a href="new.html">NEW IN</a>
-            <a href="orders.html">MY ORDERS</a>
-            <a href="about.html">ABOUT US</a>
+
+        <button class="sell-btn">SELL ITEMS</button>
+
+        <div class="icons">
+          <span>
+            <i class="fa-regular fa-user"></i>
+          </span>
+
+          <span>
+            <i class="fa-regular fa-heart"></i>
+          </span>
+
+          <span class="cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <!-- <b>3</b> -->
+          </span>
         </div>
-
-        <!-- CENTER: LOGO -->
-        <div class="logo">
-            <img src="../image/logo.png" alt="logo">
-        </div>
-
-        <!-- RIGHT: SEARCH + BUTTON + ICONS -->
-        <div class="header-right">
-
-            <div class="search-box">
-                <input type="text" placeholder="Search in Elephant Mall">
-                <span><i class="fa-solid fa-magnifying-glass"></i></span>
-            </div>
-
-            <button class="sell-btn">SELL ITEMS</button>
-
-            <div class="icons">
-
-                <span>
-                    <i class="fa-regular fa-user"></i>
-                </span>
-
-                <span>
-                    <i class="fa-regular fa-heart"></i>
-                </span>
-
-                <span class="cart">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <!-- <b>3</b> -->
-                </span>
-
-            </div>
-
-        </div>
+      </div>
     </div>
 
     <div class="listing-container">
+      <!-- LEFT SIDE -->
+      <div class="listing-left">
+        <h2>Create Your Listing</h2>
+        <p class="sub">Start Selling in Yangon</p>
 
-        <!-- LEFT SIDE -->
-        <div class="listing-left">
+        <!-- PHOTOS -->
+        <label class="section-title"
+          >Product Photos (Add Up to 12 Photos)</label
+        >
 
-            <h2>Create Your Listing</h2>
-            <p class="sub">Start Selling in Yangon</p>
+        <div class="photo-wrapper">
+          <!-- LEFT: photo preview boxes -->
+          <div class="photo-grid" id="photoGrid">
+            <!-- 10 preview boxes -->
+            <div class="photo-box"></div>
+            <div class="photo-box"></div>
+            <div class="photo-box"></div>
+            <div class="photo-box"></div>
+            <div class="photo-box"></div>
 
-            <!-- PHOTOS -->
-            <label class="section-title">Product Photos (Add Up to 12 Photos)</label>
+            <div class="photo-box"></div>
+            <div class="photo-box"></div>
+            <div class="photo-box"></div>
+            <div class="photo-box"></div>
+            <div class="photo-box"></div>
+          </div>
 
-            <div class="photo-wrapper">
+          <!-- RIGHT: upload button -->
+          <div class="add-photo" id="addPhotoBtn">
+            <i class="fa-solid fa-camera"></i>
+            <span>Add Photos</span>
+          </div>
 
-                <!-- LEFT: photo preview boxes -->
-                <div class="photo-grid" id="photoGrid">
-
-                    <!-- 10 preview boxes -->
-                    <div class="photo-box"></div>
-                    <div class="photo-box"></div>
-                    <div class="photo-box"></div>
-                    <div class="photo-box"></div>
-                    <div class="photo-box"></div>
-
-                    <div class="photo-box"></div>
-                    <div class="photo-box"></div>
-                    <div class="photo-box"></div>
-                    <div class="photo-box"></div>
-                    <div class="photo-box"></div>
-
-                </div>
-
-                <!-- RIGHT: upload button -->
-                <div class="add-photo" id="addPhotoBtn">
-                    <i class="fa-solid fa-camera"></i>
-                    <span>Add Photos</span>
-                </div>
-
-                <!-- hidden file input -->
-                <input type="file" id="photoInput" accept="image/*" multiple hidden>
-
-            </div>
-
-            <div class="upload-text">
-                <i class="fa-solid fa-folder-open"></i> Upload from Gallery
-            </div>
-
-            <!-- TITLE -->
-            <label>Item Title</label>
-            <input type="text" placeholder="Enter item name">
-
-            <!-- CATEGORY -->
-            <label class="section-title">
-                Myanmar Crafts & Daily Goods (Suggested Categories)
-            </label>
-
-            <div class="category-wrapper">
-
-                <button class="cat-btn left" id="catLeft">&#10094;</button>
-                <div class="category-scroll" id="categoryList"></div>
-
-                <button class="cat-btn right" id="catRight">&#10095;</button>
-            </div>
-
-            <!-- DESCRIPTION -->
-            <label>Product Description</label>
-            <textarea rows="6" placeholder="Describe your product..."></textarea>
-
+          <!-- hidden file input -->
+          <input type="file" id="photoInput" accept="image/*" multiple hidden />
         </div>
 
+        <div class="upload-text">
+          <i class="fa-solid fa-folder-open"></i> Upload from Gallery
+        </div>
 
-        <!-- RIGHT SIDE -->
-        <div class="listing-right">
+        <!-- TITLE -->
+        <label>Item Title</label>
+        <input type="text" placeholder="Enter item name" />
 
-            <h3>Pricing & Inventory</h3>
+        <!-- CATEGORY -->
+        <label class="section-title">
+          Myanmar Crafts & Daily Goods (Suggested Categories)
+        </label>
 
-            <!-- PRICE -->
-            <div class="input-group">
-                <input type="text" placeholder="Price in Kyats">
-                <span class="suffix">Kyats</span>
-            </div>
+        <div class="category-wrapper">
+          <button class="cat-btn left" id="catLeft">&#10094;</button>
+          <div class="category-scroll" id="categoryList"></div>
 
-            <!-- SKU -->
-            <input type="text" placeholder="SKU (Optional, e.g., HW-23)">
+          <button class="cat-btn right" id="catRight">&#10095;</button>
+        </div>
 
-            <!-- STOCK -->
-            <label class="small-title">Inventory (Stock)</label>
+        <!-- DESCRIPTION -->
+        <label>Product Description</label>
+        <textarea rows="6" placeholder="Describe your product..."></textarea>
+      </div>
 
-            <div class="qty-box">
+      <!-- RIGHT SIDE -->
+      <div class="listing-right">
+        <h3>Pricing & Inventory</h3>
 
-                <input type="number" id="qtyInput" value="1" min="1">
+        <!-- PRICE -->
+        <div class="input-group">
+          <input type="text" placeholder="Price in Kyats" />
+          <span class="suffix">Kyats</span>
+        </div>
 
-                <div class="qty-actions">
-                    <button type="button" id="minusBtn">−</button>
-                    <button type="button" id="plusBtn">+</button>
-                </div>
+        <!-- SKU -->
+        <input type="text" placeholder="SKU (Optional, e.g., HW-23)" />
 
-            </div>
-            <!-- CONTACT -->
-            <h3>Buyer Contact Methods</h3>
+        <!-- STOCK -->
+        <label class="small-title">Inventory (Stock)</label>
 
-            <div class="phone-check">
-                <input type="checkbox" class="ph-req">
-                <span>Phone Number (Required)</span>
-            </div>
+        <div class="qty-box">
+          <input type="number" id="qtyInput" value="1" min="1" />
 
-            <div class="input-group">
-                <input type="text" placeholder="">
-            </div>
+          <div class="qty-actions">
+            <button type="button" id="minusBtn">−</button>
+            <button type="button" id="plusBtn">+</button>
+          </div>
+        </div>
+        <!-- CONTACT -->
+        <h3>Buyer Contact Methods</h3>
 
-            <!-- Messenger -->
-            <div class="contact-row">
+        <div class="phone-check">
+          <input type="checkbox" class="ph-req" />
+          <span>Phone Number (Required)</span>
+        </div>
 
-                <div class="contact-left">
-                    <i class="fa-brands fa-facebook-messenger messenger"></i>
-                    <span>Messenger</span>
-                </div>
+        <div class="input-group">
+          <input type="text" placeholder="" />
+        </div>
 
-                <div class="contact-input-area">
-                    <input type="text" placeholder="Messenger Link">
+        <!-- Messenger -->
+        <div class="contact-row">
+          <div class="contact-left">
+            <i class="fa-brands fa-facebook-messenger messenger"></i>
+            <span>Messenger</span>
+          </div>
 
-                    <label class="same-check">
-                        <input type="checkbox">
-                        <span>Same as Phone Number</span>
-                    </label>
-                </div>
+          <div class="contact-input-area">
+            <input type="text" placeholder="Messenger Link" />
 
-            </div>
+            <label class="same-check">
+              <input type="checkbox" />
+              <span>Same as Phone Number</span>
+            </label>
+          </div>
+        </div>
 
-            <!-- Telegram -->
-            <div class="contact-row">
+        <!-- Telegram -->
+        <div class="contact-row">
+          <div class="contact-left">
+            <i class="fa-brands fa-telegram telegram"></i>
+            <span>Telegram</span>
+          </div>
 
-                <div class="contact-left">
-                    <i class="fa-brands fa-telegram telegram"></i>
-                    <span>Telegram</span>
-                </div>
+          <div class="contact-input-area">
+            <input type="text" placeholder="+95 9" />
 
-                <div class="contact-input-area">
-                    <input type="text" placeholder="+95 9">
+            <label class="same-check">
+              <input type="checkbox" />
+              <span>Same as Phone Number</span>
+            </label>
+          </div>
+        </div>
 
-                    <label class="same-check">
-                        <input type="checkbox">
-                        <span>Same as Phone Number</span>
-                    </label>
-                </div>
+        <!-- Viber -->
+        <div class="contact-row">
+          <div class="contact-left">
+            <i class="fa-brands fa-viber viber"></i>
+            <span>Viber</span>
+          </div>
 
-            </div>
+          <div class="contact-input-area">
+            <input type="text" placeholder="Viber" />
 
-            <!-- Viber -->
-            <div class="contact-row">
+            <label class="same-check">
+              <input type="checkbox" />
+              <span>Same as Phone Number</span>
+            </label>
+          </div>
+        </div>
 
-                <div class="contact-left">
-                    <i class="fa-brands fa-viber viber"></i>
-                    <span>Viber</span>
-                </div>
-
-                <div class="contact-input-area">
-                    <input type="text" placeholder="Viber">
-
-                    <label class="same-check">
-                        <input type="checkbox">
-                        <span>Same as Phone Number</span>
-                    </label>
-                </div>
-
-            </div>
-
-            <!-- Chat -->
-            <!-- <div class="chat-box">
+        <!-- Chat -->
+        <!-- <div class="chat-box">
                 <i class="fa-solid fa-circle-check"></i>
                 <span>Internal Chat Box</span>
             </div> -->
 
-            <button class="post-btn">POST YOUR LISTING</button>
+        <button class="post-btn">POST YOUR LISTING</button>
 
-            <p class="terms">
-                By posting, you agree to our
-                <a href="#">Terms & Conditions</a>.
-            </p>
-
-        </div>
+        <p class="terms">
+          By posting, you agree to our
+          <a href="#">Terms & Conditions</a>.
+        </p>
+      </div>
     </div>
 
     <!-- FOOTER -->
     <div class="footer">
-        <div>
-            <h4>CUSTOMER CARE</h4>
-            <p>Home</p>
-        </div>
+      <div>
+        <h4>CUSTOMER CARE</h4>
+        <p>Home</p>
+      </div>
 
-        <div>
-            <h4>ABOUT US</h4>
-            <p>About Us</p>
-            <p>Start Selling</p>
-        </div>
+      <div>
+        <h4>ABOUT US</h4>
+        <p>About Us</p>
+        <p>Start Selling</p>
+      </div>
 
-        <div>
-            <h4>CONNECT WITH US</h4>
-            <p>Contact Us</p>
-        </div>
+      <div>
+        <h4>CONNECT WITH US</h4>
+        <p>Contact Us</p>
+      </div>
 
-        <div>
-            <h4>LEGAL</h4>
-            <p>Legal</p>
-        </div>
+      <div>
+        <h4>LEGAL</h4>
+        <p>Legal</p>
+      </div>
     </div>
     <div class="mobile-nav">
+      <a href="home.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
 
-        <a href="home.html">
-            <i class="fa-solid fa-house"></i>
-            <span>Home</span>
-        </a>
+      <a href="category.html">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>Categories</span>
+      </a>
 
-        <a href="category.html">
-            <i class="fa-solid fa-layer-group"></i>
-            <span>Categories</span>
-        </a>
+      <a href="upload.html" class="center-btn">
+        <i class="fa-solid fa-plus"></i>
+      </a>
 
-        <a href="upload.html" class="center-btn">
-            <i class="fa-solid fa-plus"></i>
-        </a>
+      <a href="cart.html">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span>Cart</span>
+      </a>
 
-        <a href="cart.html">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span>Cart</span>
-        </a>
-
-        <a href="profile.html">
-            <i class="fa-solid fa-user"></i>
-            <span>Profile</span>
-        </a>
-
+      <a href="profile.html">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+      </a>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener("DOMContentLoaded", function () {
+        /* ACTIVE NAV */
+        let currentPage = window.location.pathname.split("/").pop();
 
-            /* ACTIVE NAV */
-            let currentPage = window.location.pathname.split("/").pop();
+        if (currentPage === "") currentPage = "home.html";
 
-            if (currentPage === "") currentPage = "home.html";
+        const allLinks = document.querySelectorAll(".nav a, .mobile-nav a");
 
-            const allLinks = document.querySelectorAll(".nav a, .mobile-nav a");
+        allLinks.forEach((link) => {
+          if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");
+          }
+        });
 
-            allLinks.forEach(link => {
-                if (link.getAttribute("href") === currentPage) {
-                    link.classList.add("active");
-                }
-            });
+        const menuToggle = document.getElementById("menuToggle");
+        const nav = document.querySelector(".nav");
 
+        menuToggle.addEventListener("click", () => {
+          nav.classList.toggle("show");
+        });
 
-            const menuToggle = document.getElementById("menuToggle");
-            const nav = document.querySelector(".nav");
+        /* CATEGORY SCROLL */
+        const categoryList = document.getElementById("categoryList");
 
-            menuToggle.addEventListener("click", () => {
-                nav.classList.toggle("show");
-            });
+        document.getElementById("catLeft").addEventListener("click", () => {
+          categoryList.scrollBy({ left: -120, behavior: "smooth" });
+        });
 
+        document.getElementById("catRight").addEventListener("click", () => {
+          categoryList.scrollBy({ left: 120, behavior: "smooth" });
+        });
 
-            /* CATEGORY SCROLL */
-            const categoryList = document.getElementById("categoryList");
+        //   RENDER CATEGORIES
 
-            document.getElementById("catLeft").addEventListener("click", () => {
-                categoryList.scrollBy({ left: -120, behavior: "smooth" });
-            });
+        const categories = [
+          { name: "bag", img: "../image/bag.png" },
+          { name: "shoes", img: "../image/shoe.png" },
+          { name: "blouse", img: "../image/blouse.png" },
+          { name: "hat", img: "../image/hat.png" },
+          { name: "tshirt", img: "../image/tshirt.png" },
+          { name: "bag", img: "../image/bag.png" },
+          { name: "shoe", img: "../image/shoe.png" },
+          { name: "tshirt", img: "../image/tshirt.png" },
+          { name: "bag", img: "../image/bag.png" },
+        ];
 
-            document.getElementById("catRight").addEventListener("click", () => {
-                categoryList.scrollBy({ left: 120, behavior: "smooth" });
-            });
+        categories.forEach((cat, index) => {
+          const div = document.createElement("div");
+          div.className = "category-item";
 
-            //   RENDER CATEGORIES
+          if (index === 0) div.classList.add("active");
 
-            const categories = [
-                { name: "bag", img: "../image/bag.png" },
-                { name: "shoes", img: "../image/shoe.png" },
-                { name: "blouse", img: "../image/blouse.png" },
-                { name: "hat", img: "../image/hat.png" },
-                { name: "tshirt", img: "../image/tshirt.png" },
-                { name: "bag", img: "../image/bag.png" },
-                { name: "shoe", img: "../image/shoe.png" },
-                { name: "tshirt", img: "../image/tshirt.png" },
-                { name: "bag", img: "../image/bag.png" }
-            ];
-
-            categories.forEach((cat, index) => {
-                const div = document.createElement("div");
-                div.className = "category-item";
-
-                if (index === 0) div.classList.add("active");
-
-                div.innerHTML = `
+          div.innerHTML = `
                     <img src="${cat.img}">
                     <p>${cat.name}</p>
                 `;
 
-                div.addEventListener("click", () => {
-                    document.querySelectorAll(".category-item")
-                        .forEach(c => c.classList.remove("active"));
-                    div.classList.add("active");
-                });
+          div.addEventListener("click", () => {
+            document
+              .querySelectorAll(".category-item")
+              .forEach((c) => c.classList.remove("active"));
+            div.classList.add("active");
+          });
 
-                categoryList.appendChild(div);
-            });
+          categoryList.appendChild(div);
+        });
 
+        /* IMAGE UPLOAD PREVIEW */
 
-            /* IMAGE UPLOAD PREVIEW */
+        const addPhotoBtn = document.getElementById("addPhotoBtn");
+        const photoInput = document.getElementById("photoInput");
+        const photoBoxes = document.querySelectorAll(".photo-box");
 
-            const addPhotoBtn = document.getElementById("addPhotoBtn");
-            const photoInput = document.getElementById("photoInput");
-            const photoBoxes = document.querySelectorAll(".photo-box");
+        /* track current box index */
+        let currentIndex = 0;
 
-            /* track current box index */
-            let currentIndex = 0;
+        /* click upload button */
+        addPhotoBtn.addEventListener("click", () => {
+          photoInput.click();
+        });
 
-            /* click upload button */
-            addPhotoBtn.addEventListener("click", () => {
-                photoInput.click();
-            });
+        /* show selected images */
+        photoInput.addEventListener("change", function (e) {
+          const files = Array.from(e.target.files);
 
-            /* show selected images */
-            photoInput.addEventListener("change", function (e) {
+          files.forEach((file) => {
+            /* stop if boxes are full */
+            if (currentIndex >= photoBoxes.length) return;
 
-                const files = Array.from(e.target.files);
+            const reader = new FileReader();
 
-                files.forEach((file) => {
-
-                    /* stop if boxes are full */
-                    if (currentIndex >= photoBoxes.length) return;
-
-                    const reader = new FileReader();
-
-                    reader.onload = function (event) {
-
-                        photoBoxes[currentIndex].innerHTML = `
+            reader.onload = function (event) {
+              photoBoxes[currentIndex].innerHTML = `
                 <img src="${event.target.result}" alt="preview">
             `;
 
-                        currentIndex++;
-                    };
+              currentIndex++;
+            };
 
-                    reader.readAsDataURL(file);
+            reader.readAsDataURL(file);
+          });
 
-                });
-
-                /* reset input, same image can be selected again */
-                photoInput.value = "";
-
-            });
-
-            /* QUANTITY BUTTONS */
-
-            const qtyInput = document.getElementById("qtyInput");
-            const plusBtn = document.getElementById("plusBtn");
-            const minusBtn = document.getElementById("minusBtn");
-
-            /* increase */
-            plusBtn.addEventListener("click", () => {
-                qtyInput.value = parseInt(qtyInput.value || 0) + 1;
-            });
-
-            /* decrease */
-            minusBtn.addEventListener("click", () => {
-
-                let currentValue = parseInt(qtyInput.value || 1);
-
-                if (currentValue > 1) {
-                    qtyInput.value = currentValue - 1;
-                }
-            });
-
+          /* reset input, same image can be selected again */
+          photoInput.value = "";
         });
-    </script>
-</body>
 
+        /* QUANTITY BUTTONS */
+
+        const qtyInput = document.getElementById("qtyInput");
+        const plusBtn = document.getElementById("plusBtn");
+        const minusBtn = document.getElementById("minusBtn");
+
+        /* increase */
+        plusBtn.addEventListener("click", () => {
+          qtyInput.value = parseInt(qtyInput.value || 0) + 1;
+        });
+
+        /* decrease */
+        minusBtn.addEventListener("click", () => {
+          let currentValue = parseInt(qtyInput.value || 1);
+
+          if (currentValue > 1) {
+            qtyInput.value = currentValue - 1;
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
