@@ -1,14 +1,3 @@
-:root {
-    --font-base: normal normal normal 16px/24px 'Noto Sans CJK JP', sans-serif;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font: var(--font-base);
-}
-
 
 .cart {
     position: relative;
@@ -287,50 +276,6 @@
 
 /* MOBILE VIEW  */
 @media (max-width: 768px) {
-
-    /* HEADER */
-    .main-nav {
-        display: none !important;
-    }
-
-    .main-nav.show {
-        display: flex !important;
-    }
-
-    .menu-toggle {
-        display: none !important;
-    }
-
-
-    .header {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        padding: 10px;
-        position: relative;
-    }
-
-    .logo {
-        margin: 0 auto;
-    }
-
-    .mobile-nav a.active {
-        color: green;
-    }
-
-    .mobile-nav a.active i {
-        color: green;
-    }
-
-
-    .header-right {
-        display: none !important;
-    }
-
-    .logo img {
-        height: 35px;
-    }
-
     /* HERO */
     .hero {
         margin: 10px;
@@ -443,87 +388,5 @@
     .btn {
         font-size: 11px;
         padding: 6px;
-    }
-
-    /* FOOTER hide (mobile uses bottom nav instead) */
-    .footer {
-        display: none;
-    }
-
-    /* MOBILE BOTTOM NAV */
-    .mobile-nav {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: white;
-        border-top: 1px solid #ddd;
-        display: flex;
-        justify-content: space-around;
-        padding: 8px 0;
-        z-index: 1000;
-        height: 70px;
-    }
-
-    .mobile-nav div {
-        text-align: center;
-        font-size: 16px;
-        color: #555;
-    }
-
-    .mobile-nav .active {
-        color: green;
-    }
-
-    .mobile-nav .center-btn {
-        background: orange;
-        color: white;
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: -20px;
-        font-size: 20px;
-    }
-
-    .mobile-nav a {
-        text-decoration: none;
-        color: #555;
-        font-size: 12px;
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .mobile-nav a.active {
-        color: green;
-    }
-
-    .mobile-nav i {
-        font-size: 18px;
-        margin-bottom: 3px;
-    }
-
-    .mobile-nav i {
-        font-size: 28px;
-        margin-bottom: 3px;
-    }
-
-    .mobile-nav .center-btn i {
-        font-size: 20px;
-    }
-
-    body {
-        padding-bottom: 70px;
-    }
-
-    .mobile-nav div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
     }
 }
