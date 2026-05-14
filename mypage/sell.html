@@ -10,59 +10,14 @@
     <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../css/sell.css">
+    <link rel="stylesheet" href="../css/common.css">
+
 </head>
 
 <body>
 
     <!-- HEADER -->
-    <div class="header d-flex justify-content-between align-items-center">
-
-        <div class="menu-toggle" id="menuToggle">
-            <i class="fa-solid fa-bars"></i>
-        </div>
-        <!-- LEFT: NAV -->
-        <div class="main-nav">
-            <a href="home.html" class="active">HOME</a>
-            <a href="category.html">CATEGORIES</a>
-            <a href="sale.html">SALE</a>
-            <a href="new.html">NEW IN</a>
-            <a href="orders.html">MY ORDERS</a>
-            <a href="about.html">ABOUT US</a>
-        </div>
-
-        <!-- CENTER: LOGO -->
-        <div class="logo">
-            <img src="../image/logo.png" alt="logo">
-        </div>
-
-        <!-- RIGHT: SEARCH + BUTTON + ICONS -->
-        <div class="header-right d-flex align-items-center gap-3">
-            <div class="search-box">
-                <input type="text" placeholder="Search in Elephant Mall">
-                <span><i class="fa-solid fa-magnifying-glass"></i></span>
-            </div>
-
-            <button class="sell-btn">SELL ITEMS</button>
-
-            <div class="icons">
-
-                <span>
-                    <i class="fa-regular fa-user"></i>
-                </span>
-
-                <span>
-                    <i class="fa-regular fa-heart"></i>
-                </span>
-
-                <span class="cart">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <!-- <b>3</b> -->
-                </span>
-
-            </div>
-
-        </div>
-    </div>
+    <div id="header"></div>
 
     <div class="listing-container">
 
@@ -247,57 +202,11 @@
     </div>
 
     <!-- FOOTER -->
-    <div class="footer">
-        <div>
-            <h4>CUSTOMER CARE</h4>
-            <p>Home</p>
-        </div>
-
-        <div>
-            <h4>ABOUT US</h4>
-            <p>About Us</p>
-            <p>Start Selling</p>
-        </div>
-
-        <div>
-            <h4>CONNECT WITH US</h4>
-            <p>Contact Us</p>
-        </div>
-
-        <div>
-            <h4>LEGAL</h4>
-            <p>Legal</p>
-        </div>
-    </div>
-    <div class="mobile-nav">
-
-        <a href="home.html">
-            <i class="fa-solid fa-house"></i>
-            <span>Home</span>
-        </a>
-
-        <a href="category.html">
-            <i class="fa-solid fa-layer-group"></i>
-            <span>Categories</span>
-        </a>
-
-        <a href="upload.html" class="center-btn">
-            <i class="fa-solid fa-plus"></i>
-        </a>
-
-        <a href="cart.html">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span>Cart</span>
-        </a>
-
-        <a href="profile.html">
-            <i class="fa-solid fa-user"></i>
-            <span>Profile</span>
-        </a>
-
-    </div>
+    <div id="footer"></div>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../js/include.js"></script>
+
     <script>
         $(document).ready(function () {
 
@@ -346,6 +255,12 @@
                 { name: "bag", img: "../image/bag.png" },
                 { name: "shoes", img: "../image/shoe.png" },
                 { name: "blouse", img: "../image/blouse.png" },
+                { name: "hat", img: "../image/hat.png" },
+                { name: "tshirt", img: "../image/tshirt.png" },
+                { name: "bag", img: "../image/bag.png" },
+                { name: "shoe", img: "../image/shoe.png" },
+                { name: "tshirt", img: "../image/tshirt.png" },
+                { name: "bag", img: "../image/bag.png" },
                 { name: "hat", img: "../image/hat.png" },
                 { name: "tshirt", img: "../image/tshirt.png" },
                 { name: "bag", img: "../image/bag.png" },
