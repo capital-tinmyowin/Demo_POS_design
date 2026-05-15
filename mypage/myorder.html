@@ -15,418 +15,105 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-          Arial, sans-serif;
-        background: #f8f6f2;
-        color: #1e2a2a;
-      }
-
-      /* ========== HEADER (same as category page) ========== */
-      .header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 12px 40px;
-        border-bottom: 1px solid #eee;
-        background: white;
-        flex-wrap: wrap;
-      }
-      .nav {
-        display: flex;
-        gap: 25px;
-        font-weight: 600;
-      }
-      .nav a {
-        text-decoration: none;
-        color: #333;
-        font-size: 15px;
-        transition: 0.2s;
-      }
-      .nav a.active,
-      .nav a:hover {
-        color: orange;
-        border-bottom: 2px solid orange;
-        padding-bottom: 3px;
-      }
-      .logo img {
-        height: 45px;
-        object-fit: contain;
-      }
-      .header-right {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-      }
-      .search-box {
-        position: relative;
-      }
-      .search-box input {
-        padding: 8px 35px 8px 15px;
-        border-radius: 30px;
-        border: 1px solid #ddd;
-        width: 260px;
-        background: #f9f9f9;
-      }
-      .search-box span {
-        position: absolute;
-        right: 12px;
-        top: 8px;
-        color: #999;
-      }
-      .sell-btn {
-        background: orange;
-        border: none;
-        padding: 8px 20px;
-        border-radius: 30px;
-        color: white;
-        font-weight: 600;
-        cursor: pointer;
-      }
-      .icons {
-        display: flex;
-        gap: 18px;
-        font-size: 22px;
-        color: #2c3e2b;
-      }
-      .cart {
-        position: relative;
-      }
-
-      /* ========== FOOTER ========== */
-      .footer {
-        margin-top: 60px;
-        background: #f0ede8;
-        padding: 40px 40px 30px;
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 30px;
-      }
-      .footer div {
-        min-width: 140px;
-      }
-      .footer h4 {
-        font-size: 16px;
-        font-weight: 700;
-        margin-bottom: 12px;
-        color: #2b5e2f;
-      }
-      .footer p {
-        font-size: 13px;
-        margin-bottom: 6px;
-        color: #4a4a4a;
-        cursor: pointer;
-      }
-
-      /* ========== ORDERS PAGE MAIN ========== */
-      .orders-container {
-        max-width: 1100px;
-        margin: 30px auto;
-        padding: 0 24px;
-      }
-      .page-title {
-        font-size: 28px;
-        font-weight: 800;
-        color: #2c3e2b;
-        margin-bottom: 28px;
-        border-left: 5px solid #d68247;
-        padding-left: 18px;
-      }
-      .order-card {
-        background: white;
-        border-radius: 24px;
-        margin-bottom: 24px;
-        overflow: hidden;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-        transition: 0.2s;
-      }
-      .order-header {
-        padding: 16px 24px;
-        background: #fefaf5;
-        border-bottom: 1px solid #eee;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-      .order-number {
-        font-weight: 800;
-        font-size: 18px;
-        color: #1e3a2f;
-      }
-      .order-date {
-        font-size: 14px;
-        color: #777;
-      }
-      .order-status {
-        display: inline-block;
-        padding: 4px 14px;
-        border-radius: 40px;
-        font-size: 13px;
-        font-weight: 700;
-        background: #e9ecef;
-        color: #2c3e2b;
-      }
-      .status-shipped {
-        background: #fff3e0;
-        color: #d68247;
-      }
-      .status-delivered {
-        background: #e0f2e5;
-        color: #2b6e3b;
-      }
-      .order-items {
-        padding: 16px 24px;
-      }
-      .order-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 16px;
-        padding: 12px 0;
-        border-bottom: 1px solid #f0ede8;
-      }
-      .order-item:last-child {
-        border-bottom: none;
-      }
-      .item-info {
-        display: flex;
-        align-items: center;
-        gap: 18px;
-        flex-wrap: wrap;
-      }
-      .item-img {
-        width: 70px;
-        height: 70px;
-        object-fit: cover;
-        border-radius: 16px;
-        background: #f5f5f5;
-      }
-      .item-name {
-        font-weight: 700;
-        font-size: 16px;
-        margin-bottom: 4px;
-      }
-      .item-price {
-        font-size: 14px;
-        color: #d68247;
-        font-weight: 600;
-      }
-      .order-actions {
-        display: flex;
-        gap: 12px;
-      }
-      .btn-outline-dark {
-        background: transparent;
-        border: 1px solid #ccc;
-        padding: 6px 16px;
-        border-radius: 40px;
-        font-size: 13px;
-        font-weight: 500;
-        transition: 0.2s;
-        text-decoration: none;
-        color: #333;
-      }
-      .btn-outline-dark:hover {
-        background: #f0f0f0;
-        border-color: #aaa;
-      }
-      .btn-primary-sm {
-        background: #2b6e3b;
-        border: none;
-        padding: 6px 18px;
-        border-radius: 40px;
-        font-size: 13px;
-        font-weight: 600;
-        color: white;
-        cursor: pointer;
-        transition: 0.2s;
-      }
-      .btn-primary-sm:hover {
-        background: #1e5a2f;
-      }
-      .btn-warning-sm {
-        background: #d68247;
-        border: none;
-        padding: 6px 18px;
-        border-radius: 40px;
-        font-size: 13px;
-        font-weight: 600;
-        color: white;
-        cursor: pointer;
-      }
-      .empty-orders {
-        text-align: center;
-        padding: 60px 20px;
-        background: white;
-        border-radius: 28px;
-        color: #777;
-      }
-      /* mobile responsiveness */
-      @media (max-width: 768px) {
-        .header {
-          padding: 12px 16px;
-          flex-direction: column;
-          gap: 12px;
-        }
-        .nav {
-          justify-content: center;
-          flex-wrap: wrap;
-          gap: 16px;
-        }
-        .header-right {
-          flex-wrap: wrap;
-          justify-content: center;
-        }
-        .search-box input {
-          width: 180px;
-        }
-        .footer {
-          display: none;
-        }
-        .mobile-nav {
-          display: flex;
-          position: fixed;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          background: white;
-          justify-content: space-around;
-          padding: 10px 0;
-          border-top: 1px solid #ddd;
-          z-index: 1000;
-        }
-        .mobile-nav a {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-decoration: none;
-          font-size: 12px;
-          color: #555;
-        }
-        .mobile-nav a.active {
-          color: green;
-        }
-        .mobile-nav .center-btn {
-          background: orange;
-          color: white;
-          width: 48px;
-          height: 48px;
-          border-radius: 50%;
-          margin-top: -20px;
-          justify-content: center;
-        }
-        body {
-          padding-bottom: 70px;
-        }
-        .orders-container {
-          padding: 0 16px;
-        }
-        .order-header {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-        .order-actions {
-          margin-top: 8px;
-          width: 100%;
-          justify-content: flex-start;
-        }
-      }
-      .mobile-nav {
-        display: none;
-      }
-      .toast-msg {
-        position: fixed;
-        bottom: 80px;
-        left: 20px;
-        background: #1e3a2f;
-        color: white;
-        padding: 8px 18px;
-        border-radius: 40px;
-        z-index: 300;
-        font-size: 13px;
-      }
-    </style>
+    <link rel="stylesheet" href="../css/myorder.css" />
   </head>
   <body>
     <div class="header">
+      <!-- LEFT: NAV -->
       <div class="nav">
         <a href="home.html">HOME</a>
         <a href="category.html">CATEGORIES</a>
-        <a href="sale.html">SALE</a>
+        <a href="sell.html">SALE</a>
         <a href="new.html">NEW IN</a>
-        <a href="orders.html" class="active">MY ORDERS</a>
+        <a href="myorder.html">MY ORDERS</a>
         <a href="about.html">ABOUT US</a>
       </div>
+
+      <!-- CENTER: LOGO -->
       <div class="logo">
-        <img
-          src="../image/logo.png"
-          alt="logo"
-          onerror="this.src = 'https://placehold.co/100x50?text=🐘Elephant'"
-        />
+        <img src="../image/logo.png" alt="logo" />
       </div>
+
+      <!-- RIGHT: SEARCH + BUTTON + ICONS -->
       <div class="header-right">
         <div class="search-box">
           <input type="text" placeholder="Search in Elephant Mall" />
           <span><i class="fa-solid fa-magnifying-glass"></i></span>
         </div>
+
         <button class="sell-btn">SELL ITEMS</button>
+
         <div class="icons">
-          <span><i class="fa-regular fa-user"></i></span>
-          <span><i class="fa-regular fa-heart"></i></span>
-          <span class="cart"><i class="fa-solid fa-cart-shopping"></i></span>
+          <span>
+            <i class="fa-regular fa-user"></i>
+          </span>
+
+          <span>
+            <i class="fa-regular fa-heart"></i>
+          </span>
+
+          <span class="cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <!-- <b>3</b> -->
+          </span>
         </div>
       </div>
     </div>
 
     <div class="orders-container">
-      <h2 class="page-title">📦 My Orders</h2>
+      <h2 class="page-title">My Orders</h2>
       <div id="ordersList"></div>
     </div>
 
-    <div class="footer">
-      <div>
-        <h4>CUSTOMER CARE</h4>
-        <p>Home</p>
-        <p>About Us</p>
-        <p>Start Selling</p>
-      </div>
-      <div>
-        <h4>CONNECT WITH US</h4>
-        <p>Contact Us</p>
-      </div>
-      <div>
-        <h4>LEGAL</h4>
-        <p>Legal</p>
-        <p>Privacy Policy</p>
+    <!-- FOOTER -->
+      <div class="footer">
+        <div>
+          <h4>CUSTOMER CARE</h4>
+          <p>Home</p>
+        </div>
+
+        <div>
+          <h4>ABOUT US</h4>
+          <p>About Us</p>
+          <p>Start Selling</p>
+        </div>
+
+        <div>
+          <h4>CONNECT WITH US</h4>
+          <p>Contact Us</p>
+        </div>
+
+        <div>
+          <h4>LEGAL</h4>
+          <p>Legal</p>
+        </div>
       </div>
     </div>
 
     <div class="mobile-nav">
-      <a href="home.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
-      <a href="category.html"
-        ><i class="fa-solid fa-layer-group"></i><span>Categories</span></a
-      >
-      <a href="upload.html" class="center-btn"
-        ><i class="fa-solid fa-plus"></i
-      ></a>
-      <a href="cart.html"
-        ><i class="fa-solid fa-cart-shopping"></i><span>Cart</span></a
-      >
-      <a href="profile.html"
-        ><i class="fa-solid fa-user"></i><span>Profile</span></a
-      >
+      <a href="home.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
+
+      <a href="category.html">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>Categories</span>
+      </a>
+
+      <a href="upload.html" class="center-btn">
+        <i class="fa-solid fa-plus"></i>
+      </a>
+
+      <a href="cart.html">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span>Cart</span>
+      </a>
+
+      <a href="profile.html">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+      </a>
     </div>
 
     <script>
@@ -520,36 +207,33 @@
 
           html += `
         <div class="order-card" data-order-id="${order.id}">
-          <div class="order-header">
-            <div>
-              <span class="order-number">Order #${order.id}</span>
-              <span class="order-date" style="margin-left: 12px;">${order.date}</span>
-            </div>
-            <div class="order-status ${statusClass}">${order.status}</div>
-          </div>
           <div class="order-items">
       `;
           order.items.forEach((item) => {
             html += `
           <div class="order-item">
-            <div class="item-info">
-              <img class="item-img" src="${item.image}" onerror="this.src='https://placehold.co/70x70/eee/ccc?text=item'" alt="${item.name}">
-              <div>
-                <div class="item-name">${item.name}</div>
-                <div class="item-price">$${item.price.toFixed(2)}</div>
+            <div class="item-info row">
+              <img class="item-img col-sm-4" src="${item.image}" onerror="this.src='https://placehold.co/70x70/eee/ccc?text=item'" alt="${item.name}">
+              <div class="col-sm-8">
+                <div class="order-header">
+                    <span class="order-number">Order #${order.id}</span>
+                  <div class="order-status ${statusClass}">${order.status}</div>
+                </div>
+                <span class="order-date">${order.date}</span>
+                <div class="item-name">${item.name} - $${item.price.toFixed(2)}</div>
                 ${item.quantity > 1 ? `<small class="text-muted">Qty: ${item.quantity}</small>` : ""}
-              </div>
-            </div>
+              
             <div class="order-actions">
         `;
             if (order.status === "SHIPPED") {
-              html += `<button class="btn-outline-dark track-btn" data-order="${order.id}" data-item="${item.name}">Track Order</button>
-                   <button class="btn-primary-sm view-details-btn" data-product-id="${item.productId}">View Details</button>`;
+              html += `<button class="btn-primary-sm track-btn" data-order="${order.id}" data-item="${item.name}">Track Order</button>
+                   <button class="btn-outline-dark view-details-btn" data-product-id="${item.productId}">View Details</button>`;
             } else if (order.status === "DELIVERED") {
-              html += `<button class="btn-outline-dark buy-again-btn" data-product-id="${item.productId}" data-name="${item.name}" data-price="${item.price}" data-img="${item.image}">Buy Again</button>
-                   <button class="btn-warning-sm leave-review-btn" data-product="${item.name}">Leave Review</button>`;
+              html += `<button class="btn-warning-sm buy-again-btn" data-product-id="${item.productId}" data-name="${item.name}" data-price="${item.price}" data-img="${item.image}">Buy Again</button>
+                   <button class="btn-outline-dark leave-review-btn" data-product="${item.name}">Leave Review</button>`;
             }
-            html += `</div></div>`;
+            html += `</div></div></div>
+            </div>`;
           });
           html += `</div></div>`;
         });

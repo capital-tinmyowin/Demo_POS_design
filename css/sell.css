@@ -20,20 +20,20 @@
 }
 
 /* LEFT NAV */
-.nav {
+.main-nav {
     display: flex;
     gap: 25px;
     font-weight: 600;
     white-space: nowrap;
 }
 
-.nav a {
+.main-nav a {
     text-decoration: none;
     color: #333;
     font-size: 18px;
 }
 
-.nav a.active {
+.main-nav a.active {
     color: orange;
     border-bottom: 2px solid orange;
     padding-bottom: 3px;
@@ -43,6 +43,37 @@
     display: none;
     font-size: 22px;
     cursor: pointer;
+}
+
+@media (max-width: 1250px) {
+
+    .main-nav {
+        display: none;
+        /* hide menu */
+        position: absolute;
+        top: 100px;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+        border-top: 1px solid #eee;
+        z-index: 1000;
+    }
+
+    .main-nav.show {
+        display: flex;
+        /* show when toggle */
+    }
+
+    .menu-toggle {
+        display: block;
+        /* show hamburger */
+    }
+
+    .header {
+        justify-content: space-between;
+    }
 }
 
 /* CENTER LOGO */
@@ -92,12 +123,14 @@
     border-radius: 20px;
     border: 1px solid #ccc;
     width: 250px;
+    height: 42px;
+    margin: 0 !important;
 }
 
 .search-box span {
     position: absolute;
-    right: 10px;
-    top: 12px;
+    right: 13px;
+    top: 9px;
 }
 
 .sell-btn {

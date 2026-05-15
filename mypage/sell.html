@@ -4,21 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Elephant Mall</title>
-    <link rel="stylesheet" href="../css/sell.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- FONT AWESOME -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
+    <link rel="stylesheet" href="../css/sell.css" />
   </head>
 
   <body>
     <!-- HEADER -->
-    <div class="header">
+    <div class="header d-flex justify-content-between align-items-center">
       <div class="menu-toggle" id="menuToggle">
         <i class="fa-solid fa-bars"></i>
       </div>
       <!-- LEFT: NAV -->
-      <div class="nav">
+      <div class="main-nav">
         <a href="home.html" class="active">HOME</a>
         <a href="category.html">CATEGORIES</a>
         <a href="sale.html">SALE</a>
@@ -33,7 +39,7 @@
       </div>
 
       <!-- RIGHT: SEARCH + BUTTON + ICONS -->
-      <div class="header-right">
+      <div class="header-right d-flex align-items-center gap-3">
         <div class="search-box">
           <input type="text" placeholder="Search in Elephant Mall" />
           <span><i class="fa-solid fa-magnifying-glass"></i></span>
@@ -272,41 +278,47 @@
       </a>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
+      $(document).ready(function () {
         /* ACTIVE NAV */
         let currentPage = window.location.pathname.split("/").pop();
 
-        if (currentPage === "") currentPage = "home.html";
+        if (currentPage === "") {
+          currentPage = "home.html";
+        }
 
-        const allLinks = document.querySelectorAll(".nav a, .mobile-nav a");
-
-        allLinks.forEach((link) => {
-          if (link.getAttribute("href") === currentPage) {
-            link.classList.add("active");
+        $(".main-nav a, .mobile-nav a").each(function () {
+          if ($(this).attr("href") === currentPage) {
+            $(this).addClass("active");
           }
         });
 
-        const menuToggle = document.getElementById("menuToggle");
-        const nav = document.querySelector(".nav");
-
-        menuToggle.addEventListener("click", () => {
-          nav.classList.toggle("show");
+        /* MENU TOGGLE */
+        $("#menuToggle").click(function () {
+          $(".main-nav").toggleClass("show");
         });
 
         /* CATEGORY SCROLL */
-        const categoryList = document.getElementById("categoryList");
-
-        document.getElementById("catLeft").addEventListener("click", () => {
-          categoryList.scrollBy({ left: -120, behavior: "smooth" });
+        $("#catLeft").click(function () {
+          $("#categoryList").animate(
+            {
+              scrollLeft: $("#categoryList").scrollLeft() - 120,
+            },
+            400,
+          );
         });
 
-        document.getElementById("catRight").addEventListener("click", () => {
-          categoryList.scrollBy({ left: 120, behavior: "smooth" });
+        $("#catRight").click(function () {
+          $("#categoryList").animate(
+            {
+              scrollLeft: $("#categoryList").scrollLeft() + 120,
+            },
+            400,
+          );
         });
 
-        //   RENDER CATEGORIES
-
+        /* RENDER CATEGORIES */
         const categories = [
           { name: "bag", img: "../image/bag.png" },
           { name: "shoes", img: "../image/shoe.png" },
@@ -319,55 +331,45 @@
           { name: "bag", img: "../image/bag.png" },
         ];
 
-        categories.forEach((cat, index) => {
-          const div = document.createElement("div");
-          div.className = "category-item";
-
-          if (index === 0) div.classList.add("active");
-
-          div.innerHTML = `
+        $.each(categories, function (index, cat) {
+          let div = $(`
+                <div class="category-item ${index === 0 ? "active" : ""}">
                     <img src="${cat.img}">
                     <p>${cat.name}</p>
-                `;
+                </div>
+            `);
 
-          div.addEventListener("click", () => {
-            document
-              .querySelectorAll(".category-item")
-              .forEach((c) => c.classList.remove("active"));
-            div.classList.add("active");
+          div.click(function () {
+            $(".category-item").removeClass("active");
+            $(this).addClass("active");
           });
 
-          categoryList.appendChild(div);
+          $("#categoryList").append(div);
         });
 
         /* IMAGE UPLOAD PREVIEW */
 
-        const addPhotoBtn = document.getElementById("addPhotoBtn");
-        const photoInput = document.getElementById("photoInput");
-        const photoBoxes = document.querySelectorAll(".photo-box");
-
-        /* track current box index */
         let currentIndex = 0;
 
-        /* click upload button */
-        addPhotoBtn.addEventListener("click", () => {
-          photoInput.click();
+        $("#addPhotoBtn").click(function () {
+          $("#photoInput").click();
         });
 
-        /* show selected images */
-        photoInput.addEventListener("change", function (e) {
+        $("#photoInput").change(function (e) {
           const files = Array.from(e.target.files);
+          const photoBoxes = $(".photo-box");
 
-          files.forEach((file) => {
-            /* stop if boxes are full */
-            if (currentIndex >= photoBoxes.length) return;
+          $.each(files, function (index, file) {
+            if (currentIndex >= photoBoxes.length) {
+              return false;
+            }
 
             const reader = new FileReader();
 
             reader.onload = function (event) {
-              photoBoxes[currentIndex].innerHTML = `
-                <img src="${event.target.result}" alt="preview">
-            `;
+              $(photoBoxes[currentIndex]).html(`
+                        <img src="${event.target.result}" alt="preview">
+                    `);
 
               currentIndex++;
             };
@@ -375,27 +377,22 @@
             reader.readAsDataURL(file);
           });
 
-          /* reset input, same image can be selected again */
-          photoInput.value = "";
+          $("#photoInput").val("");
         });
 
         /* QUANTITY BUTTONS */
 
-        const qtyInput = document.getElementById("qtyInput");
-        const plusBtn = document.getElementById("plusBtn");
-        const minusBtn = document.getElementById("minusBtn");
+        $("#plusBtn").click(function () {
+          let currentValue = parseInt($("#qtyInput").val() || 0);
 
-        /* increase */
-        plusBtn.addEventListener("click", () => {
-          qtyInput.value = parseInt(qtyInput.value || 0) + 1;
+          $("#qtyInput").val(currentValue + 1);
         });
 
-        /* decrease */
-        minusBtn.addEventListener("click", () => {
-          let currentValue = parseInt(qtyInput.value || 1);
+        $("#minusBtn").click(function () {
+          let currentValue = parseInt($("#qtyInput").val() || 1);
 
           if (currentValue > 1) {
-            qtyInput.value = currentValue - 1;
+            $("#qtyInput").val(currentValue - 1);
           }
         });
       });
