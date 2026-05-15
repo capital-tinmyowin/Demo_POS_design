@@ -1,41 +1,74 @@
 <div class="header d-flex justify-content-between align-items-center">
-    <div class="menu-toggle" id="menuToggle">
-        <i class="fa-solid fa-bars"></i>
+  <div class="menu-toggle" id="menuToggle">
+    <i class="fa-solid fa-bars"></i>
+  </div>
+
+  <div class="main-nav">
+    <a href="/mypage/home.html" class="active">HOME</a>
+    <a href="/mypage/category.html">CATEGORIES</a>
+    <a href="/mypage/sell.html">SALE</a>
+    <a href="/mypage/new.html">NEW IN</a>
+    <a href="/mypage/myorder.html">MY ORDERS</a>
+    <a href="/mypage/about.html">ABOUT US</a>
+  </div>
+
+  <div class="logo">
+    <img src="/image/logo.png" alt="logo" />
+  </div>
+
+  <div class="header-right d-flex align-items-center gap-3">
+    <div class="search-box">
+      <input type="text" placeholder="Search in Elephant Mall" />
+      <span>
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </span>
     </div>
 
-    <div class="main-nav">
-        <a href="home.html" class="active">HOME</a>
-        <a href="category.html">CATEGORIES</a>
-        <a href="sale.html">SALE</a>
-        <a href="new.html">NEW IN</a>
-        <a href="orders.html">MY ORDERS</a>
-        <a href="about.html">ABOUT US</a>
+    <button
+      class="sell-btn"
+      onclick="window.location.href = '/mypage/sell.html'"
+    >
+      SELL ITEMS
+    </button>
+
+    <div class="icons">
+      <span>
+        <i class="fa-solid fa-user"></i>
+      </span>
+
+      <span>
+        <i class="fa-solid fa-heart"></i>
+      </span>
+
+      <span class="cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+      </span>
     </div>
+  </div>
+</div>
 
-    <div class="logo">
-        <img src="../image/logo.png" alt="logo">
-    </div>
+<div class="mobile-nav">
+  <a href="home.html">
+    <i class="fa-solid fa-house"></i>
+    <span>Home</span>
+  </a>
 
-    <div class="header-right d-flex align-items-center gap-3">
-        <div class="search-box">
-            <input type="text" placeholder="Search in Elephant Mall">
-            <span><i class="fa-solid fa-magnifying-glass"></i></span>
-        </div>
+  <a href="category.html">
+    <i class="fa-solid fa-layer-group"></i>
+    <span>Categories</span>
+  </a>
 
-        <button class="sell-btn" onclick="window.location.href='sell.html'">
-            SELL ITEMS
-        </button>
+  <a href="sell.html" class="center-btn">
+    <i class="fa-solid fa-plus"></i>
+  </a>
 
-        <div class="icons">
-            <span>
-                <i class="fa-solid fa-user"></i>
-            </span>
-            <span>
-                <i class="fa-solid fa-heart"></i>
-            </span>
-            <span class="cart">
-                <i class="fa-solid fa-cart-shopping"></i>
-            </span>
-        </div>
-    </div>
+  <a href="myorder.html">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span>Cart</span>
+  </a>
+
+  <a href="profile.html">
+    <i class="fa-solid fa-user"></i>
+    <span>Profile</span>
+  </a>
 </div>

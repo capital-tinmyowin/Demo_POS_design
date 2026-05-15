@@ -16,49 +16,11 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
     <link rel="stylesheet" href="../css/myorder.css" />
+    <link rel="stylesheet" href="../css/common.css" />
   </head>
   <body>
-    <div class="header">
-      <!-- LEFT: NAV -->
-      <div class="nav">
-        <a href="home.html">HOME</a>
-        <a href="category.html">CATEGORIES</a>
-        <a href="sell.html">SALE</a>
-        <a href="new.html">NEW IN</a>
-        <a href="myorder.html">MY ORDERS</a>
-        <a href="about.html">ABOUT US</a>
-      </div>
-
-      <!-- CENTER: LOGO -->
-      <div class="logo">
-        <img src="../image/logo.png" alt="logo" />
-      </div>
-
-      <!-- RIGHT: SEARCH + BUTTON + ICONS -->
-      <div class="header-right">
-        <div class="search-box">
-          <input type="text" placeholder="Search in Elephant Mall" />
-          <span><i class="fa-solid fa-magnifying-glass"></i></span>
-        </div>
-
-        <button class="sell-btn">SELL ITEMS</button>
-
-        <div class="icons">
-          <span>
-            <i class="fa-regular fa-user"></i>
-          </span>
-
-          <span>
-            <i class="fa-regular fa-heart"></i>
-          </span>
-
-          <span class="cart">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <!-- <b>3</b> -->
-          </span>
-        </div>
-      </div>
-    </div>
+    <!-- HEADER -->
+    <div id="header"></div>
 
     <div class="orders-container">
       <h2 class="page-title">My Orders</h2>
@@ -66,56 +28,10 @@
     </div>
 
     <!-- FOOTER -->
-      <div class="footer">
-        <div>
-          <h4>CUSTOMER CARE</h4>
-          <p>Home</p>
-        </div>
-
-        <div>
-          <h4>ABOUT US</h4>
-          <p>About Us</p>
-          <p>Start Selling</p>
-        </div>
-
-        <div>
-          <h4>CONNECT WITH US</h4>
-          <p>Contact Us</p>
-        </div>
-
-        <div>
-          <h4>LEGAL</h4>
-          <p>Legal</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="mobile-nav">
-      <a href="home.html">
-        <i class="fa-solid fa-house"></i>
-        <span>Home</span>
-      </a>
-
-      <a href="category.html">
-        <i class="fa-solid fa-layer-group"></i>
-        <span>Categories</span>
-      </a>
-
-      <a href="upload.html" class="center-btn">
-        <i class="fa-solid fa-plus"></i>
-      </a>
-
-      <a href="cart.html">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span>Cart</span>
-      </a>
-
-      <a href="profile.html">
-        <i class="fa-solid fa-user"></i>
-        <span>Profile</span>
-      </a>
-    </div>
-
+    <div id="footer"></div>
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../js/include.js"></script>
     <script>
       // ---------- MOCK ORDER DATA (based on cart items and purchase history) ----------
       // This simulates orders placed by the user. In real scenario, data would come from backend/localStorage.
