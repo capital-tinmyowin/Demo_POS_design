@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>Elephant Mall | My Orders</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/myorder.css" />
+    <link rel="stylesheet" href="../css/common.css" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <div id="header"></div>
+
+    <div class="orders-container">
+      <h2 class="page-title">My Orders</h2>
+      <div id="ordersList"></div>
+    </div>
+
+    <!-- FOOTER -->
+    <div id="footer"></div>
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../js/include.js"></script>
+    <script>
+      // ---------- MOCK ORDER DATA (based on cart items and purchase history) ----------
+      // This simulates orders placed by the user. In real scenario, data would come from backend/localStorage.
+      // We'll also read current cart from localStorage to show dynamic order creation if needed (but orders are separate).
+
+      // Sample orders (matching photo style)
+      let orders = [
+        {
+          id: "314159",
+          date: "Aug 15, 2024",
+          status: "SHIPPED",
+          items: [
+            {
+              name: "Premium Leather Tote Bag",
+              price: 120.0,
+              quantity: 1,
+              image:
+                "https://i.pinimg.com/1200x/f2/df/79/f2df7979c3e9fd8bfdf6b51aa9aca09e.jpg",
+              productId: 5,
+            },
+          ],
+        },
+        {
+          id: "271828",
+          date: "Aug 15, 2024",
+          status: "DELIVERED",
+          items: [
+            {
+              name: "Blousss",
+              price: 39.99,
+              quantity: 1,
+              image:
+                "https://i.pinimg.com/1200x/bd/6c/f9/bd6cf9e39bb3ea86086bb1f89c789ee6.jpg",
+              productId: 4,
+            },
+          ],
+        },
+        {
+          id: "101112",
+          date: "Aug 10, 2024",
+          status: "DELIVERED",
+          items: [
+            {
+              name: "Wireless Earbuds",
+              price: 89.99,
+              quantity: 1,
+              image:
+                "https://i5.walmartimages.com/seo/2022-Apple-10-9-inch-iPad-Wi-Fi-64GB-Pink-10th-Generation_4fdae443-4f60-4a3e-9efe-12758bf5f128.f4d7333626b4e6b27e8be25d1f698373.jpeg",
+              productId: 19,
+            },
+            {
+              name: "Power Bank 10000mAh",
+              price: 29.99,
+              quantity: 2,
+              image:
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnwF3fpDIATeZ_9o5h3vNu_X8KUHSq5O739g&s",
+              productId: 20,
+            },
+          ],
+        },
+      ];
+
+      // Helper: show toast message
+      function showToast(msg) {
+        let t = document.createElement("div");
+        t.className = "toast-msg";
+        t.innerText = msg;
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 2000);
+      }
+
+      // render orders list
+      function renderOrders() {
+        const container = document.getElementById("ordersList");
+        if (!container) return;
+
+        if (orders.length === 0) {
+          container.innerHTML = `<div class="empty-orders"><i class="fa-regular fa-receipt fa-3x" style="opacity:0.5; margin-bottom:12px; display:block;"></i>No orders yet.<br>Start shopping to see your orders here.</div>`;
+          return;
+        }
+
+        let html = "";
+        orders.forEach((order) => {
+          // status style class
+          let statusClass = "";
+          if (order.status === "SHIPPED") statusClass = "status-shipped";
+          else if (order.status === "DELIVERED")
+            statusClass = "status-delivered";
+
+          html += `
+        <div class="order-card" data-order-id="${order.id}">
+          <div class="order-items">
+      `;
+          order.items.forEach((item) => {
+            html += `
+          <div class="order-item">
+            <div class="item-info row">
+              <img class="item-img col-sm-4" src="${item.image}" onerror="this.src='https://placehold.co/70x70/eee/ccc?text=item'" alt="${item.name}">
+              <div class="col-sm-8">
+                <div class="order-header">
+                    <span class="order-number">Order #${order.id}</span>
+                  <div class="order-status ${statusClass}">${order.status}</div>
+                </div>
+                <span class="order-date">${order.date}</span>
+                <div class="item-name">${item.name} - $${item.price.toFixed(2)}</div>
+                ${item.quantity > 1 ? `<small class="text-muted">Qty: ${item.quantity}</small>` : ""}
+              
+            <div class="order-actions">
+        `;
+            if (order.status === "SHIPPED") {
+              html += `<button class="btn-primary-sm track-btn" data-order="${order.id}" data-item="${item.name}">Track Order</button>
+                   <button class="btn-outline-dark view-details-btn" data-product-id="${item.productId}">View Details</button>`;
+            } else if (order.status === "DELIVERED") {
+              html += `<button class="btn-warning-sm buy-again-btn" data-product-id="${item.productId}" data-name="${item.name}" data-price="${item.price}" data-img="${item.image}">Buy Again</button>
+                   <button class="btn-outline-dark leave-review-btn" data-product="${item.name}">Leave Review</button>`;
+            }
+            html += `</div></div></div>
+            </div>`;
+          });
+          html += `</div></div>`;
+        });
+        container.innerHTML = html;
+
+        // attach event listeners for dynamic buttons
+        document.querySelectorAll(".track-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const orderId = btn.getAttribute("data-order");
+            showToast(
+              `📦 Tracking info for order #${orderId} would be shown here.`,
+            );
+          });
+        });
+        document.querySelectorAll(".view-details-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const productId = btn.getAttribute("data-product-id");
+            if (productId)
+              window.location.href = `product-detail.html?id=${productId}`;
+            else showToast("Product details coming soon");
+          });
+        });
+        document.querySelectorAll(".buy-again-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const id = btn.getAttribute("data-product-id");
+            const name = btn.getAttribute("data-name");
+            const price = parseFloat(btn.getAttribute("data-price"));
+            const image = btn.getAttribute("data-img");
+            // add to cart logic (using same cart system from category page)
+            addToCartFromOrders(id, name, price, image);
+          });
+        });
+        document.querySelectorAll(".leave-review-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const productName = btn.getAttribute("data-product");
+            showToast(
+              `✨ Review for "${productName}" - Thank you! (review popup would open)`,
+            );
+          });
+        });
+      }
+
+      // Cart functions (integrated with localStorage to keep same cart as category page)
+      let cart = JSON.parse(localStorage.getItem("productCart")) || [];
+
+      function addToCartFromOrders(id, name, price, image) {
+        const existing = cart.find((item) => item.id == id);
+        if (existing) existing.quantity += 1;
+        else
+          cart.push({
+            id: parseInt(id),
+            name: name,
+            price: price,
+            quantity: 1,
+            image: image,
+          });
+        localStorage.setItem("productCart", JSON.stringify(cart));
+        showToast(`${name} added to cart 🛒`);
+        updateCartIcon();
+      }
+
+      function updateCartIcon() {
+        const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
+        const cartBadge = document.querySelector(".cart b");
+        if (cartBadge) cartBadge.innerText = totalItems;
+        else if (totalItems > 0) {
+          const cartSpan = document.querySelector(".cart");
+          if (cartSpan && !cartSpan.querySelector("b")) {
+            const badge = document.createElement("b");
+            badge.innerText = totalItems;
+            cartSpan.appendChild(badge);
+          } else if (cartSpan) {
+            const b = cartSpan.querySelector("b");
+            if (b) b.innerText = totalItems;
+          }
+        }
+      }
+
+      // Optional: we can also merge orders from purchase history based on cart checkout simulation.
+      // For demonstration we keep existing orders but we'll also add a "Sample Order from Cart" if needed.
+      // No extra changes.
+
+      // highlight active nav
+      const currentPath = window.location.pathname.split("/").pop();
+      document.querySelectorAll(".nav a").forEach((link) => {
+        if (link.getAttribute("href") === currentPath)
+          link.classList.add("active");
+      });
+      document.querySelectorAll(".mobile-nav a").forEach((link) => {
+        if (link.getAttribute("href") === currentPath)
+          link.classList.add("active");
+      });
+
+      // init
+      renderOrders();
+      updateCartIcon();
+    </script>
+  </body>
+</html>
