@@ -1,204 +1,190 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Elephant Mall</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
     <!-- FONT AWESOME -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/sell.css">
-    <link rel="stylesheet" href="../css/common.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/sell.css" />
+    <link rel="stylesheet" href="../css/common.css" />
+  </head>
 
-</head>
-
-<body>
-
+  <body>
     <!-- HEADER -->
     <div id="header"></div>
 
     <div class="listing-container">
+      <!-- LEFT SIDE -->
+      <div class="listing-left">
+        <h2>Create Your Listing</h2>
+        <p class="sub">Start Selling in Yangon</p>
 
-        <!-- LEFT SIDE -->
-        <div class="listing-left">
+        <!-- PHOTOS -->
+        <label class="section-title"
+          >Product Photos (Add Up to 12 Photos)</label
+        >
 
-            <h2>Create Your Listing</h2>
-            <p class="sub">Start Selling in Yangon</p>
+        <div class="photo-wrapper">
+          <!-- LEFT: photo preview boxes -->
+          <div class="photo-grid" id="photoGrid">
+            <!-- 10 preview boxes -->
+            <div class="photo-box"></div>
+            <div class="photo-box"></div>
+            <div class="photo-box"></div>
+            <div class="photo-box"></div>
+            <div class="photo-box"></div>
 
-            <!-- PHOTOS -->
-            <label class="section-title">Product Photos (Add Up to 12 Photos)</label>
+            <div class="photo-box"></div>
+            <div class="photo-box"></div>
+            <div class="photo-box"></div>
+            <div class="photo-box"></div>
+            <div class="photo-box"></div>
+          </div>
 
-            <div class="photo-wrapper">
+          <!-- RIGHT: upload button -->
+          <div class="add-photo" id="addPhotoBtn">
+            <i class="fa-solid fa-camera"></i>
+            <span>Add Photos</span>
+          </div>
 
-                <!-- LEFT: photo preview boxes -->
-                <div class="photo-grid" id="photoGrid">
-
-                    <!-- 10 preview boxes -->
-                    <div class="photo-box"></div>
-                    <div class="photo-box"></div>
-                    <div class="photo-box"></div>
-                    <div class="photo-box"></div>
-                    <div class="photo-box"></div>
-
-                    <div class="photo-box"></div>
-                    <div class="photo-box"></div>
-                    <div class="photo-box"></div>
-                    <div class="photo-box"></div>
-                    <div class="photo-box"></div>
-
-                </div>
-
-                <!-- RIGHT: upload button -->
-                <div class="add-photo" id="addPhotoBtn">
-                    <i class="fa-solid fa-camera"></i>
-                    <span>Add Photos</span>
-                </div>
-
-                <!-- hidden file input -->
-                <input type="file" id="photoInput" accept="image/*" multiple hidden>
-
-            </div>
-
-            <div class="upload-text">
-                <i class="fa-solid fa-folder-open"></i> Upload from Gallery
-            </div>
-
-            <!-- TITLE -->
-            <label>Item Title</label>
-            <input type="text" placeholder="Enter item name">
-
-            <!-- CATEGORY -->
-            <label class="section-title">
-                Myanmar Crafts & Daily Goods (Suggested Categories)
-            </label>
-
-            <div class="category-wrapper">
-
-                <button class="cat-btn left" id="catLeft">&#10094;</button>
-                <div class="category-scroll" id="categoryList"></div>
-
-                <button class="cat-btn right" id="catRight">&#10095;</button>
-            </div>
-
-            <!-- DESCRIPTION -->
-            <label>Product Description</label>
-            <textarea rows="6" placeholder="Describe your product..."></textarea>
-
+          <!-- hidden file input -->
+          <input type="file" id="photoInput" accept="image/*" multiple hidden />
         </div>
 
+        <div class="upload-text">
+          <i class="fa-solid fa-folder-open"></i> Upload from Gallery
+        </div>
 
-        <!-- RIGHT SIDE -->
-        <div class="listing-right">
+        <!-- TITLE -->
+        <label>Item Title</label>
+        <input type="text" placeholder="Enter item name" />
 
-            <h3>Pricing & Inventory</h3>
+        <!-- CATEGORY -->
+        <label class="section-title">
+          Myanmar Crafts & Daily Goods (Suggested Categories)
+        </label>
 
-            <!-- PRICE -->
-            <div class="input-group">
-                <input type="text" placeholder="Price in Kyats">
-                <span class="suffix">Kyats</span>
-            </div>
+        <div class="category-wrapper">
+          <button class="cat-btn left" id="catLeft">&#10094;</button>
+          <div class="category-scroll" id="categoryList"></div>
 
-            <!-- SKU -->
-            <input type="text" placeholder="SKU (Optional, e.g., HW-23)">
+          <button class="cat-btn right" id="catRight">&#10095;</button>
+        </div>
 
-            <!-- STOCK -->
-            <label class="small-title">Inventory (Stock)</label>
+        <!-- DESCRIPTION -->
+        <label>Product Description</label>
+        <textarea rows="6" placeholder="Describe your product..."></textarea>
+      </div>
 
-            <div class="qty-box">
+      <!-- RIGHT SIDE -->
+      <div class="listing-right">
+        <h3>Pricing & Inventory</h3>
 
-                <input type="number" id="qtyInput" value="1" min="1">
+        <!-- PRICE -->
+        <div class="input-group">
+          <input type="text" placeholder="Price in Kyats" />
+          <span class="suffix">Kyats</span>
+        </div>
 
-                <div class="qty-actions">
-                    <button type="button" id="minusBtn">−</button>
-                    <button type="button" id="plusBtn">+</button>
-                </div>
+        <!-- SKU -->
+        <input type="text" placeholder="SKU (Optional, e.g., HW-23)" />
 
-            </div>
-            <!-- CONTACT -->
-            <h3>Buyer Contact Methods</h3>
+        <!-- STOCK -->
+        <label class="small-title">Inventory (Stock)</label>
 
-            <div class="phone-check">
-                <input type="checkbox" class="ph-req">
-                <span>Phone Number (Required)</span>
-            </div>
+        <div class="qty-box">
+          <input type="number" id="qtyInput" value="1" min="1" />
 
-            <div class="input-group">
-                <input type="text" placeholder="">
-            </div>
+          <div class="qty-actions">
+            <button type="button" id="minusBtn">−</button>
+            <button type="button" id="plusBtn">+</button>
+          </div>
+        </div>
+        <!-- CONTACT -->
+        <h3>Buyer Contact Methods</h3>
 
-            <!-- Messenger -->
-            <div class="contact-row">
+        <div class="phone-check">
+          <input type="checkbox" class="ph-req" />
+          <span>Phone Number (Required)</span>
+        </div>
 
-                <div class="contact-left">
-                    <i class="fa-brands fa-facebook-messenger messenger"></i>
-                    <span>Messenger</span>
-                </div>
+        <div class="input-group">
+          <input type="text" placeholder="" />
+        </div>
 
-                <div class="contact-input-area">
-                    <input type="text" placeholder="Messenger Link">
+        <!-- Messenger -->
+        <div class="contact-row">
+          <div class="contact-left">
+            <i class="fa-brands fa-facebook-messenger messenger"></i>
+            <span>Messenger</span>
+          </div>
 
-                    <label class="same-check">
-                        <input type="checkbox">
-                        <span>Same as Phone Number</span>
-                    </label>
-                </div>
+          <div class="contact-input-area">
+            <input type="text" placeholder="Messenger Link" />
 
-            </div>
+            <label class="same-check">
+              <input type="checkbox" />
+              <span>Same as Phone Number</span>
+            </label>
+          </div>
+        </div>
 
-            <!-- Telegram -->
-            <div class="contact-row">
+        <!-- Telegram -->
+        <div class="contact-row">
+          <div class="contact-left">
+            <i class="fa-brands fa-telegram telegram"></i>
+            <span>Telegram</span>
+          </div>
 
-                <div class="contact-left">
-                    <i class="fa-brands fa-telegram telegram"></i>
-                    <span>Telegram</span>
-                </div>
+          <div class="contact-input-area">
+            <input type="text" placeholder="+95 9" />
 
-                <div class="contact-input-area">
-                    <input type="text" placeholder="+95 9">
+            <label class="same-check">
+              <input type="checkbox" />
+              <span>Same as Phone Number</span>
+            </label>
+          </div>
+        </div>
 
-                    <label class="same-check">
-                        <input type="checkbox">
-                        <span>Same as Phone Number</span>
-                    </label>
-                </div>
+        <!-- Viber -->
+        <div class="contact-row">
+          <div class="contact-left">
+            <i class="fa-brands fa-viber viber"></i>
+            <span>Viber</span>
+          </div>
 
-            </div>
+          <div class="contact-input-area">
+            <input type="text" placeholder="Viber" />
 
-            <!-- Viber -->
-            <div class="contact-row">
+            <label class="same-check">
+              <input type="checkbox" />
+              <span>Same as Phone Number</span>
+            </label>
+          </div>
+        </div>
 
-                <div class="contact-left">
-                    <i class="fa-brands fa-viber viber"></i>
-                    <span>Viber</span>
-                </div>
-
-                <div class="contact-input-area">
-                    <input type="text" placeholder="Viber">
-
-                    <label class="same-check">
-                        <input type="checkbox">
-                        <span>Same as Phone Number</span>
-                    </label>
-                </div>
-
-            </div>
-
-            <!-- Chat -->
-            <!-- <div class="chat-box">
+        <!-- Chat -->
+        <!-- <div class="chat-box">
                 <i class="fa-solid fa-circle-check"></i>
                 <span>Internal Chat Box</span>
             </div> -->
 
-            <button class="post-btn">POST YOUR LISTING</button>
+        <button class="post-btn">POST YOUR LISTING</button>
 
-            <p class="terms">
-                By posting, you agree to our
-                <a href="#">Terms & Conditions</a>.
-            </p>
-
-        </div>
+        <p class="terms">
+          By posting, you agree to our
+          <a href="#">Terms & Conditions</a>.
+        </p>
+      </div>
     </div>
 
     <!-- FOOTER -->
@@ -208,150 +194,128 @@
     <script src="../js/include.js"></script>
 
     <script>
-        $(document).ready(function () {
+      $(document).ready(function () {
+        /* ACTIVE NAV */
+        let currentPage = window.location.pathname.split("/").pop();
 
-            /* ACTIVE NAV */
-            let currentPage = window.location.pathname.split("/").pop();
+        if (currentPage === "") {
+          currentPage = "home.html";
+        }
 
-            if (currentPage === "") {
-                currentPage = "home.html";
-            }
+        $(".main-nav a, .mobile-nav a").each(function () {
+          if ($(this).attr("href") === currentPage) {
+            $(this).addClass("active");
+          }
+        });
 
-            $(".main-nav a, .mobile-nav a").each(function () {
+        /* MENU TOGGLE */
+        $("#menuToggle").click(function () {
+          $(".main-nav").toggleClass("show");
+        });
 
-                if ($(this).attr("href") === currentPage) {
-                    $(this).addClass("active");
-                }
+        /* CATEGORY SCROLL */
+        $("#catLeft").click(function () {
+          $("#categoryList").animate(
+            {
+              scrollLeft: $("#categoryList").scrollLeft() - 120,
+            },
+            400,
+          );
+        });
 
-            });
+        $("#catRight").click(function () {
+          $("#categoryList").animate(
+            {
+              scrollLeft: $("#categoryList").scrollLeft() + 120,
+            },
+            400,
+          );
+        });
 
+        /* RENDER CATEGORIES */
+        const categories = [
+          { name: "bag", img: "../image/bag.png" },
+          { name: "shoes", img: "../image/shoe.png" },
+          { name: "blouse", img: "../image/blouse.png" },
+          { name: "hat", img: "../image/hat.png" },
+          { name: "tshirt", img: "../image/tshirt.png" },
+          { name: "bag", img: "../image/bag.png" },
+          { name: "shoe", img: "../image/shoe.png" },
+          { name: "tshirt", img: "../image/tshirt.png" },
+          { name: "bag", img: "../image/bag.png" },
+          { name: "hat", img: "../image/hat.png" },
+          { name: "tshirt", img: "../image/tshirt.png" },
+          { name: "bag", img: "../image/bag.png" },
+          { name: "shoe", img: "../image/shoe.png" },
+          { name: "tshirt", img: "../image/tshirt.png" },
+          { name: "bag", img: "../image/bag.png" },
+        ];
 
-            /* MENU TOGGLE */
-            $("#menuToggle").click(function () {
-                $(".main-nav").toggleClass("show");
-            });
-
-
-            /* CATEGORY SCROLL */
-            $("#catLeft").click(function () {
-
-                $("#categoryList").animate({
-                    scrollLeft: $("#categoryList").scrollLeft() - 120
-                }, 400);
-
-            });
-
-            $("#catRight").click(function () {
-
-                $("#categoryList").animate({
-                    scrollLeft: $("#categoryList").scrollLeft() + 120
-                }, 400);
-
-            });
-
-
-            /* RENDER CATEGORIES */
-            const categories = [
-                { name: "bag", img: "../image/bag.png" },
-                { name: "shoes", img: "../image/shoe.png" },
-                { name: "blouse", img: "../image/blouse.png" },
-                { name: "hat", img: "../image/hat.png" },
-                { name: "tshirt", img: "../image/tshirt.png" },
-                { name: "bag", img: "../image/bag.png" },
-                { name: "shoe", img: "../image/shoe.png" },
-                { name: "tshirt", img: "../image/tshirt.png" },
-                { name: "bag", img: "../image/bag.png" },
-                { name: "hat", img: "../image/hat.png" },
-                { name: "tshirt", img: "../image/tshirt.png" },
-                { name: "bag", img: "../image/bag.png" },
-                { name: "shoe", img: "../image/shoe.png" },
-                { name: "tshirt", img: "../image/tshirt.png" },
-                { name: "bag", img: "../image/bag.png" }
-            ];
-
-            $.each(categories, function (index, cat) {
-
-                let div = $(`
-                <div class="category-item ${index === 0 ? 'active' : ''}">
+        $.each(categories, function (index, cat) {
+          let div = $(`
+                <div class="category-item ${index === 0 ? "active" : ""}">
                     <img src="${cat.img}">
                     <p>${cat.name}</p>
                 </div>
             `);
 
-                div.click(function () {
+          div.click(function () {
+            $(".category-item").removeClass("active");
+            $(this).addClass("active");
+          });
 
-                    $(".category-item").removeClass("active");
-                    $(this).addClass("active");
+          $("#categoryList").append(div);
+        });
 
-                });
+        /* IMAGE UPLOAD PREVIEW */
 
-                $("#categoryList").append(div);
+        let currentIndex = 0;
 
-            });
+        $("#addPhotoBtn").click(function () {
+          $("#photoInput").click();
+        });
 
+        $("#photoInput").change(function (e) {
+          const files = Array.from(e.target.files);
+          const photoBoxes = $(".photo-box");
 
-            /* IMAGE UPLOAD PREVIEW */
+          $.each(files, function (index, file) {
+            if (currentIndex >= photoBoxes.length) {
+              return false;
+            }
 
-            let currentIndex = 0;
+            const reader = new FileReader();
 
-            $("#addPhotoBtn").click(function () {
-                $("#photoInput").click();
-            });
-
-            $("#photoInput").change(function (e) {
-
-                const files = Array.from(e.target.files);
-                const photoBoxes = $(".photo-box");
-
-                $.each(files, function (index, file) {
-
-                    if (currentIndex >= photoBoxes.length) {
-                        return false;
-                    }
-
-                    const reader = new FileReader();
-
-                    reader.onload = function (event) {
-
-                        $(photoBoxes[currentIndex]).html(`
+            reader.onload = function (event) {
+              $(photoBoxes[currentIndex]).html(`
                         <img src="${event.target.result}" alt="preview">
                     `);
 
-                        currentIndex++;
+              currentIndex++;
+            };
 
-                    };
+            reader.readAsDataURL(file);
+          });
 
-                    reader.readAsDataURL(file);
-
-                });
-
-                $("#photoInput").val("");
-
-            });
-
-
-            /* QUANTITY BUTTONS */
-
-            $("#plusBtn").click(function () {
-
-                let currentValue = parseInt($("#qtyInput").val() || 0);
-
-                $("#qtyInput").val(currentValue + 1);
-
-            });
-
-            $("#minusBtn").click(function () {
-
-                let currentValue = parseInt($("#qtyInput").val() || 1);
-
-                if (currentValue > 1) {
-                    $("#qtyInput").val(currentValue - 1);
-                }
-
-            });
-
+          $("#photoInput").val("");
         });
-    </script>
-</body>
 
+        /* QUANTITY BUTTONS */
+
+        $("#plusBtn").click(function () {
+          let currentValue = parseInt($("#qtyInput").val() || 0);
+
+          $("#qtyInput").val(currentValue + 1);
+        });
+
+        $("#minusBtn").click(function () {
+          let currentValue = parseInt($("#qtyInput").val() || 1);
+
+          if (currentValue > 1) {
+            $("#qtyInput").val(currentValue - 1);
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
