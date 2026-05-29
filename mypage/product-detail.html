@@ -98,9 +98,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/include.js"></script>
     <script>
-      // ---------- mock product data ----------
-      // This product detail page can receive product ID via URL parameter (e.g. ?id=1)
-      // We match with LEFT_PRODUCTS (same as category) for consistency and add extra fields (seller, description, etc.)
+      // ---------- STATIC PRODUCT DATA (kept as original) ----------
       const LEFT_PRODUCTS_DETAIL = [
         {
           id: 1,
@@ -492,350 +490,290 @@
         },
       ];
 
-      // More items from same seller (Sarah J.) for the 'More from store' section
-      const SARAH_ITEMS = [
-        {
-          id: 5,
-          name: "Straw Tote Bag",
-          price: 34.99,
-          image:
-            "https://i.pinimg.com/1200x/f2/df/79/f2df7979c3e9fd8bfdf6b51aa9aca09e.jpg",
-        },
-        {
-          id: 6,
-          name: "Straw Tote Premium",
-          price: 34.99,
-          image:
-            "https://i.pinimg.com/1200x/2b/a4/3c/2ba43c436ea17b8eef0082b9be1bacf1.jpg",
-        },
-        {
-          id: 7,
-          name: "Wool Fedora Hat",
-          price: 24.99,
-          image:
-            "https://i.pinimg.com/736x/4e/81/11/4e8111d7aea3eeb01500a1f6ad88cdae.jpg",
-        },
-        {
-          id: 15,
-          name: "Leather Belt",
-          price: 29.99,
-          image:
-            "https://i.pinimg.com/1200x/60/d6/8a/60d68a58460c418cffd3f90d682348cc.jpg",
-        },
-        {
-          id: 9,
-          name: "Summer Sandals",
-          price: 49.99,
-          image:
-            "https://i.pinimg.com/736x/f3/cd/93/f3cd93cced81f304559f1d611048a4c2.jpg",
-        },
-        {
-          id: 13,
-          name: "Ripped Jeans",
-          price: 64.99,
-          image:
-            "https://i.pinimg.com/736x/df/07/36/df0736a899239fb28bc263b5e8501057.jpg",
-        },
-        {
-          id: 4,
-          name: "Silk Blouse",
-          price: 39.99,
-          image:
-            "https://i.pinimg.com/1200x/bd/6c/f9/bd6cf9e39bb3ea86086bb1f89c789ee6.jpg",
-        },
-      ];
+      // All click logic moved inside document.ready. No global variables except static data.
+      $(document).ready(function () {
+        // ---- LOCAL VARIABLES (no globals) ----
+        let cart = JSON.parse(localStorage.getItem("productCart")) || [];
+        let currentProduct = null;
+        let resizeTimeout = null;
 
-      let currentProduct = null;
-      let cart = JSON.parse(localStorage.getItem("productCart")) || [];
-
-      function renderProductThumbnails(product) {
-        const galleryContainer = document.getElementById(
-          "productThumbnailsGallery",
-        );
-        if (!galleryContainer) return;
-
-        // Collect all images: main image + product_images (if exists)
-        let allImages = [product.image];
-        if (
-          product.product_images &&
-          Array.isArray(product.product_images) &&
-          product.product_images.length > 0
-        ) {
-          allImages = [...allImages, ...product.product_images];
+        // Helper: show toast message
+        function showToast(msg) {
+          let toastDiv = document.createElement("div");
+          toastDiv.className = "toast-msg";
+          toastDiv.innerText = msg;
+          toastDiv.style.position = "fixed";
+          toastDiv.style.bottom = "80px";
+          toastDiv.style.left = "20px";
+          toastDiv.style.background = "#1e3a2f";
+          toastDiv.style.color = "white";
+          toastDiv.style.padding = "8px 16px";
+          toastDiv.style.borderRadius = "40px";
+          toastDiv.style.zIndex = "300";
+          toastDiv.style.fontSize = "13px";
+          document.body.appendChild(toastDiv);
+          setTimeout(() => toastDiv.remove(), 1800);
         }
 
-        // Clear container
-        galleryContainer.innerHTML = "";
-
-        // Create thumbnails
-        allImages.forEach((imgSrc, idx) => {
-          const thumb = document.createElement("img");
-          thumb.src = imgSrc;
-          thumb.classList.add("thumb-img");
-          if (idx === 0) thumb.classList.add("active-thumb");
-          thumb.onerror = () => {
-            thumb.src = "https://placehold.co/100x100/eee/aaa?text=img";
-          };
-
-          // Optional: Click to enlarge or change main image
-          thumb.addEventListener("click", () => {
-            // Update main product image if you want
-            const mainImage = document.getElementById("detailMainImage");
-            if (mainImage) {
-              mainImage.src = imgSrc;
+        // Update cart icon in header (if exists)
+        function updateCartIcon() {
+          const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
+          const cartBadge = document.querySelector(".cart b");
+          if (cartBadge) cartBadge.innerText = totalItems;
+          else if (totalItems > 0) {
+            const cartSpan = document.querySelector(".cart");
+            if (cartSpan && !cartSpan.querySelector("b")) {
+              const badge = document.createElement("b");
+              badge.innerText = totalItems;
+              cartSpan.appendChild(badge);
+            } else if (cartSpan) {
+              const b = cartSpan.querySelector("b");
+              if (b) b.innerText = totalItems;
             }
-            // Update active class
-            document
-              .querySelectorAll(".thumb-img")
-              .forEach((t) => t.classList.remove("active-thumb"));
-            thumb.classList.add("active-thumb");
+          }
+        }
+
+        // Add to cart function
+        function addToCart(product) {
+          const existing = cart.find((item) => item.id === product.id);
+          if (existing) existing.quantity += 1;
+          else
+            cart.push({
+              id: product.id,
+              name: product.name,
+              price: product.price,
+              quantity: 1,
+              image: product.image,
+            });
+          localStorage.setItem("productCart", JSON.stringify(cart));
+          showToast(`${product.name} added to cart 🛒`);
+          updateCartIcon();
+        }
+
+        // Render thumbnails from product images
+        function renderProductThumbnails(product) {
+          const galleryContainer = document.getElementById(
+            "productThumbnailsGallery",
+          );
+          if (!galleryContainer) return;
+          let allImages = [product.image];
+          if (
+            product.product_images &&
+            Array.isArray(product.product_images) &&
+            product.product_images.length > 0
+          ) {
+            allImages = [...allImages, ...product.product_images];
+          }
+          galleryContainer.innerHTML = "";
+          allImages.forEach((imgSrc, idx) => {
+            const thumb = document.createElement("img");
+            thumb.src = imgSrc;
+            thumb.classList.add("thumb-img");
+            if (idx === 0) thumb.classList.add("active-thumb");
+            thumb.onerror = () => {
+              thumb.src = "https://placehold.co/100x100/eee/aaa?text=img";
+            };
+            thumb.addEventListener("click", () => {
+              const mainImage = document.getElementById("detailMainImage");
+              if (mainImage) mainImage.src = imgSrc;
+              document
+                .querySelectorAll(".thumb-img")
+                .forEach((t) => t.classList.remove("active-thumb"));
+              thumb.classList.add("active-thumb");
+            });
+            galleryContainer.appendChild(thumb);
           });
+        }
 
-          galleryContainer.appendChild(thumb);
-        });
-      }
-      function reorderForMobile() {
-        const isMobile = window.innerWidth <= 768;
-        const productGallery = document.querySelector(".product-gallery");
-        const mainImage = document.querySelector(".main-image");
-        const productInfoDetail = document.querySelector(
-          ".product-info-detail",
-        );
+        // Reorder for mobile view (main image position)
+        function reorderForMobile() {
+          const isMobile = window.innerWidth <= 768;
+          const productGallery = document.querySelector(".product-gallery");
+          const mainImage = document.querySelector(".main-image");
+          const productInfoDetail = document.querySelector(
+            ".product-info-detail",
+          );
+          if (!productGallery || !mainImage || !productInfoDetail) return;
+          const mainImageIndex = Array.from(productGallery.children).indexOf(
+            mainImage,
+          );
+          const infoDetailIndex = Array.from(productGallery.children).indexOf(
+            productInfoDetail,
+          );
+          if (isMobile) {
+            if (mainImageIndex < infoDetailIndex) {
+              productGallery.insertBefore(
+                mainImage,
+                productInfoDetail.nextSibling,
+              );
+            }
+          } else {
+            if (mainImageIndex > infoDetailIndex) {
+              productGallery.insertBefore(mainImage, productInfoDetail);
+            }
+          }
+        }
 
-        if (!productGallery || !mainImage || !productInfoDetail) return;
-
-        const mainImageIndex = Array.from(productGallery.children).indexOf(
-          mainImage,
-        );
-        const infoDetailIndex = Array.from(productGallery.children).indexOf(
-          productInfoDetail,
-        );
-
-        if (isMobile) {
-          // MOBILE: Move main image after product-info-detail if it's before it
-          if (mainImageIndex < infoDetailIndex) {
-            productGallery.insertBefore(
-              mainImage,
-              productInfoDetail.nextSibling,
+        // Get product from URL parameter
+        function getProductFromUrl() {
+          const params = new URLSearchParams(window.location.search);
+          const id = parseInt(params.get("id"));
+          if (id && !isNaN(id)) {
+            return (
+              LEFT_PRODUCTS_DETAIL.find((p) => p.id === id) ||
+              LEFT_PRODUCTS_DETAIL[4]
             );
           }
-        } else {
-          // DESKTOP: Restore original order - move main image before product-info-detail if it's after it
-          if (mainImageIndex > infoDetailIndex) {
-            productGallery.insertBefore(mainImage, productInfoDetail);
-          }
-        }
-      }
-
-      // Call on load and resize
-      let resizeTimeout;
-      window.addEventListener("resize", function () {
-        // Clear previous timeout
-        clearTimeout(resizeTimeout);
-        // Wait for resize to finish before reordering
-        resizeTimeout = setTimeout(function () {
-          reorderForMobile();
-        }, 150);
-      });
-      function getProductFromUrl() {
-        const params = new URLSearchParams(window.location.search);
-        const id = parseInt(params.get("id"));
-        if (id && !isNaN(id)) {
           return (
-            LEFT_PRODUCTS_DETAIL.find((p) => p.id === id) ||
+            LEFT_PRODUCTS_DETAIL.find((p) => p.id === 5) ||
             LEFT_PRODUCTS_DETAIL[4]
           );
         }
-        // default fallback: Premium Leather Tote (or straw tote ID 5)
-        return (
-          LEFT_PRODUCTS_DETAIL.find((p) => p.id === 5) ||
-          LEFT_PRODUCTS_DETAIL[4]
-        );
-      }
 
-      function renderProductDetail(product) {
-        if (!product) return;
-        document.getElementById("detailTitle").innerText = product.name;
-        document.getElementById("detailPrice").innerHTML =
-          `$${product.price.toFixed(2)} <small>Kyats</small>`;
-        document.getElementById("detailMainImage").src = product.image;
-        // Render product thumbnails in left column
-        renderProductThumbnails(product);
-        document.getElementById("detailMainImage").onerror = function () {
-          this.src = "https://placehold.co/400x400/eee/aaa?text=Product";
-        };
-        // meta info: category, sku mock, quantity
-        const sku = `EL-${product.category?.substring(0, 3).toUpperCase() || "PRD"}-${product.id}`;
-        const qty = Math.floor(Math.random() * 25) + 5;
-        const metaHtml = `
-      <table class="product-meta-table">
-    <tr>
-      <td class="meta-label">Category</td>
-      <td class="meta-value">${product.category || "Fashion"}</td>
-      <td class="meta-label">Condition</td>
-      <td class="meta-value">New</td>
-    </tr>
-    <tr>
-      <td class="meta-label">SKU</td>
-      <td class="meta-value">${sku}</td>
-      <td class="meta-label">Quantity Available</td>
-      <td class="meta-value">${qty}</td>
-    </tr>
-  </table>
-    `;
-        // After setting detailMeta innerHTML
-        document.getElementById("detailMeta").innerHTML = metaHtml;
-        // Reorder after meta is rendered
-        setTimeout(() => reorderForMobile(), 50);
-        const desc =
-          product.description ||
-          "Crafted from premium materials. Free shipping included. Sustainable packaging.";
-        document.getElementById("detailDescription").innerHTML =
-          `<p>${desc}</p><p> Manufacturer: Elephant Co. & contains no harmful substances.</p><hr></hr><span>Seller Information</span>`;
-        // seller info: based on product.seller
-        const sellerName = product.seller || "Sarah J.";
-        const sellerRating = product.rating || 4.9;
-        document.getElementById("sellerName").innerHTML = sellerName;
-        document.querySelector(".seller-rating").innerHTML =
-          `★★★★★ <span>${sellerRating}</span>`;
-        // Update avatar with seller name's first letter
-        const sellerAvatar = document.querySelector(".seller-avatar");
-        if (sellerAvatar) {
-          // Get first character of seller name (or first letter of first word)
-          let firstLetter = sellerName.charAt(0).toUpperCase();
-          // If seller name has multiple words, you can also take second letter
-          // For example: "Sarah J." -> "S", "Elegance Studio" -> "E"
-          sellerAvatar.innerHTML = firstLetter;
-        }
-        // update more from seller
-        renderMoreFromStore(sellerName);
-      }
-
-      function renderMoreFromStore(sellerName) {
-        let itemsToShow = [];
-
-        // Filter products that belong to the current seller (excluding current product)
-        itemsToShow = LEFT_PRODUCTS_DETAIL.filter(
-          (p) => p.seller === sellerName && p.id !== currentProduct?.id,
-        ).slice(0, 12);
-
-        // If no other products from this seller, show fallback or empty message
-        if (itemsToShow.length === 0) {
+        // Render "More from this store" section
+        function renderMoreFromStore(sellerName) {
+          let itemsToShow = LEFT_PRODUCTS_DETAIL.filter(
+            (p) => p.seller === sellerName && p.id !== currentProduct?.id,
+          ).slice(0, 12);
           const container = document.getElementById("moreFromStoreGrid");
-          if (container) {
+          if (!container) return;
+          if (itemsToShow.length === 0) {
             container.innerHTML = `<div style="text-align:center; padding:40px;">No other items from this seller</div>`;
+          } else {
+            container.innerHTML = itemsToShow
+              .map(
+                (item) => `
+              <div class="store-item" data-id="${item.id}">
+                <img src="${item.image}" onerror="this.src='https://placehold.co/150x150/f0f0f0/ccc'" alt="${item.name}">
+                <div class="store-item-name">${item.name.length > 18 ? item.name.slice(0, 15) + "..." : item.name}</div>
+                <div class="store-item-price">$${item.price.toFixed(2)}</div>
+              </div>
+            `,
+              )
+              .join("");
+            // attach click events to store items
+            document.querySelectorAll(".store-item").forEach((el) => {
+              el.addEventListener("click", (e) => {
+                const prodId = parseInt(el.dataset.id);
+                if (prodId)
+                  window.location.href = `product-detail.html?id=${prodId}`;
+              });
+            });
           }
-          // Update the title anyway
           const titleElement = document.getElementById("moreFromStoreTitle");
-          if (titleElement) {
+          if (titleElement)
             titleElement.innerHTML = `More from ${sellerName}'s Store`;
-          }
-          return;
         }
 
-        const container = document.getElementById("moreFromStoreGrid");
-        if (!container) return;
-
-        container.innerHTML = itemsToShow
-          .map(
-            (item) => `
-    <div class="store-item" data-id="${item.id}">
-      <img src="${item.image}" onerror="this.src='https://placehold.co/150x150/f0f0f0/ccc'" alt="${item.name}">
-      <div class="store-item-name">${item.name.length > 18 ? item.name.slice(0, 15) + "..." : item.name}</div>
-      <div class="store-item-price">$${item.price.toFixed(2)}</div>
-    </div>
-  `,
-          )
-          .join("");
-
-        // Update the title with dynamic seller name
-        const titleElement = document.getElementById("moreFromStoreTitle");
-        if (titleElement) {
-          titleElement.innerHTML = `More from ${sellerName}'s Store`;
+        // Render full product detail
+        function renderProductDetail(product) {
+          if (!product) return;
+          document.getElementById("detailTitle").innerText = product.name;
+          document.getElementById("detailPrice").innerHTML =
+            `$${product.price.toFixed(2)} <small>Kyats</small>`;
+          document.getElementById("detailMainImage").src = product.image;
+          document.getElementById("detailMainImage").onerror = function () {
+            this.src = "https://placehold.co/400x400/eee/aaa?text=Product";
+          };
+          renderProductThumbnails(product);
+          const sku = `EL-${product.category?.substring(0, 3).toUpperCase() || "PRD"}-${product.id}`;
+          const qty = Math.floor(Math.random() * 25) + 5;
+          const metaHtml = `
+            <table class="product-meta-table">
+              <tr><td class="meta-label">Category</td><td class="meta-value">${product.category || "Fashion"}</td>
+               <td class="meta-label">Condition</td><td class="meta-value">New</td>
+               </tr>
+               <tr><td class="meta-label">SKU</td><td class="meta-value">${sku}</td>
+               <td class="meta-label">Quantity Available</td><td class="meta-value">${qty}</td></tr>
+            </table>
+          `;
+          document.getElementById("detailMeta").innerHTML = metaHtml;
+          setTimeout(() => reorderForMobile(), 50);
+          const desc =
+            product.description ||
+            "Crafted from premium materials. Free shipping included. Sustainable packaging.";
+          document.getElementById("detailDescription").innerHTML =
+            `<p>${desc}</p><p> Manufacturer: Elephant Co. & contains no harmful substances.</p><hr></hr><span>Seller Information</span>`;
+          const sellerName = product.seller || "Sarah J.";
+          const sellerRating = product.rating || 4.9;
+          document.getElementById("sellerName").innerHTML = sellerName;
+          document.querySelector(".seller-rating").innerHTML =
+            `★★★★★ <span>${sellerRating}</span>`;
+          const sellerAvatar = document.querySelector(".seller-avatar");
+          if (sellerAvatar)
+            sellerAvatar.innerHTML = sellerName.charAt(0).toUpperCase();
+          renderMoreFromStore(sellerName);
         }
 
-        // attach click event to navigate to product detail with id
-        document.querySelectorAll(".store-item").forEach((el) => {
-          el.addEventListener("click", (e) => {
-            const prodId = parseInt(el.dataset.id);
-            if (prodId)
-              window.location.href = `product-detail.html?id=${prodId}`;
-          });
-        });
-      }
+        // Initialize page: get product, render, attach all click events
+        function initPage() {
+          currentProduct = getProductFromUrl();
+          renderProductDetail(currentProduct);
+          reorderForMobile();
 
-      // add to cart + toast + localStorage
-      function addToCart(product) {
-        const existing = cart.find((item) => item.id === product.id);
-        if (existing) existing.quantity += 1;
-        else
-          cart.push({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            quantity: 1,
-            image: product.image,
-          });
-        localStorage.setItem("productCart", JSON.stringify(cart));
-        showToast(`${product.name} added to cart 🛒`);
-        updateCartIcon();
-      }
-
-      function showToast(msg) {
-        let toastDiv = document.createElement("div");
-        toastDiv.className = "toast-msg";
-        toastDiv.innerText = msg;
-        document.body.appendChild(toastDiv);
-        setTimeout(() => toastDiv.remove(), 1800);
-      }
-
-      function updateCartIcon() {
-        const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
-        const cartBadge = document.querySelector(".cart b");
-        if (cartBadge) cartBadge.innerText = totalItems;
-        else if (totalItems > 0) {
-          const cartSpan = document.querySelector(".cart");
-          if (cartSpan && !cartSpan.querySelector("b")) {
-            const badge = document.createElement("b");
-            badge.innerText = totalItems;
-            cartSpan.appendChild(badge);
-          } else if (cartSpan) {
-            const b = cartSpan.querySelector("b");
-            if (b) b.innerText = totalItems;
-          }
-        }
-      }
-
-      function initPage() {
-        currentProduct = getProductFromUrl();
-        renderProductDetail(currentProduct);
-        reorderForMobile(); // Add this line
-        const addBtn = document.getElementById("addToCartDetailBtn");
-        if (addBtn) {
-          addBtn.addEventListener("click", () => addToCart(currentProduct));
-        }
-        // ask seller
-        document
-          .querySelector(".ask-seller-btn")
-          ?.addEventListener("click", () => {
-            alert(
-              `📩 Message sent to ${currentProduct.seller || "seller"}! They'll reply soon.`,
+          // Add to Cart button click
+          const addBtn = document.getElementById("addToCartDetailBtn");
+          if (addBtn) {
+            // remove any previous listeners to avoid duplicates
+            const newAddBtn = addBtn.cloneNode(true);
+            addBtn.parentNode.replaceChild(newAddBtn, addBtn);
+            newAddBtn.addEventListener("click", () =>
+              addToCart(currentProduct),
             );
-          });
-        updateCartIcon();
-      }
+          }
 
-      // highlight active nav (category)
-      const currentPath = window.location.pathname.split("/").pop();
-      document.querySelectorAll(".nav a").forEach((link) => {
-        if (link.getAttribute("href") === currentPath)
-          link.classList.add("active");
+          // Ask Seller button click
+          const askBtn = document.querySelector(".ask-seller-btn");
+          if (askBtn) {
+            const newAskBtn = askBtn.cloneNode(true);
+            askBtn.parentNode.replaceChild(newAskBtn, askBtn);
+            newAskBtn.addEventListener("click", () => {
+              alert(
+                `📩 Message sent to ${currentProduct.seller || "seller"}! They'll reply soon.`,
+              );
+            });
+          }
+
+          // Follow Seller button click
+          const followBtn = document.querySelector(".btn-follow");
+          if (followBtn) {
+            const newFollowBtn = followBtn.cloneNode(true);
+            followBtn.parentNode.replaceChild(newFollowBtn, followBtn);
+            newFollowBtn.addEventListener("click", () => {
+              alert(
+                `👋 You are now following ${currentProduct.seller || "this seller"}!`,
+              );
+            });
+          }
+
+          updateCartIcon();
+        }
+
+        // Window resize handler for mobile reorder
+        $(window).on("resize", function () {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(function () {
+            reorderForMobile();
+          }, 150);
+        });
+
+        // Active nav highlight (same as category page)
+        let currentPage = window.location.pathname.split("/").pop();
+        if (currentPage === "") currentPage = "product-detail.html";
+        $(".main-nav a, .mobile-nav a").each(function () {
+          if ($(this).attr("href") === currentPage) $(this).addClass("active");
+        });
+        let currentMobilePage = window.location.pathname.split("/").pop();
+        if (currentMobilePage === "") currentMobilePage = "product-detail.html";
+        const allLinks = document.querySelectorAll(".nav a, .mobile-nav a");
+        allLinks.forEach((link) => {
+          if (link.getAttribute("href") === currentMobilePage)
+            link.classList.add("active");
+        });
+
+        // Start the page
+        initPage();
       });
-      document.querySelectorAll(".mobile-nav a").forEach((link) => {
-        if (link.getAttribute("href") === currentPath)
-          link.classList.add("active");
-      });
-      initPage();
     </script>
   </body>
 </html>

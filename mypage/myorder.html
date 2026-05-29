@@ -33,12 +33,9 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/include.js"></script>
     <script>
-      // ---------- MOCK ORDER DATA (based on cart items and purchase history) ----------
+      // ---------- STATIC ORDER DATA (kept as original) ----------
       // This simulates orders placed by the user. In real scenario, data would come from backend/localStorage.
-      // We'll also read current cart from localStorage to show dynamic order creation if needed (but orders are separate).
-
-      // Sample orders (matching photo style)
-      let orders = [
+      const ORDERS_DATA = [
         {
           id: "314159",
           date: "Aug 15, 2024",
@@ -94,158 +91,180 @@
         },
       ];
 
-      // Helper: show toast message
-      function showToast(msg) {
-        let t = document.createElement("div");
-        t.className = "toast-msg";
-        t.innerText = msg;
-        document.body.appendChild(t);
-        setTimeout(() => t.remove(), 2000);
-      }
+      // All click logic moved inside document.ready. No global variables except static data.
+      $(document).ready(function () {
+        // ---- LOCAL VARIABLES (no globals) ----
+        let orders = [...ORDERS_DATA]; // local copy
+        let cart = JSON.parse(localStorage.getItem("productCart")) || [];
 
-      // render orders list
-      function renderOrders() {
-        const container = document.getElementById("ordersList");
-        if (!container) return;
-
-        if (orders.length === 0) {
-          container.innerHTML = `<div class="empty-orders"><i class="fa-regular fa-receipt fa-3x" style="opacity:0.5; margin-bottom:12px; display:block;"></i>No orders yet.<br>Start shopping to see your orders here.</div>`;
-          return;
+        // Helper: show toast message (styled consistently with other pages)
+        function showToast(msg) {
+          let t = document.createElement("div");
+          t.className = "toast-msg";
+          t.innerText = msg;
+          t.style.position = "fixed";
+          t.style.bottom = "80px";
+          t.style.left = "20px";
+          t.style.background = "#1e3a2f";
+          t.style.color = "white";
+          t.style.padding = "8px 16px";
+          t.style.borderRadius = "40px";
+          t.style.zIndex = "300";
+          t.style.fontSize = "13px";
+          document.body.appendChild(t);
+          setTimeout(() => t.remove(), 2000);
         }
 
-        let html = "";
-        orders.forEach((order) => {
-          // status style class
-          let statusClass = "";
-          if (order.status === "SHIPPED") statusClass = "status-shipped";
-          else if (order.status === "DELIVERED")
-            statusClass = "status-delivered";
-
-          html += `
-        <div class="order-card" data-order-id="${order.id}">
-          <div class="order-items">
-      `;
-          order.items.forEach((item) => {
-            html += `
-          <div class="order-item">
-            <div class="item-info row">
-              <img class="item-img col-sm-4" src="${item.image}" onerror="this.src='https://placehold.co/70x70/eee/ccc?text=item'" alt="${item.name}">
-              <div class="col-sm-8">
-                <div class="order-header">
-                    <span class="order-number">Order #${order.id}</span>
-                  <div class="order-status ${statusClass}">${order.status}</div>
-                </div>
-                <span class="order-date">${order.date}</span>
-                <div class="item-name">${item.name} - $${item.price.toFixed(2)}</div>
-                ${item.quantity > 1 ? `<small class="text-muted">Qty: ${item.quantity}</small>` : ""}
-              
-            <div class="order-actions">
-        `;
-            if (order.status === "SHIPPED") {
-              html += `<button class="btn-primary-sm track-btn" data-order="${order.id}" data-item="${item.name}">Track Order</button>
-                   <button class="btn-outline-dark view-details-btn" data-product-id="${item.productId}">View Details</button>`;
-            } else if (order.status === "DELIVERED") {
-              html += `<button class="btn-warning-sm buy-again-btn" data-product-id="${item.productId}" data-name="${item.name}" data-price="${item.price}" data-img="${item.image}">Buy Again</button>
-                   <button class="btn-outline-dark leave-review-btn" data-product="${item.name}">Leave Review</button>`;
+        // Update cart icon in header (consistent with category/product pages)
+        function updateCartIcon() {
+          const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
+          const cartBadge = document.querySelector(".cart b");
+          if (cartBadge) cartBadge.innerText = totalItems;
+          else if (totalItems > 0) {
+            const cartSpan = document.querySelector(".cart");
+            if (cartSpan && !cartSpan.querySelector("b")) {
+              const badge = document.createElement("b");
+              badge.innerText = totalItems;
+              cartSpan.appendChild(badge);
+            } else if (cartSpan) {
+              const b = cartSpan.querySelector("b");
+              if (b) b.innerText = totalItems;
             }
-            html += `</div></div></div>
-            </div>`;
-          });
-          html += `</div></div>`;
-        });
-        container.innerHTML = html;
-
-        // attach event listeners for dynamic buttons
-        document.querySelectorAll(".track-btn").forEach((btn) => {
-          btn.addEventListener("click", (e) => {
-            const orderId = btn.getAttribute("data-order");
-            showToast(
-              `📦 Tracking info for order #${orderId} would be shown here.`,
-            );
-          });
-        });
-        document.querySelectorAll(".view-details-btn").forEach((btn) => {
-          btn.addEventListener("click", (e) => {
-            const productId = btn.getAttribute("data-product-id");
-            if (productId)
-              window.location.href = `product-detail.html?id=${productId}`;
-            else showToast("Product details coming soon");
-          });
-        });
-        document.querySelectorAll(".buy-again-btn").forEach((btn) => {
-          btn.addEventListener("click", (e) => {
-            const id = btn.getAttribute("data-product-id");
-            const name = btn.getAttribute("data-name");
-            const price = parseFloat(btn.getAttribute("data-price"));
-            const image = btn.getAttribute("data-img");
-            // add to cart logic (using same cart system from category page)
-            addToCartFromOrders(id, name, price, image);
-          });
-        });
-        document.querySelectorAll(".leave-review-btn").forEach((btn) => {
-          btn.addEventListener("click", (e) => {
-            const productName = btn.getAttribute("data-product");
-            showToast(
-              `✨ Review for "${productName}" - Thank you! (review popup would open)`,
-            );
-          });
-        });
-      }
-
-      // Cart functions (integrated with localStorage to keep same cart as category page)
-      let cart = JSON.parse(localStorage.getItem("productCart")) || [];
-
-      function addToCartFromOrders(id, name, price, image) {
-        const existing = cart.find((item) => item.id == id);
-        if (existing) existing.quantity += 1;
-        else
-          cart.push({
-            id: parseInt(id),
-            name: name,
-            price: price,
-            quantity: 1,
-            image: image,
-          });
-        localStorage.setItem("productCart", JSON.stringify(cart));
-        showToast(`${name} added to cart 🛒`);
-        updateCartIcon();
-      }
-
-      function updateCartIcon() {
-        const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
-        const cartBadge = document.querySelector(".cart b");
-        if (cartBadge) cartBadge.innerText = totalItems;
-        else if (totalItems > 0) {
-          const cartSpan = document.querySelector(".cart");
-          if (cartSpan && !cartSpan.querySelector("b")) {
-            const badge = document.createElement("b");
-            badge.innerText = totalItems;
-            cartSpan.appendChild(badge);
-          } else if (cartSpan) {
-            const b = cartSpan.querySelector("b");
-            if (b) b.innerText = totalItems;
           }
         }
-      }
 
-      // Optional: we can also merge orders from purchase history based on cart checkout simulation.
-      // For demonstration we keep existing orders but we'll also add a "Sample Order from Cart" if needed.
-      // No extra changes.
+        // Add to cart function (integrates with localStorage same as category page)
+        function addToCartFromOrders(id, name, price, image) {
+          const existing = cart.find((item) => item.id == id);
+          if (existing) existing.quantity += 1;
+          else
+            cart.push({
+              id: parseInt(id),
+              name: name,
+              price: price,
+              quantity: 1,
+              image: image,
+            });
+          localStorage.setItem("productCart", JSON.stringify(cart));
+          showToast(`${name} added to cart 🛒`);
+          updateCartIcon();
+        }
 
-      // highlight active nav
-      const currentPath = window.location.pathname.split("/").pop();
-      document.querySelectorAll(".nav a").forEach((link) => {
-        if (link.getAttribute("href") === currentPath)
-          link.classList.add("active");
+        // Render orders list and attach all click events dynamically
+        function renderOrders() {
+          const container = document.getElementById("ordersList");
+          if (!container) return;
+
+          if (orders.length === 0) {
+            container.innerHTML = `<div class="empty-orders"><i class="fa-regular fa-receipt fa-3x" style="opacity:0.5; margin-bottom:12px; display:block;"></i>No orders yet.<br>Start shopping to see your orders here.</div>`;
+            return;
+          }
+
+          let html = "";
+          orders.forEach((order) => {
+            let statusClass = "";
+            if (order.status === "SHIPPED") statusClass = "status-shipped";
+            else if (order.status === "DELIVERED")
+              statusClass = "status-delivered";
+
+            html += `<div class="order-card" data-order-id="${order.id}"><div class="order-items">`;
+
+            order.items.forEach((item) => {
+              html += `
+                <div class="order-item">
+                  <div class="item-info row">
+                    <img class="item-img col-sm-4" src="${item.image}" onerror="this.src='https://placehold.co/70x70/eee/ccc?text=item'" alt="${item.name}">
+                    <div class="col-sm-8">
+                      <div class="order-header">
+                        <span class="order-number">Order #${order.id}</span>
+                        <div class="order-status ${statusClass}">${order.status}</div>
+                      </div>
+                      <span class="order-date">${order.date}</span>
+                      <div class="item-name">${item.name} - $${item.price.toFixed(2)}</div>
+                      ${item.quantity > 1 ? `<small class="text-muted">Qty: ${item.quantity}</small>` : ""}
+                      <div class="order-actions">
+              `;
+              if (order.status === "SHIPPED") {
+                html += `<button class="btn-primary-sm track-btn" data-order="${order.id}" data-item="${item.name}">Track Order</button>
+                         <button class="btn-outline-dark view-details-btn" data-product-id="${item.productId}">View Details</button>`;
+              } else if (order.status === "DELIVERED") {
+                html += `<button class="btn-warning-sm buy-again-btn" data-product-id="${item.productId}" data-name="${item.name}" data-price="${item.price}" data-img="${item.image}">Buy Again</button>
+                         <button class="btn-outline-dark leave-review-btn" data-product="${item.name}">Leave Review</button>`;
+              }
+              html += `</div></div></div></div>`;
+            });
+            html += `</div></div>`;
+          });
+          container.innerHTML = html;
+
+          // Attach all click event listeners after DOM is updated
+          // Track Order buttons
+          document.querySelectorAll(".track-btn").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              const orderId = btn.getAttribute("data-order");
+              showToast(
+                `📦 Tracking info for order #${orderId} would be shown here.`,
+              );
+            });
+          });
+
+          // View Details buttons
+          document.querySelectorAll(".view-details-btn").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              const productId = btn.getAttribute("data-product-id");
+              if (productId) {
+                window.location.href = `product-detail.html?id=${productId}`;
+              } else {
+                showToast("Product details coming soon");
+              }
+            });
+          });
+
+          // Buy Again buttons
+          document.querySelectorAll(".buy-again-btn").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              const id = btn.getAttribute("data-product-id");
+              const name = btn.getAttribute("data-name");
+              const price = parseFloat(btn.getAttribute("data-price"));
+              const image = btn.getAttribute("data-img");
+              addToCartFromOrders(id, name, price, image);
+            });
+          });
+
+          // Leave Review buttons
+          document.querySelectorAll(".leave-review-btn").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              const productName = btn.getAttribute("data-product");
+              showToast(
+                `✨ Review for "${productName}" - Thank you! (review popup would open)`,
+              );
+            });
+          });
+        }
+
+        // Active nav highlight (same as category and product pages)
+        let currentPage = window.location.pathname.split("/").pop();
+        if (currentPage === "") currentPage = "order.html";
+        $(".main-nav a, .mobile-nav a").each(function () {
+          if ($(this).attr("href") === currentPage) $(this).addClass("active");
+        });
+
+        let currentMobilePage = window.location.pathname.split("/").pop();
+        if (currentMobilePage === "") currentMobilePage = "order.html";
+        const allLinks = document.querySelectorAll(".nav a, .mobile-nav a");
+        allLinks.forEach((link) => {
+          if (link.getAttribute("href") === currentMobilePage)
+            link.classList.add("active");
+        });
+
+        // Initialize page
+        renderOrders();
+        updateCartIcon();
       });
-      document.querySelectorAll(".mobile-nav a").forEach((link) => {
-        if (link.getAttribute("href") === currentPath)
-          link.classList.add("active");
-      });
-
-      // init
-      renderOrders();
-      updateCartIcon();
     </script>
   </body>
 </html>
